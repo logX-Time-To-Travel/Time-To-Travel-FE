@@ -1,0 +1,58 @@
+.navigation-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  background-color: #fff;
+  padding: 10px 0;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  color: #000000;
+}
+
+.nav-item.active {
+  color: #ffc700;
+}
+
+.nav-item i {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.nav-item span {
+  font-size: 12px;
+}
+
+.nav-item.map i::before {
+  content: "\f276"; /* 지도 아이콘 */
+}
+
+.nav-item.write i::before {
+  content: "\f067"; /* 글쓰기 버튼 아이콘 */
+  border-radius: 5px;
+  padding: 2px 5px;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.nav-item.profile i::before {
+  content: "\f007"; /* 사람 아이콘 */
+}
+
+.nav-item.favorite i::before {
+  content: "\f005"; /* 별 아이콘 */
+}
+
+.navbar {
+  position: absolute;
+
+  width: 100%;
+}

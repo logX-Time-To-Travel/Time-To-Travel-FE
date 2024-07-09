@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./MapHome.css";
 
+import "../Navbar/Navbar.jsx";
+
 const MapHome = () => {
   const [map, setMap] = useState(null);
   const [markers, setMarkers] = useState([]);
@@ -71,8 +73,7 @@ const MapHome = () => {
       document.body.removeChild(script);
     };
   }, []);
-
-  // 검색 기능
+  //검색 기능
   const handleSearch = () => {
     if (searchQuery) {
       const geocoder = new window.google.maps.Geocoder();
@@ -81,7 +82,13 @@ const MapHome = () => {
           const { location } = results[0].geometry;
           map.setCenter(location);
           map.setZoom(13);
-          addMarker(location);
+
+          // 인포윈도우만 추가
+          const infowindow = new window.google.maps.InfoWindow({
+            content: results[0].formatted_address,
+            position: location,
+          });
+          infowindow.open(map);
         } else {
           console.error(
             "Geocode was not successful for the following reason:",
@@ -90,6 +97,28 @@ const MapHome = () => {
         }
       });
     }
+  };
+  // 현재 위치로 돌아가는 함수
+  const handleCurrentLocation = () => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        const currentPosition = { lat: latitude, lng: longitude };
+        map.setCenter(currentPosition);
+        map.setZoom(13);
+
+        // 사용자 위치 마커 추가
+        const marker = new window.google.maps.Marker({
+          position: currentPosition,
+          map,
+          title: "내 위치",
+        });
+        setMarkers((prevMarkers) => [...prevMarkers, marker]);
+      },
+      (error) => {
+        console.error("Error getting current position:", error);
+      }
+    );
   };
 
   return (
@@ -110,7 +139,10 @@ const MapHome = () => {
           />
           <button onClick={handleSearch}></button>
         </div>
-        <button>현재 위치로 이동</button>
+        <button
+          className="current-location"
+          onClick={handleCurrentLocation}
+        ></button>
       </div>
     </div>
   );
