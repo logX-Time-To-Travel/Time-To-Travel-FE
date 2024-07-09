@@ -1,0 +1,53 @@
+/* Home.css */
+
+@media (max-width: 767px) {
+  .home-container {
+    padding: 20px;
+    height: 100vh;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .home-container {
+    padding: 30px;
+    height: 100vh;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-container {
+    padding: 40px;
+    height: 100vh;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+  }
+}
