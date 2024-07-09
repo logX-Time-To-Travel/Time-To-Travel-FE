@@ -1,9 +1,5 @@
 const DeletePost = () => {
-    return (
-        <div>
-            Delete Post
-        </div>
-    )
-}
+  return <div>Delete Post</div>;
+};
 
 export default DeletePost;
