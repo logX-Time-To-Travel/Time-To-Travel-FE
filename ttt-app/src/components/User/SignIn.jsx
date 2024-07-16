@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import "../../App.css"; // App.css 파일을 import 합니다.
+
+import "./SignIn.css"; // App -> SignIn css 위치 변경
 
 //로그인 컴포넌트
 const SignIn = ({ onSignIn }) => {
