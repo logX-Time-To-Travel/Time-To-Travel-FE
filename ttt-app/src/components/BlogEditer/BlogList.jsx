@@ -1,5 +1,6 @@
 import Button from "../UI/Button";
 import "./BlogList.css";
+
 const BlogList = () => {
   return (
     <div>

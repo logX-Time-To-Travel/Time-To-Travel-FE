@@ -1,5 +1,6 @@
 import "./Blog.css";
 
+
 // 컴포넌트
 import Header from "./../components/UI/Header";
 import ProfileCard from "../components/User/ProfileCard";
