@@ -8,7 +8,6 @@
     color: #FFFFFF;
     box-shadow: 0 1px 3px rgba(255, 130, 0, 0.479); /* 그림자 추가 */
     
-
     box-shadow: none;
 
     
@@ -16,6 +15,10 @@
     font-size: 14px;
     
     cursor: pointer;
+}
+
+.button .button-text {
+    align-items: center;
 }
 
 .button > div {

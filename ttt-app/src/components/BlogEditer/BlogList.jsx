@@ -4,7 +4,6 @@ const BlogList = () => {
   return (
     <div>
       <div className="blog-option">
-
         <div className="item-filter">
           <select>
             <option value="latest">최신순</option>
@@ -18,15 +17,10 @@ const BlogList = () => {
 
         <div className="form-filter">
           <select>
-            <option value="list">
-              리스트
-            </option>
-            <option value="grid">
-              그리드
-            </option>
+            <option value="list">리스트</option>
+            <option value="grid">그리드</option>
           </select>
         </div>
-
       </div>
     </div>
   );

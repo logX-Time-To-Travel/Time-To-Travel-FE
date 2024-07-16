@@ -10,7 +10,7 @@ const Button = ({ text, path }) => {
   return (
     <div>
       <button className="button" onClick={handleClick}>
-        <div>{text}</div>
+        <div className="button-text">{text}</div>
       </button>
     </div>
   );

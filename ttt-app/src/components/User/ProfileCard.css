@@ -2,7 +2,7 @@
 .profile-container {
     display: flex;
     align-items: center;
-    padding: 40px 0px;
+    padding: 50px 0px;
     justify-content: center;
     flex-direction: column;
 
@@ -12,8 +12,8 @@
 
   
   .profile-image {
-    width: 50px; /* 원하는 이미지 컨테이너 크기로 설정 */
-    height: 50px;
+    width: 80px; /* 원하는 이미지 컨테이너 크기로 설정 */
+    height: 80px;
     overflow: hidden; /* 컨테이너 크기를 넘는 부분 숨기기 */
     border-radius: 50%; /* 컨테이너를 원형으로 */
     background-color: #cccccc; /* 회색 배경 */

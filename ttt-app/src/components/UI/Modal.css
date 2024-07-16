@@ -22,8 +22,8 @@
   
   .close-button {
     position: absolute;
-    top: -30px;
-    right: -30px;
+    top: -40px;
+    right: -80px;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -37,6 +37,7 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    color: #000000;
     font-size: 15px;
     font-weight: bold;
     background-color: #FFFFFF;
@@ -53,15 +54,16 @@
     cursor: pointer;
     font-size: 15px;
     font-weight: bold;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     color: red;
     transition: background-color 0.3s ease;
   }
 
   .close-button > img {
     /* background-color: #FFA500; */
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
+    
   }
   
 

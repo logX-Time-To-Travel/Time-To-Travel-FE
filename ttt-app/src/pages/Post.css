@@ -1,6 +1,6 @@
 .post {
   display: flex;
-  flex-direction: row; /* 이미지를 왼쪽, 텍스트를 오른쪽에 배치하기 위해 flex-direction을 row로 설정 */
+  flex-direction: row; 
   margin-bottom: 10px;
   padding: 10px;
   border: 1px solid #EDEDED;
