@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Button from "../components/Button";
 import MapHome from "../components/Map/MapHome";
 import "./Home.css";
 

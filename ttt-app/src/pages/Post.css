@@ -1,0 +1,85 @@
+.post {
+  display: flex;
+  flex-direction: row; /* 이미지를 왼쪽, 텍스트를 오른쪽에 배치하기 위해 flex-direction을 row로 설정 */
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #EDEDED;
+  border-radius: 8px;
+  background-color: #ffffff;
+  width: 100%; /* 전체 너비를 고정 */
+  box-sizing: border-box; /* 패딩과 보더를 포함한 전체 크기 설정 */
+}
+
+.post-images {
+  width: 70px; /* 이미지 영역의 너비를 고정 */
+  height: 70px; /* 이미지 영역의 높이를 고정 */
+  margin-right: 20px; /* 이미지와 텍스트 사이의 간격을 설정 */
+  border-radius: 6px;
+  background-color: #e1e1e1;
+}
+
+.post-images img {
+  width: 100%; /* 이미지가 영역을 꽉 채우도록 설정 */
+  height: 100%;
+  object-fit: cover; /* 이미지 비율을 유지하면서 영역을 채움 */
+  background-color: #999;
+}
+
+.post-content {
+  flex: 1; /* 텍스트 영역이 남은 공간을 채우도록 설정 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: calc(100% - 120px); /* 이미지 영역을 제외한 최대 너비 설정 */
+}
+
+.date-location {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+
+.date-location span {
+  color: #c4c4c4fd;
+  font-size: 10px;
+
+}
+.date-location .location {
+  color: #FAA500;
+}
+
+.date-location .date {
+  margin-right: 0px;
+}
+
+.post-content h3 {
+  margin: 0;
+  font-size: 15px;
+  color: #000000;
+}
+
+.post-content p {
+  margin: 1px;
+  font-size: 10px;
+  font-weight: bold;
+  color: #0504043e;
+  text-overflow: ellipsis; /* 텍스트가 넘칠 때 말줄임표(...)를 표시 */
+  overflow: hidden; /* 넘치는 텍스트를 숨김 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+}
+
+
+.more-button { 
+  padding: 0px 5px;
+  background-color: white;
+  border-width: 0px;
+  cursor: pointer;
+  color: #979797;
+  font-size: 13px;
+  font-weight: bold;
+
+}

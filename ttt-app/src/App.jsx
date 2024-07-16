@@ -2,9 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Blog from "./pages/Blog";
 import Auth from "./pages/Auth";
+import AddPost from "./components/BlogEditer/AddPost";
 import Profile from "./pages/Profile";
-
-
 
 function App() {
   return (
@@ -18,7 +17,7 @@ function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/profile" element={<Profile />} />
-      
+            <Route path="/addpost" element={<AddPost />} />
           </Routes>
         </BrowserRouter>
       </div>
