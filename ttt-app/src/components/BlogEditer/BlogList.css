@@ -1,0 +1,36 @@
+.blog-option {
+    display: flex;
+    align-items: center; /* 수직 가운데 정렬 */
+    position: relative;
+    padding: 20px 0px;
+}
+
+.item-filter > select {
+    margin-right: auto; /* 왼쪽에 고정 */
+    padding: 10px;
+    border-color: #FAA500;
+    border-radius: 10px;
+    border-width: 1px;
+    cursor: pointer;
+    color: #FAA500;
+    font-weight: bold;
+}
+
+.form-filter > select {
+    margin-right: auto; /* 왼쪽에 고정 */
+    padding: 10px;
+    border-color: #FAA500;
+    border-radius: 10px;
+    border-width: 1px;
+    cursor: pointer;
+    color: #FAA500;
+    font-weight: bold;
+}
+
+.blog-option > .create-button {
+    position: absolute; /* 절대 위치 */
+    left: 50%; /* 왼쪽 기준으로 50% */
+    transform: translateX(-50%); /* 자신의 너비의 50%만큼 왼쪽으로 이동 */
+    padding: 10px;
+    align-items: center;
+}

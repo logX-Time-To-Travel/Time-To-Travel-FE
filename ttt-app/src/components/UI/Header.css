@@ -1,0 +1,80 @@
+/* 기본 스타일 */
+.Header {
+
+    display: flex;
+    flex-direction: row; 
+    border-bottom : 1px solid #EDEDED;
+    align-items: center;
+    width: 100%;
+    position: relative; /* 중간 요소를 중앙에 위치시키기 위해 필요 */
+    padding: 20px 0px;
+    font-size: 20px;
+    
+    
+    
+    
+}
+
+.homebutton_section > button {
+    align-items: center;
+    border-width: 0px;
+    font-weight: bold;
+    color: #FAA500;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: white;
+
+
+}
+
+.title .text{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+
+
+.homebutton_section {
+    width: 100%;
+    text-align: left; /* "홈" 버튼을 왼쪽 정렬 */
+}
+
+.title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* 화면 크기가 768px 이하일 때 적용되는 스타일 */
+@media (max-width: 768px) {
+    .title {
+        font-size: 15px;
+    }
+
+    .homebutton_section {
+        width: 25%;
+        font-size: 25px;
+    }
+}
+
+/* 화면 크기가 480px 이하일 때 적용되는 스타일 */
+@media (max-width: 480px) {
+    .Header {
+        flex-direction: column; /* 플렉스 방향을 열로 변경하여 세로로 쌓이게 함 */
+        align-items: center; /* 중앙 정렬 */
+    }
+
+    .title {
+        position: static; /* 작은 화면에서는 절대 위치를 해제 */
+        transform: none; /* 작은 화면에서는 중앙 정렬을 위해 변환 해제 */
+        margin-bottom: 10px; /* 요소 간 간격 조정 */
+
+    }
+
+    .homebutton_section {
+        width: 100%; /* 작은 화면에서는 전체 너비를 차지 */
+        text-align: center; /* 중앙 정렬 */
+        margin-bottom: 10px; /* 요소 간 간격 조정 */
+    }
+}
