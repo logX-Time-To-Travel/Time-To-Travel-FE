@@ -1,6 +1,7 @@
 .blog-option {
-    display: flex;
+    display: fixed;
     align-items: center; /* 수직 가운데 정렬 */
+    justify-content: space-between;
     position: relative;
     padding: 20px 0px;
 }

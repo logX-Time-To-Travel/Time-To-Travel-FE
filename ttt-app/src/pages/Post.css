@@ -73,13 +73,29 @@
 }
 
 
-.more-button { 
-  padding: 0px 5px;
+/* .more-button > img { 
+
   background-color: white;
   border-width: 0px;
   cursor: pointer;
-  color: #979797;
+  color: #484848;
   font-size: 13px;
   font-weight: bold;
 
+} */
+
+.more-button {
+  position: absolute;
+  top: 530px;
+  right: -200px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.more-button > img {
+  /* background-color: #FFA500; */
+  width: 20px;
+  height: 20px;
+  
 }
