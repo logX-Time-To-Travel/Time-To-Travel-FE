@@ -1,19 +1,34 @@
-import PropTypes from "prop-types";
+import "../User/ProfileCard.css";
 
-const ProfileCard = ({ email, nickname }) => {
+const ProfileCard = () => {
   return (
-    <div>
-      <div>ProfileCard 컴포넌트 : 프로필 사진 및 닉네임 등 간단한 정보</div>
-      <h2>프로필 정보</h2>
-      <p>이메일: {email}</p>
-      <p>닉네임: {nickname}</p>
+    <div className="profile-container">
+      <div className="profile-image">
+        <img src="경로" alt="이미지" />
+      </div>
+      <div className="profile-info">
+        <div className="profile-id">김정호</div>
+        <div className="profile-intro">전국 일주에 도전하고 있습니다.</div>
+      </div>
     </div>
   );
-};
 
-ProfileCard.propTypes = {
-  email: PropTypes.string.isRequired,
-  nickname: PropTypes.string.isRequired,
+  // import PropTypes from "prop-types";
+
+  // const ProfileCard = ({ email, nickname }) => {
+  //   return (
+  //     <div>
+  //       <div>ProfileCard 컴포넌트 : 프로필 사진 및 닉네임 등 간단한 정보</div>
+  //       <h2>프로필 정보</h2>
+  //       <p>이메일: {email}</p>
+  //       <p>닉네임: {nickname}</p>
+  //     </div>
+  //   );
+  // };
+
+  // ProfileCard.propTypes = {
+  //   email: PropTypes.string.isRequired,
+  //   nickname: PropTypes.string.isRequired,
 };
 
 export default ProfileCard;

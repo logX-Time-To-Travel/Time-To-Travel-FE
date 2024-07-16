@@ -3,6 +3,8 @@ import { useState } from "react";
 import Home from "./pages/Home";
 import Blog from "./pages/Blog";
 import Auth from "./pages/Auth";
+import AddPost from "./components/BlogEditer/AddPost";
+
 
 import Profile from "./pages/Profile";
 import SignUp from "./components/User/SignUp";
@@ -31,6 +33,8 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/addpost" element={<AddPost />} />
             <Route
               path="/map"
               element={user ? <MapHome /> : <Navigate to="/signin" />} // 사용자 로그인 시 지도 페이지로 이동
