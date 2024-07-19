@@ -5,7 +5,7 @@
     text-align: center;
   }
   
-  .logo {
+  /* .logo {
     height: 6em;
     padding: 1.5em;
     will-change: filter;
@@ -16,7 +16,7 @@
   }
   .logo.react:hover {
     filter: drop-shadow(0 0 2em #61dafbaa);
-  }
+  } */
   
   @keyframes logo-spin {
     from {
@@ -88,9 +88,9 @@
     cursor: pointer;
   }
   
-  button:hover {
+  /* button:hover {
     background-color: #0056b3;
-  }
+  } */
   
   p {
     color: red;
