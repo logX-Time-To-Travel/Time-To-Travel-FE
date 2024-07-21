@@ -37,7 +37,7 @@ const Post = ({ post }) => {
 
       <div>
         <button className="more-button" onClick={handleModal}>
-          <img src = "src\assets\more_btn.png"/>
+          <img src="src\assets\more_btn.png"></img>
         </button>
       </div>
       <div>

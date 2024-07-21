@@ -1,13 +1,15 @@
 import "./Blog.css";
 
-
 // 컴포넌트
 import Header from "./../components/UI/Header";
 import ProfileCard from "../components/User/ProfileCard";
 import BlogList from "../components/BlogEditer/BlogList";
+import Navbar from "./../components/Navbar/Navbar";
+import Tinymce from "../plugins/Tinymce";
 
 // 페이지
 import PostList from "./PostList";
+
 const Blog = () => {
   const posts = [
     {
@@ -40,11 +42,13 @@ const Blog = () => {
   ];
 
   return (
-    <div className="blog-container">
-      <Header homebtn={"홈으로"} text={"내 블로그"} />
-      <ProfileCard />
-      <BlogList />
-      <PostList posts={posts} />
+    <div className="page-container">
+      <div className="blog-container">
+        <Header homebtn={"홈으로"} text={"내 블로그"} />
+        <ProfileCard />
+        <BlogList />
+        <PostList posts={posts} />
+      </div>
     </div>
   );
 };
