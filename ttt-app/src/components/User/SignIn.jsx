@@ -27,7 +27,7 @@ const SignIn = ({ onSignIn }) => {
   };
 
   return (
-    <div>
+    <div className="sign-in">
       <h2>로그인</h2>
       <form onSubmit={handleLogin}>
         <div>

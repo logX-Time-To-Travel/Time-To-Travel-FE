@@ -2,9 +2,10 @@
 .profile-container {
     display: flex;
     align-items: center;
-    padding: 50px 0px;
+    padding: 30px 0px;
     justify-content: center;
     flex-direction: column;
+    
 
     border-bottom: 1px solid #EDEDED;
 
@@ -12,6 +13,7 @@
 
   
   .profile-image {
+    
     width: 80px; /* 원하는 이미지 컨테이너 크기로 설정 */
     height: 80px;
     overflow: hidden; /* 컨테이너 크기를 넘는 부분 숨기기 */
@@ -21,6 +23,7 @@
   
   /* 프로필 이미지 스타일 */
   .profile-image img {
+    
     width: 70px;
     height: auto;
     
@@ -28,22 +31,22 @@
   
   /* 프로필 상세 정보 스타일 */
   .profile-info {
-    padding:5px 0px;
+    padding:1px 0px;
     text-align: center;
     
   }
   
   /* 프로필 이름 스타일 */
   .profile-id {
-    padding: 5px 0px;
+    padding: 2px 0px;
     font-size: 24px;
     font-weight: bold;
   }
   
   /* 프로필 소개 스타일 */
   .profile-intro {
-    padding: 5px 0px;
     font-size: 12px;
+    margin-bottom: 0px;
     color: gray;
   }
   

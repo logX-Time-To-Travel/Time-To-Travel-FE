@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // 리다이렉트를 위해 사용
 import PropTypes from "prop-types";
-import "../../App.css"; // App.css 파일을 import 합니다.
 
 const validateEmail = (email) => {
   const re = /\S+@\S+\.\S+/;
@@ -129,7 +128,7 @@ const SignUp = ({ onSignUp }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className = "sign-up" onSubmit={handleSubmit}>
       <div>
         <label>이메일</label>
         <input type="email" value={email} onChange={handleEmailChange} />
