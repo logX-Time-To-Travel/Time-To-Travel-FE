@@ -27,8 +27,7 @@ function App() {
       <div>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Navigate to="/signin" />} />{" "}
-            {/* 기본 경로를 /signin으로 리다이렉트 또는 Home으로 이동 */}
+            <Route path="/" element={<Navigate to="/home" />} />
             <Route path="/home" element={<Home />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/auth" element={<Auth />} />
