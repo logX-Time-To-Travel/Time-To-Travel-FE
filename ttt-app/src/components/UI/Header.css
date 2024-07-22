@@ -11,11 +11,11 @@
     font-size: 20px;
     
     
-    
-    
 }
 
 .homebutton_section > button {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     border-width: 0px;
     font-weight: bold;
@@ -29,6 +29,7 @@
 }
 
 .title .text{
+
     font-size: 25px;
     font-weight: bold;
 }
@@ -42,6 +43,7 @@
 
 .title {
     position: absolute;
+    align-items: center;
     left: 50%;
     transform: translateX(-50%);
 }
