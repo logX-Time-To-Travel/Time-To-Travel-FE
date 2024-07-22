@@ -19,14 +19,14 @@
   gap: 10px;
 }
 
-.map-controls button {
+.map-controls-btn {
   background-color: white;
   border: none;
   border-radius: 4px;
   padding: 8px 12px;
   font-size: 14px;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0;
 }
 
 .map-controls button:hover {
@@ -60,6 +60,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 .marker-info {
   background-color: white;
   border-radius: 4px;
@@ -71,20 +72,24 @@
 .search-container {
   display: flex;
   align-items: center;
+
   border-radius: 20px;
   border: 1px solid #ffffff;
   background-color: #ffffff;
   padding: 5px 10px;
-  max-width: 300px;
+  width: 380px;
+  height: 50px;
 }
 
 .search-container input {
-  max-width: 300px;
+  text-align: center;
   flex: 1;
   border: none;
   outline: none;
   font-size: 16px;
   padding: 10px;
+  font-size: 16px; /* 폰트 크기 */
+  color: #333; /* 글자 색 */
 }
 
 .search-container button {
@@ -97,6 +102,33 @@
   cursor: pointer;
 }
 
+.mobile-btn {
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  border: 1px solid #ffffff;
+  padding: 5px 10px;
+  width: 380px;
+  height: 50px;
+
+  padding-right: 50px;
+  position: relative;
+  font-size: 16px; /* 폰트 크기 */
+  color: #333; /* 글자 색 */
+}
+
+.mobile-btn::after {
+  content: "";
+  background: url("https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-search-strong-512.png")
+    no-repeat center;
+  background-size: 20px;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 10px;
+}
 @media (max-width: 550px) {
   .map-controls button.current-location {
     position: fixed;
@@ -113,19 +145,23 @@
     width: 80%;
   }
 
-  .search-input {
-    width: 100%;
-    height: 50px;
-    padding: 10px 50px 10px 20px;
-    border: 1px solid #ccc;
-    border-radius: 25px;
-  }
-
   .search-button {
     position: fixed;
     bottom: 20px;
     left: 20px;
     padding: 15px 20px;
     border-radius: 25px;
+  }
+  .mobile-btn {
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% - 40px);
+    padding-right: 40px;
+  }
+
+  .mobile-btn::after {
+    right: 10px;
   }
 }

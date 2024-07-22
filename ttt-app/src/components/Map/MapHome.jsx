@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./MapHome.css";
-
-import "../Navbar/Navbar.jsx";
 
 const MapHome = () => {
   const [map, setMap] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [currentPosition, setCurrentPosition] = useState({ lat: 0, lng: 0 });
   const [searchQuery, setSearchQuery] = useState("");
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 1024);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // 구글 맵 API 스크립트 로드
@@ -16,9 +17,14 @@ const MapHome = () => {
     script.async = true;
     document.body.appendChild(script);
 
+    const handleResize = () => {
+      setIsMobileView(window.innerWidth <= 1024);
+    };
+
+    window.addEventListener("resize", handleResize);
+
     // 지도 초기화
     const initMap = () => {
-      // 사용자의 현재 위치 가져오기
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
@@ -38,7 +44,6 @@ const MapHome = () => {
           );
           setMap(map);
 
-          // 사용자 위치에 마커 추가
           const marker = new window.google.maps.Marker({
             position: { lat: latitude, lng: longitude },
             map,
@@ -48,7 +53,6 @@ const MapHome = () => {
         },
         (error) => {
           console.error("Error getting current position:", error);
-          // 사용자 위치 가져오기에 실패한 경우 기본 위치로 설정
           const map = new window.google.maps.Map(
             document.getElementById("map"),
             {
@@ -65,15 +69,15 @@ const MapHome = () => {
         }
       );
     };
-    // API 스크립트 로드 완료 시 지도 초기화
+
     script.onload = initMap;
 
     return () => {
-      // 컴포넌트 언마운트 시 스크립트 제거
       document.body.removeChild(script);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
-  //검색 기능
+
   const handleSearch = () => {
     if (searchQuery) {
       const geocoder = new window.google.maps.Geocoder();
@@ -83,7 +87,6 @@ const MapHome = () => {
           map.setCenter(location);
           map.setZoom(13);
 
-          // 인포윈도우만 추가
           const infowindow = new window.google.maps.InfoWindow({
             content: results[0].formatted_address,
             position: location,
@@ -98,7 +101,7 @@ const MapHome = () => {
       });
     }
   };
-  // 현재 위치로 돌아가는 함수
+
   const handleCurrentLocation = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -107,7 +110,6 @@ const MapHome = () => {
         map.setCenter(currentPosition);
         map.setZoom(13);
 
-        // 사용자 위치 마커 추가
         const marker = new window.google.maps.Marker({
           position: currentPosition,
           map,
@@ -121,24 +123,40 @@ const MapHome = () => {
     );
   };
 
+  const handleSearchBarClick = () => {
+    navigate("/search");
+  };
+
   return (
     <div className="map-container">
       <div id="map"></div>
       <div className="map-controls">
-        <div className="search-container">
-          <input
-            type="text"
-            placeholder="검색어를 입력하세요"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                handleSearch();
-              }
-            }}
-          />
-          <button onClick={handleSearch}></button>
-        </div>
+        {!isMobileView && (
+          <div className="search-container">
+            <input
+              type="text"
+              placeholder="주제나 장소를 검색하세요"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  handleSearch();
+                }
+              }}
+            />
+            <button
+              className="map-controls-btn"
+              onClick={handleSearch}
+            ></button>
+          </div>
+        )}
+        {isMobileView && (
+          <div className="btn-container">
+            <button className="mobile-btn" onClick={handleSearchBarClick}>
+              주제나 장소를 검색하세요
+            </button>
+          </div>
+        )}
         <button
           className="current-location"
           onClick={handleCurrentLocation}

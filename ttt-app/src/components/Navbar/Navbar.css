@@ -16,6 +16,7 @@
   align-items: center;
   cursor: pointer;
   color: #000000;
+  text-decoration: none;
 }
 
 .nav-item.active {
