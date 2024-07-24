@@ -10,11 +10,11 @@ const Navbar = () => {
         <i className="fas fa-map-marker-alt"></i>
         <span>지도</span>
       </Link>
-      <Link to="/Blog" className="nav-item">
+      <Link to="/AddPost" className="nav-item">
         <i className="fas fa-edit"></i>
         <span>글쓰기</span>
       </Link>
-      <Link to="/Profile" className="nav-item">
+      <Link to="/Blog" className="nav-item">
         <i className="fas fa-user"></i>
         <span>나</span>
       </Link>

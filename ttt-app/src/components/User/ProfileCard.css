@@ -6,7 +6,6 @@
   justify-content: center;
   flex-direction: column;
 
-  border-bottom: 1px solid #ededed;
 }
 
 .profile-image {
@@ -39,6 +38,5 @@
 /* 프로필 소개 스타일 */
 .profile-intro {
   font-size: 12px;
-  margin-bottom: 0px;
-  color: gray;
+
 }

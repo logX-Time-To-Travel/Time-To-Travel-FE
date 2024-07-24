@@ -49,7 +49,9 @@ const Blog = () => {
         <BlogList />
         <PostList posts={posts} />
       </div>
+      <Navbar/>
     </div>
+  
   );
 };
 
