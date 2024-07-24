@@ -1,0 +1,10 @@
+.Editor-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Post-button {
+    display:flex;
+    justify-content: center;
+}
