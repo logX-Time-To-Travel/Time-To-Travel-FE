@@ -1,0 +1,41 @@
+/* Terms.css */
+.Terms-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+.Terms-container h3 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.Terms-container .Terms-last-modified {
+  font-size: 1rem;
+  color: #777;
+  margin-bottom: 1rem;
+}
+
+.Terms-container hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 1rem 0;
+}
+
+.Terms-container h4,
+.Terms-container h5 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.Terms-container p {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.5;
+  margin: 0.5rem 0;
+}
