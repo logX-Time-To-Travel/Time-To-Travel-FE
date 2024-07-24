@@ -1,6 +1,6 @@
-import Header from "../UI/Header";
-import Tinymce from "../../plugins/Tinymce";
-import Navbar from "../Navbar/Navbar.jsx";
+import Header from "../components/UI/Header.jsx";
+import Tinymce from "../plugins/Tinymce.jsx";
+import Navbar from "../components/Navbar/Navbar.jsx";
 
 const AddPost = () => {
   return (

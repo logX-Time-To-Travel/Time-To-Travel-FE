@@ -58,8 +58,7 @@ export default function BundledEditor(props) {
   // loading process and is instead loaded as a string via content_style
   return (
     <Editor
-      id = 'nabong1031@gmail.com',
-      apiKey = 'b3vov53scsx1m1bf3z67h2tz3nhdk62165pgj7iqwl51clkq',
+      id = 'nabong1031@gmail.com'
       init={{
         ...init,
         skin: false,
