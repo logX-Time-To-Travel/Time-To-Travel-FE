@@ -18,7 +18,7 @@ export default function App() {
             onInit={(_evt, editor) => (editorRef.current = editor)}
             initialValue="<p>This is the initial content of the editor.</p>"
             init={{
-            height: 500,
+            height: 300,
             width: 1000,
             menubar: false,
             plugins: [
@@ -51,9 +51,9 @@ export default function App() {
             }}
         />
       </div>
-      <div className="Post-button">
-        <Button onClick={log} text={"글 올리기"} />
-      </div>
+            <button onClick={log}>
+              show up to console!
+            </button>
       </div>
   );
 }

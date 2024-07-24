@@ -28,8 +28,9 @@
 
 }
 
-.title .text{
+.title {
 
+    flex-direction: column;
     font-size: 25px;
     font-weight: bold;
 }
