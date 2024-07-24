@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // 리다이렉트를 위해 사용
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import "../../App.css";
+import "./SignUp.css";
 
 const validateEmail = (email) => {
   const re = /\S+@\S+\.\S+/;
@@ -8,170 +10,346 @@ const validateEmail = (email) => {
 };
 
 const SignUp = ({ onSignUp }) => {
-  const navigate = useNavigate(); // useNavigate 훅을 사용하여 리다이렉트 처리
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [nickname, setNickname] = useState("");
-  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [profilePic, setProfilePic] = useState(null);
 
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [nicknameError, setNicknameError] = useState("");
 
-  // Mock 데이터베이스
-  const existingUsers = [
-    { email: "existing@example.com", nickname: "existingUser" },
-  ];
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const [allRequiredTerms, setAllRequiredTerms] = useState(false);
+  const [terms1, setTerms1] = useState(false);
+  const [terms2, setTerms2] = useState(false);
+  const [terms3, setTerms3] = useState(false);
+
+  const [allOptionalTerms, setAllOptionalTerms] = useState(false);
+  const [terms4, setTerms4] = useState(false);
+  const [terms5, setTerms5] = useState(false);
+
+  const [step, setStep] = useState(1);
+
+  const handleProfilePicChange = (e) => {
+    setProfilePic(URL.createObjectURL(e.target.files[0]));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     let valid = true;
 
-    // 중복 이메일 및 닉네임 검증
-    if (existingUsers.some((user) => user.email === email)) {
-      setEmailError("이미 사용 중인 이메일입니다.");
+    if (!validateEmail(email)) {
+      setEmailError("유효한 이메일 주소를 입력하세요.");
       valid = false;
     } else {
       setEmailError("");
     }
 
-    if (existingUsers.some((user) => user.nickname === nickname)) {
-      setNicknameError("이미 사용 중인 닉네임입니다.");
+    if (password.length < 8 || !/[!@#$%^&*]/.test(password)) {
+      setPasswordError("8자 이상, 특수문자 포함");
       valid = false;
     } else {
-      setNicknameError("");
-    }
-
-    // 유효성 검사
-    if (!validateEmail(email)) {
-      setEmailError("유효한 이메일 주소를 입력하세요.");
-      valid = false;
-    }
-
-    if (password.length < 8) {
-      setPasswordError("비밀번호는 8자 이상이어야 합니다.");
-      valid = false;
+      setPasswordError("");
     }
 
     if (password !== confirmPassword) {
-      setConfirmPasswordError("비밀번호가 일치하지 않습니다.");
+      setConfirmPasswordError("비밀번호와 일치하지 않습니다.");
       valid = false;
+    } else {
+      setConfirmPasswordError("");
     }
 
     if (nickname.length === 0) {
       setNicknameError("닉네임을 입력하세요.");
       valid = false;
+    } else {
+      setNicknameError("");
     }
 
-    if (!termsAccepted) {
-      alert("약관에 동의해야 합니다.");
+    if (!allRequiredTerms) {
+      alert("약관동의를 하셔야 가입됩니다.");
       valid = false;
     }
 
     if (valid) {
-      // 서버로 폼 데이터 전송 (여기서는 Mock 데이터에 추가)
-      const newUser = { email, nickname };
-      existingUsers.push(newUser);
-      alert("정상적으로 회원가입이 완료되었습니다!");
-      onSignUp(newUser); // 회원가입 완료 후 사용자 데이터를 전달
-      setTimeout(() => {
-        navigate("/signin"); // 2초 후 로그인 페이지로 리다이렉트
-      }, 2000);
+      const newUser = { email, password, nickname, profilePic };
+      onSignUp(newUser);
+
+      alert("회원가입이 완료되었습니다.");
+      navigate("/signin");
     }
   };
 
-  const handleEmailChange = (e) => {
-    const emailValue = e.target.value;
-    setEmail(emailValue);
+  const handleAllRequiredTerms = () => {
+    const newState = !allRequiredTerms;
+    setAllRequiredTerms(newState);
+    setTerms1(newState);
+    setTerms2(newState);
+    setTerms3(newState);
+  };
 
-    if (!validateEmail(emailValue)) {
-      setEmailError("유효한 이메일 주소를 입력하세요.");
-    } else {
-      setEmailError("");
+  const handleAllOptionalTerms = () => {
+    const newState = !allOptionalTerms;
+    setAllOptionalTerms(newState);
+    setTerms4(newState);
+    setTerms5(newState);
+  };
+
+  const handleIndividualRequiredTerm = (term, setTerm) => {
+    const newState = !term;
+    setTerm(newState);
+    if (terms1 && terms2 && terms3 && !newState) {
+      setAllRequiredTerms(false);
+    } else if (terms1 && terms2 && terms3 && newState) {
+      setAllRequiredTerms(true);
     }
   };
 
-  const handlePasswordChange = (e) => {
-    const passwordValue = e.target.value;
-    setPassword(passwordValue);
-
-    if (passwordValue.length < 8) {
-      setPasswordError("비밀번호는 8자 이상이어야 합니다.");
-    } else {
-      setPasswordError("");
-    }
-  };
-
-  const handleConfirmPasswordChange = (e) => {
-    const confirmPasswordValue = e.target.value;
-    setConfirmPassword(confirmPasswordValue);
-
-    if (confirmPasswordValue !== password) {
-      setConfirmPasswordError("비밀번호가 일치하지 않습니다.");
-    } else {
-      setConfirmPasswordError("");
-    }
-  };
-
-  const handleNicknameChange = (e) => {
-    const nicknameValue = e.target.value;
-    setNickname(nicknameValue);
-
-    if (nicknameValue.length === 0) {
-      setNicknameError("닉네임을 입력하세요.");
-    } else {
-      setNicknameError("");
+  const handleIndividualOptionalTerm = (term, setTerm) => {
+    const newState = !term;
+    setTerm(newState);
+    if (terms4 && terms5 && !newState) {
+      setAllOptionalTerms(false);
+    } else if (terms4 && terms5 && newState) {
+      setAllOptionalTerms(true);
     }
   };
 
   return (
-    <form className = "sign-up" onSubmit={handleSubmit}>
-      <div>
-        <label>이메일</label>
-        <input type="email" value={email} onChange={handleEmailChange} />
-        {emailError && <p>{emailError}</p>}
+    <div className="SignUp-container">
+      <span className="SignUp-back-btn" onClick={() => navigate(-1)}>
+        &lt;
+      </span>
+      <div className="SignUp-description">
+        계속하시려면 약관을 잘 읽고 동의해주세요.
       </div>
 
-      <div>
-        <label>비밀번호</label>
-        <input
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        {passwordError && <p>{passwordError}</p>}
-      </div>
+      {step === 1 && (
+        <div>
+          <div
+            className={`SignUp-agreement ${allRequiredTerms ? "active" : ""}`}
+            onClick={handleAllRequiredTerms}
+          >
+            <span className="text">필수 약관 전체 동의하기</span>
+            <span className="icon">V</span>
+          </div>
 
-      <div>
-        <label>비밀번호 확인</label>
-        <input
-          type="password"
-          value={confirmPassword}
-          onChange={handleConfirmPasswordChange}
-        />
-        {confirmPasswordError && <p>{confirmPasswordError}</p>}
-      </div>
+          <div
+            className={`SignUp-agreement ${terms1 ? "active" : ""}`}
+            onClick={() => handleIndividualRequiredTerm(terms1, setTerms1)}
+          >
+            <span className="text">
+              v 이용약관 <span className="highlight">*</span>
+            </span>
+            <span
+              className="icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate("/terms/terms1");
+              }}
+            >
+              &gt;
+            </span>
+          </div>
+          <div
+            className={`SignUp-agreement ${terms2 ? "active" : ""}`}
+            onClick={() => handleIndividualRequiredTerm(terms2, setTerms2)}
+          >
+            <span className="text">
+              v 개인정보 처리방침 <span className="highlight">*</span>
+            </span>
+            <span
+              className="icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate("/terms/terms2");
+              }}
+            >
+              &gt;
+            </span>
+          </div>
+          <div
+            className={`SignUp-agreement ${terms3 ? "active" : ""}`}
+            onClick={() => handleIndividualRequiredTerm(terms3, setTerms3)}
+          >
+            <span className="text">
+              v 게시물 및 댓글 작성 윤리 지침{" "}
+              <span className="highlight">*</span>
+            </span>
+            <span
+              className="icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate("/terms/terms3");
+              }}
+            >
+              &gt;
+            </span>
+          </div>
 
-      <div>
-        <label>닉네임</label>
-        <input type="text" value={nickname} onChange={handleNicknameChange} />
-        {nicknameError && <p>{nicknameError}</p>}
-      </div>
+          <div
+            className={`SignUp-agreement ${allOptionalTerms ? "active" : ""}`}
+            onClick={handleAllOptionalTerms}
+          >
+            <span className="text">선택 약관 전체 동의하기</span>
+            <span className="icon">V</span>
+          </div>
 
-      <div>
-        <input
-          type="checkbox"
-          checked={termsAccepted}
-          onChange={(e) => setTermsAccepted(e.target.checked)}
-        />
-        <label>약관에 동의합니다</label>
-      </div>
+          <div
+            className={`SignUp-agreement ${terms4 ? "active" : ""}`}
+            onClick={() => handleIndividualOptionalTerm(terms4, setTerms4)}
+          >
+            <span className="text">v 마케팅 정보 수신 동의 [선택]</span>
+            <span
+              className="icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate("/terms/terms4");
+              }}
+            >
+              &gt;
+            </span>
+          </div>
+          <div
+            className={`SignUp-agreement ${terms5 ? "active" : ""}`}
+            onClick={() => handleIndividualOptionalTerm(terms5, setTerms5)}
+          >
+            <span className="text">v 버그 자동 전송 [선택]</span>
+            <span
+              className="icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate("/terms/terms5");
+              }}
+            >
+              &gt;
+            </span>
+          </div>
 
-      <button type="submit">회원가입</button>
-    </form>
+          <button
+            type="button"
+            className={`SignUp-continue-btn ${
+              allRequiredTerms ? "enabled" : "disabled"
+            }`}
+            onClick={() => allRequiredTerms && setStep(2)}
+            disabled={!allRequiredTerms}
+          >
+            계속하기
+          </button>
+        </div>
+      )}
+
+      {step === 2 && (
+        <form onSubmit={handleSubmit}>
+          <div className="SignUp-profile-pic-container">
+            <label className="SignUp-profile-pic">
+              {profilePic ? (
+                <img
+                  src={profilePic}
+                  alt="Profile"
+                  style={{ borderRadius: "50%" }}
+                />
+              ) : (
+                ""
+              )}
+              <input type="file" onChange={handleProfilePicChange} />
+            </label>
+          </div>
+
+          <div className="SignUp-form-group">
+            <label>
+              닉네임 <span className="SignUp-required">*</span>
+            </label>
+            <input
+              type="text"
+              placeholder="한글, 영문, 숫자가 포함될 수 있습니다"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+            />
+            {nicknameError && (
+              <p className="SignUp-error-message">{nicknameError}</p>
+            )}
+          </div>
+
+          <div className="SignUp-form-group">
+            <label>
+              이메일 <span className="SignUp-required">*</span>
+            </label>
+            <input
+              type="email"
+              placeholder="you@syu.ac.kr"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {emailError && <p className="SignUp-error-message">{emailError}</p>}
+          </div>
+
+          <div className="SignUp-form-group" style={{ position: "relative" }}>
+            <label>
+              비밀번호 <span className="SignUp-required">*</span>
+            </label>
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="8자 이상, 특수문자 포함"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{ paddingRight: "40px" }} // 오른쪽 여백 추가
+            />
+            <button
+              type="button"
+              className="SignUp-eye-btn"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "🙈" : "👁"}
+            </button>
+            {passwordError && (
+              <p className="SignUp-error-message">{passwordError}</p>
+            )}
+          </div>
+
+          <div className="SignUp-form-group" style={{ position: "relative" }}>
+            <label>
+              비밀번호 다시 입력 <span className="SignUp-required">*</span>
+            </label>
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              style={{ paddingRight: "40px" }} // 오른쪽 여백 추가
+            />
+            <button
+              type="button"
+              className="SignUp-eye-btn"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            >
+              {showConfirmPassword ? "🙈" : "👁"}
+            </button>
+            {confirmPasswordError && (
+              <p className="SignUp-error-message">{confirmPasswordError}</p>
+            )}
+          </div>
+
+          <button type="submit" className="SignUp-continue-btn enabled">
+            계속하기
+          </button>
+
+          <button
+            type="button"
+            className="SignUp-back-btn"
+            onClick={() => setStep(1)}
+          >
+            뒤로가기
+          </button>
+        </form>
+      )}
+    </div>
   );
 };
 

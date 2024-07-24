@@ -27,28 +27,36 @@ const SignIn = ({ onSignIn }) => {
   };
 
   return (
-    <div className="sign-in">
-      <h2>로그인</h2>
+    <div className="SignIn-container">
+      <div className="SignIn-header">
+        <h2>로그인</h2>
+      </div>
       <form onSubmit={handleLogin}>
-        <div>
-          <label>이메일</label>
+        <div className="SignIn-form-group">
+          <label className="SignIn-label">이메일</label>
           <input
             type="email"
+            className="SignIn-input-email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div>
-          <label>비밀번호</label>
+        <div className="SignIn-form-group">
+          <label className="SignIn-label">비밀번호</label>
           <input
             type="password"
+            className="SignIn-input-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit">로그인</button>
+        <button type="submit" className="SignIn-button">
+          로그인
+        </button>
       </form>
-      <button onClick={() => navigate("/signup")}>회원가입</button>
+      <button onClick={() => navigate("/signup")} className="SignIn-button">
+        회원가입
+      </button>
     </div>
   );
 };
