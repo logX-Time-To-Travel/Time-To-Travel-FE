@@ -1,0 +1,143 @@
+/* SignUp.css */
+.SignUp-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  text-align: left;
+  position: relative;
+}
+
+.SignUp-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  position: relative; /* 추가 */
+}
+
+.SignUp-back-btn {
+  font-size: 1.5rem;
+  cursor: pointer;
+  position: absolute; /* 변경 */
+  top: 10px; /* 상단에서 10px */
+  left: 10px; /* 왼쪽에서 10px */
+}
+
+.SignUp-description {
+  color: #555555;
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  margin-top: 1rem; /* 추가: 상단 여백 */
+}
+
+.SignUp-profile-pic-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.SignUp-profile-pic {
+  width: 100px;
+  height: 100px;
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.SignUp-profile-pic input {
+  display: none;
+}
+
+.SignUp-form-group {
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.SignUp-form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.SignUp-form-group label .SignUp-required {
+  color: pink;
+}
+
+.SignUp-form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  padding-right: 2.5rem; /* 오른쪽 여백 추가 */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.SignUp-form-group .SignUp-eye-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.SignUp-form-group .SignUp-error-message {
+  color: pink;
+  font-size: 0.875rem;
+  text-align: right;
+}
+
+.SignUp-continue-btn {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  background-color: #007bff;
+  color: white;
+}
+
+.SignUp-back-btn {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #555555;
+  cursor: pointer;
+  background: none;
+}
+
+.SignUp-agreement {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #f0f0f0;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.SignUp-agreement.active {
+  background: #007bff;
+  color: white;
+}
+
+.SignUp-agreement .text {
+  flex-grow: 1;
+  margin-right: 1rem;
+}
+
+.SignUp-agreement .icon {
+  font-size: 1.5rem;
+}
