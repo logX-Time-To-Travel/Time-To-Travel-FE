@@ -42,16 +42,19 @@ const Blog = () => {
   ];
 
   return (
-    <div className="page-container">
-      <div className="blog-container">
-        <Header homebtn={"홈으로"} text={"내 블로그"} />
-        <ProfileCard />
-        <BlogList />
-        <PostList posts={posts} />
+    <div>
+      <div className="page-container">
+        <div className="blog-container">
+          <Header homebtn={"홈으로"} text={"내 블로그"} />
+          <ProfileCard />
+          <BlogList />
+          <PostList posts={posts} />
+        </div>
       </div>
+      <div>
       <Navbar/>
+      </div>
     </div>
-  
   );
 };
 
