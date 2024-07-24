@@ -13,7 +13,7 @@ const MapHome = () => {
   useEffect(() => {
     // 구글 맵 API 스크립트 로드
     const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCBDYsrNEO1_IjXApM0As-mKCFrhlALUhM`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLEMAP_API_KEY}`;
     script.async = true;
     document.body.appendChild(script);
 

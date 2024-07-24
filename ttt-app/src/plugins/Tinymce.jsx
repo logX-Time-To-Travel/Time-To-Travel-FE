@@ -13,6 +13,7 @@ export default function App() {
 
   const handleImageUpload = (blobInfo, success, failure) => {
 
+
     const reader = new FileReader();
     reader.readAsDataURL(blobInfo.blob());
     reader.onload = () => {
@@ -23,17 +24,20 @@ export default function App() {
     };
   };
 
+  
+
+
   return (
     <div>
       <div className="Editor-container">
         <Editor
-          apiKey="b3vov53scsx1m1bf3z67h2tz3nhdk62165pgj7iqwl51clkq"
+          apiKey= {import.meta.env.VITE_TINYMCE_API_KEY}
           onInit={(_evt, editor) => (editorRef.current = editor)}
-          initialValue="<p>This is the initial content of the editor.</p>"
+          // initialValue="<p></p>"
           init={{
             selector: 'textarea',
             height: 500,
-            width: 1000,
+            width: 500,
             menubar: false,
             plugins: [
               "advlist",
@@ -55,11 +59,10 @@ export default function App() {
               "help",
               "wordcount",
             ],
-            toolbar:
-              "myimage | undo redo | blocks | " +
-              "bold italic forecolor | alignleft aligncenter " +
-              "alignright alignjustify | bullist numlist outdent indent | " +
-              "removeformat | help",
+            toolbar: [
+              "myimage | undo | blocks | bold forecolor " ,
+              " alignleft aligncenter | alignright alignjustify | bullist numlist outdent indent ",],
+
             content_style:
               "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
 
