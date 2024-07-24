@@ -1,7 +1,7 @@
 import "./Button.css";
 import { useNavigate } from "react-router-dom";
 
-const Button = ({ text, path }) => {
+const Button = ({ text, path, onClick }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -9,7 +9,7 @@ const Button = ({ text, path }) => {
   };
   return (
     <div>
-      <button className="button" onClick={handleClick}>
+      <button className="button" onClick={(handleClick)}>
         <div className="button-text">{text}</div>
       </button>
     </div>
