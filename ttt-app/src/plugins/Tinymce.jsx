@@ -31,7 +31,6 @@ export default function App() {
         <div className="title-container">
           {/* 제목 필드 추가 */}
           <input
-
             type="text"
             placeholder="제목을 입력하세요"
             className="title-box"
@@ -48,7 +47,7 @@ export default function App() {
             // automatic_uploads: true,
             selector: "textarea",
             height: 500,
-            width: 500,
+            width: "100%",
             menubar: false,
             plugins: [
               "advlist",
@@ -77,10 +76,7 @@ export default function App() {
 
             content_style:
               "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-
-    
-
-          }}      
+          }}
         />
       </div>
       <button onClick={log}>show up to console!</button>
