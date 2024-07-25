@@ -1,19 +1,20 @@
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import Button from "./../components/UI/Button";
 import "./Tinymce.css";
 
 export default function App() {
   const editorRef = useRef(null);
+  const [title, setTitle] = useState("");
+
   const log = () => {
     if (editorRef.current) {
-      console.log(editorRef.current.getContent());
+      console.log("Title: ", title);
+      console.log("Content: ", editorRef.current.getContent());
     }
   };
 
   const handleImageUpload = (blobInfo, success, failure) => {
-
-
     const reader = new FileReader();
     reader.readAsDataURL(blobInfo.blob());
     reader.onload = () => {
@@ -24,18 +25,28 @@ export default function App() {
     };
   };
 
-  
-
-
   return (
-    <div>
+    <div className="Editor-page">
       <div className="Editor-container">
+        <div className="title-container">
+          {/* 제목 필드 추가 */}
+          <input
+
+            type="text"
+            placeholder="제목을 입력하세요"
+            className="title-box"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
         <Editor
-          apiKey= {import.meta.env.VITE_TINYMCE_API_KEY}
+          apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
           onInit={(_evt, editor) => (editorRef.current = editor)}
           // initialValue="<p></p>"
           init={{
-            selector: 'textarea',
+            // images_upload_url: '/upload/image',
+            // automatic_uploads: true,
+            selector: "textarea",
             height: 500,
             width: 500,
             menubar: false,
@@ -60,19 +71,21 @@ export default function App() {
               "wordcount",
             ],
             toolbar: [
-              "myimage | undo | blocks | bold forecolor " ,
-              " alignleft aligncenter | alignright alignjustify | bullist numlist outdent indent ",],
+              "  blocks | bold forecolor | myimage | undo redo |",
+              " alignleft aligncenter alignright alignjustify | bullist numlist outdent indent ",
+            ],
 
             content_style:
               "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
 
             setup: function (editor) {
-              editor.ui.registry.addButton('myimage', {
-                text: '이미지',
+              editor.ui.registry.addButton("myimage", {
+                text: "이미지",
+
                 onAction: function () {
-                  const input = document.createElement('input');
-                  input.setAttribute('type', 'file');
-                  input.setAttribute('accept', 'image/*');
+                  const input = document.createElement("input");
+                  input.setAttribute("type", "file");
+                  input.setAttribute("accept", "image/*");
                   input.click();
                   input.onchange = function () {
                     const file = input.files[0];
@@ -82,16 +95,14 @@ export default function App() {
                     };
                     reader.readAsDataURL(file);
                   };
-                }
+                },
               });
             },
-            images_upload_handler: handleImageUpload
+            images_upload_handler: handleImageUpload,
           }}
         />
       </div>
-      <button onClick={log}>
-        show up to console!
-      </button>
+      <button onClick={log}>show up to console!</button>
     </div>
   );
 }

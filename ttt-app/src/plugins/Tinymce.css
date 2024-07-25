@@ -2,8 +2,32 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     max-width: 100%;
     height: auto;
     box-shadow: 5px 5px 5px  rgb(213, 213, 213);
 }
 
+.title-container {
+    margin-bottom: 10px;
+    margin-top: 50px;
+    font-size: 20px;
+    border: none;
+}
+
+.title-box::placeholder {
+    color: #c3c2c2;
+}
+
+.title-box {
+    width: 500px;
+    height: 50px;
+    padding: 3px;
+    padding-inline: 15px;
+    
+    color: #474646;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-bottom: 2px solid #EDEDED;
+}
