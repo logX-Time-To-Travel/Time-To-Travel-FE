@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
-import Button from "./../components/UI/Button";
+import imageIcon from "../assets/picture.png";
 import "./Tinymce.css";
 
 export default function App() {
@@ -71,35 +71,16 @@ export default function App() {
               "wordcount",
             ],
             toolbar: [
-              "  blocks | bold forecolor | myimage | undo redo |",
+              "  image | blocks | bold forecolor | undo redo |",
               " alignleft aligncenter alignright alignjustify | bullist numlist outdent indent ",
             ],
 
             content_style:
               "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
 
-            setup: function (editor) {
-              editor.ui.registry.addButton("myimage", {
-                text: "이미지",
+    
 
-                onAction: function () {
-                  const input = document.createElement("input");
-                  input.setAttribute("type", "file");
-                  input.setAttribute("accept", "image/*");
-                  input.click();
-                  input.onchange = function () {
-                    const file = input.files[0];
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                      editor.insertContent(`<img src="${e.target.result}" />`);
-                    };
-                    reader.readAsDataURL(file);
-                  };
-                },
-              });
-            },
-            images_upload_handler: handleImageUpload,
-          }}
+          }}      
         />
       </div>
       <button onClick={log}>show up to console!</button>
