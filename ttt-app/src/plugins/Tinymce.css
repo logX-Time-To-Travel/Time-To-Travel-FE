@@ -16,7 +16,7 @@
 }
 
 .title-box::placeholder {
-    color: #c3c2c2;
+    color: #F8D96B;
 }
 
 .title-box {
@@ -25,9 +25,9 @@
     padding: 3px;
     padding-inline: 15px;
     
-    color: #474646;
+    color: #FF8A00;
     font-size: 18px;
     font-weight: bold;
     border: none;
-    border-bottom: 2px solid #EDEDED;
+    border-bottom: 2px solid #EFBC06;
 }
