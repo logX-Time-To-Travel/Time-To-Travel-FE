@@ -14,16 +14,50 @@ export default function App() {
     }
   };
 
-  const handleImageUpload = (blobInfo, success, failure) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(blobInfo.blob());
-    reader.onload = () => {
-      success(reader.result);
-    };
-    reader.onerror = () => {
-      failure("Image upload failed");
-    };
+  const handleImageUpload = async (blobInfo, success, failure) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", blobInfo.blob(), blobInfo.filename());
+
+      const response = await fetch("/image/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Image upload failed");
+      }
+
+      const result = await response.json();
+      success(result.url); // 서버에서 반환된 이미지 URL 사용
+    } catch (error) {
+      failure("Failed to upload image: " + error.message);
+    }
   };
+
+  const dummyHandleImageUpload = (blobInfo, progress) =>
+    new Promise((resolve, reject) => {
+      // Progress 이벤트 핸들러 (필요 시 사용)
+      const simulateProgress = (loaded, total) => {
+        if (progress) {
+          progress((loaded / total) * 100);
+        }
+      };
+
+      // 이미지 업로드 시뮬레이션 (1초 후에 성공 콜백 호출)
+      setTimeout(() => {
+        try {
+          const dummyUrl = "https://picsum.photos/200/300?grayscale"; // 임의의 이미지 URL
+          console.log("Dummy URL:", dummyUrl);
+          resolve(dummyUrl);
+        } catch (error) {
+          reject("Image upload failed: " + error.message);
+        }
+      }, 1000); // 1초 후에 완료
+
+      // 프로그레스 시뮬레이션
+      simulateProgress(100, 100);
+    });
 
   return (
     <div className="Editor-page">
@@ -76,6 +110,7 @@ export default function App() {
 
             content_style:
               "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+            images_upload_handler: dummyHandleImageUpload, // 추후 서버와 연동 시 handleImageUpload로 변경 예정
           }}
         />
       </div>
