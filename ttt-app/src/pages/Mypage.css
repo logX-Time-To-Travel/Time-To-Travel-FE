@@ -1,0 +1,104 @@
+/* Introduction
+
+position: absolute;
+width: 350px;
+height: 118px;
+left: 40px;
+top: 331px;
+
+
+
+/* Background */
+
+/* position: absolute;
+width: 350px;
+height: 118px;
+left: 40px;
+top: 331px;
+
+background: #FAFAFA;
+
+
+/* 자기 소개 글자는 최대 글자 제한이 공백 포함 총 70자입니다. 너무 짧은 것 같으면서도 한 마디 하기에는 넉넉한 분량입니다. */
+
+/* position: absolute;
+width: 318px;
+height: 54px;
+left: 56px;
+top: 379px;
+
+font-family: 'Outfit';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 18px;
+letter-spacing: -0.03em;
+
+color: #000000; */
+
+.profile-container {
+    /* position: relative; */
+    padding: 40px 0px;
+    margin-inline: 0px;
+}
+
+.edit-button-container {
+    position: fixed;
+
+}
+
+.edit-button {
+    position: absolute;
+    top: -85px;
+    right: -80px;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    background: transparent;
+}
+
+.edit-button > img {
+
+    position: fixed;
+    width: 75px;
+    height: 75px;
+}
+
+
+.info-container {
+
+    margin-inline: 50px;
+    border : 1px solid rgb(179, 176, 176);
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.7;
+}
+
+.info-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.data-set {
+    display: flex;
+    justify-content: space-between;
+}
+
+.data-value {
+    position:absolute;
+    margin-right: 0px;
+    margin-left: 110px;
+}
+
+.detail-btn {
+    /* float: right; */
+    background-color: white;
+    border: none;
+    color: rgb(244, 204, 1);
+    font-weight: bold;
+    background: transparent;
+}
+

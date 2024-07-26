@@ -10,6 +10,7 @@ import SignUp from "./components/User/SignUp";
 import SignIn from "./components/User/SignIn";
 import MapHome from "./components/Map/MapHome"; // MapHome 컴포넌트 import
 import Terms from "./components/User/Terms"; // Terms 컴포넌트 import
+import Mypage from './pages/Mypage';
 
 function App() {
   const [user, setUser] = useState(null); // 사용자 상태 정의
@@ -35,6 +36,8 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/addpost" element={<AddPost />} />
             <Route path="/search" element={<SearchPage />} />
+            <Route path="/mypage" element={<Mypage />} />
+            
             <Route
               path="/map"
               element={user ? <MapHome /> : <Navigate to="/signin" />} // 사용자 로그인 시 지도 페이지로 이동
