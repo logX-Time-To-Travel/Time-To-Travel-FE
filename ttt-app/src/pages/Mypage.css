@@ -63,3 +63,42 @@ color: #000000; */
     width: 75px;
     height: 75px;
 }
+
+
+.info-container {
+
+    margin-inline: 50px;
+    border : 1px solid rgb(179, 176, 176);
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.7;
+}
+
+.info-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.data-set {
+    display: flex;
+    justify-content: space-between;
+}
+
+.data-value {
+    position:absolute;
+    margin-right: 0px;
+    margin-left: 110px;
+}
+
+.detail-btn {
+    /* float: right; */
+    background-color: white;
+    border: none;
+    color: rgb(244, 204, 1);
+    font-weight: bold;
+    background: transparent;
+}
+
