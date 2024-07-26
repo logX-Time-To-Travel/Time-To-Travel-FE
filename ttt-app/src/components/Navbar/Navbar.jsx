@@ -14,7 +14,7 @@ const Navbar = () => {
         <i className="fas fa-edit"></i>
         <span>글쓰기</span>
       </Link>
-      <Link to="/Blog" className="nav-item">
+      <Link to="/mypage" className="nav-item">
         <i className="fas fa-user"></i>
         <span>나</span>
       </Link>
