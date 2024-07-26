@@ -35,6 +35,8 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/addpost" element={<AddPost />} />
             <Route path="/search" element={<SearchPage />} />
+            <Route path="/search" element={<SearchPage />} />
+            
             <Route
               path="/map"
               element={user ? <MapHome /> : <Navigate to="/signin" />} // 사용자 로그인 시 지도 페이지로 이동
