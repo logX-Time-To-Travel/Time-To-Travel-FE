@@ -37,21 +37,20 @@ letter-spacing: -0.03em;
 color: #000000; */
 
 .profile-container {
+    /* position: relative; */
     padding: 40px 0px;
     margin-inline: 0px;
 }
 
 .edit-button-container {
-    display:fixed;
-    position: absolute;
-    top: 135px;
-    right: 160px;
+    position: fixed;
+
 }
 
 .edit-button {
-    
-    display:fixed;
-    margin-left: 0px;
+    position: absolute;
+    top: -85px;
+    right: -80px;
     width: 60px;
     height: 60px;
     cursor: pointer;
@@ -60,7 +59,7 @@ color: #000000; */
 
 .edit-button > img {
 
-    display:fixed;
+    position: fixed;
     width: 75px;
     height: 75px;
 }
