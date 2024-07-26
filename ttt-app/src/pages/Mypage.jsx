@@ -21,7 +21,7 @@ const Mypage = () => {
       <div className="info-container">
         <div className="info-box">
           <div className="data-set">
-            <p className = "data-option">작성 게시글</p>
+            <p className="data-option">작성 게시글</p>
             <p className="data-value">1,0000000</p>
           </div>
           <button
@@ -36,7 +36,7 @@ const Mypage = () => {
 
         <div className="info-box">
           <div className="data-set">
-            <p className = "data-option">작성 댓글</p>
+            <p className="data-option">작성 댓글</p>
             <p className="data-value">202486</p>
           </div>
 
@@ -51,15 +51,19 @@ const Mypage = () => {
         </div>
 
         <div className="info-box">
-          <p className = "data-option">조회수 합계</p>
+          <p className="data-option">조회수 합계</p>
           <p className="data-value">10000</p>
         </div>
 
         <div className="info-box">
-          <p className = "data-option">받은 좋아요 수 합계</p>
+          <p className="data-option">받은 좋아요 수 합계</p>
           <p className="data-value">100</p>
         </div>
       </div>
+      <div className = "logout-box">
+        <button className="logout-btn">로그아웃</button>
+      </div>
+
       <div>
         <Navbar />
       </div>
