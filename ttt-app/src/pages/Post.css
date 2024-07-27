@@ -21,6 +21,7 @@
   height: 70px; /* 이미지 영역의 높이를 고정 */
   margin-right: 20px; /* 이미지와 텍스트 사이의 간격을 설정 */
   border-radius: 6px;
+  
   background-color: #e1e1e1;
 }
 
