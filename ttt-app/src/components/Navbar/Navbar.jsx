@@ -6,22 +6,40 @@ import "./Navbar.css";
 const Navbar = () => {
   return (
     <div className="navigation-bar">
-      <Link to="/" className="nav-item active">
+      <Link
+        to="/"
+        className={`nav-item ${location.pathname === "/home" ? " active" : ""}`}
+      >
         <i className="fas fa-map-marker-alt"></i>
         <span>지도</span>
       </Link>
-      <Link to="/AddPost" className="nav-item">
+      <Link
+        to="/addpost"
+        className={`nav-item ${
+          location.pathname === "/addpost" ? " active" : ""
+        }`}
+      >
         <i className="fas fa-edit"></i>
         <span>글쓰기</span>
       </Link>
-      <Link to="/mypage" className="nav-item">
+      <Link
+        to="/mypage"
+        className={`nav-item ${
+          location.pathname === "/mypage" ? " active" : ""
+        }`}
+      >
         <i className="fas fa-user"></i>
         <span>나</span>
       </Link>
-      <div className="nav-item">
+      <Link
+        to="/search"
+        className={`nav-item ${
+          location.pathname === "/search" ? " active" : ""
+        }`}
+      >
         <i className="fas fa-star"></i>
         <span>관심사</span>
-      </div>
+      </Link>
     </div>
   );
 };
