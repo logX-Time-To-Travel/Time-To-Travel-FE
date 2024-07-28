@@ -1,11 +1,13 @@
 import Header from "../components/UI/Header.jsx";
 import Tinymce from "../plugins/Tinymce.jsx";
 import Navbar from "../components/Navbar/Navbar.jsx";
+import { useState, useRef } from "react";
 
 const AddPost = () => {
+
   return (
     <div>
-      <Header homebtn={"< 홈으로"} text={"글쓰기"} />
+      <Header homebtn={"<"} text={"글쓰기"} />
       <Tinymce />
       <Navbar/>
     </div>

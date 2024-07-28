@@ -1,18 +1,18 @@
 import { useState, useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
-import imageIcon from "../assets/picture.png";
 import "./Tinymce.css";
 
 export default function App() {
   const editorRef = useRef(null);
   const [title, setTitle] = useState("");
 
-  const log = () => {
-    if (editorRef.current) {
-      console.log("Title: ", title);
-      console.log("Content: ", editorRef.current.getContent());
+  const handleSave = () => {
+    if(editorRef.current) {
+      const content = editorRef.current.getContent();
+      console.log("제목: ", title);
+      console.log("내용: ", content);
     }
-  };
+  }
 
   const handleImageUpload = async (blobInfo, success, failure) => {
     try {
