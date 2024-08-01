@@ -2,16 +2,15 @@ import { useState, useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 
 import PostList from "../pages/PostList";
-
+import LocationSelector from "../pages/LocationSelector";
 import "./Tinymce.css";
 
 export default function App() {
   const editorRef = useRef(null);
   const [title, setTitle] = useState("");
+  const [location, setLocation] = useState(null);
   const date = new Date().toLocaleString();
   const [posts, setPosts] = useState([]);
-
-  
 
   const handleSave = () => {
     const content = editorRef.current.getContent();
@@ -84,11 +83,8 @@ export default function App() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
-  
         </div>
-        <div className = "location-container">
-          
-        </div>
+        <div className="location-container"></div>
         <Editor
           apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
           onInit={(_evt, editor) => (editorRef.current = editor)}
@@ -133,7 +129,7 @@ export default function App() {
       </div>
       <button onClick={handleSave}>저장</button>
 
-      <PostList posts={posts}/> 
+      <PostList posts={posts} />
     </div>
   );
 }
