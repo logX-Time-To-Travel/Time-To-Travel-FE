@@ -9,6 +9,7 @@ export default function App() {
   const editorRef = useRef(null);
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState(null);
+  const [showMap, setShowMap] = useState(null);
   const date = new Date().toLocaleString();
   const [posts, setPosts] = useState([]);
 
@@ -85,7 +86,9 @@ export default function App() {
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
-        <div className="location-container"></div>
+        <div className="location-container">
+          <button onClick = {()=>setShowMap(true)}></button>
+        </div>
         <Editor
           apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
           onInit={(_evt, editor) => (editorRef.current = editor)}
