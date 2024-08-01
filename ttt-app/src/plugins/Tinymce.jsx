@@ -9,7 +9,7 @@ export default function App() {
   const editorRef = useRef(null);
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState(null);
-  const [showMap, setShowMap] = useState(null);
+  const [showMap, setShowMap] = useState(false);
   const date = new Date().toLocaleString();
   const [posts, setPosts] = useState([]);
 
@@ -26,6 +26,12 @@ export default function App() {
 
     setPosts((prevPosts) => [...prevPosts, newPost]);
     console.log(newPost);
+  };
+
+  
+  const handleLocationSelect = (selectedLocation) => {
+    setLocation(selectedLocation);
+    setShowMap(false);
   };
 
   const handleImageUpload = async (blobInfo, success, failure) => {
@@ -87,11 +93,14 @@ export default function App() {
           />
         </div>
         <div className="location-container">
-          <button onClick = {()=>setShowMap(true)}></button>
+          <button onClick = {()=>setShowMap(true)}>위치 선택</button>
+          {showMap && <LocationSelector onSelectLocation={handleLocationSelect} />}
+          {location && <p>Selected Location: {location.lat}, {location.lng}</p>}
         </div>
         <Editor
           apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
-          onInit={(_evt, editor) => (editorRef.current = editor)}
+          onInit={
+(_evt, editor) => (editorRef.current = editor)}
           // initialValue="<p></p>"
           init={{
             // images_upload_url: '/upload/image',
