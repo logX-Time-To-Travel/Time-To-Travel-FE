@@ -1,18 +1,31 @@
 import { useState, useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
+
+import PostList from "../pages/PostList";
+
 import "./Tinymce.css";
 
 export default function App() {
   const editorRef = useRef(null);
   const [title, setTitle] = useState("");
+  const date = new Date().toLocaleString();
+  const [posts, setPosts] = useState([]);
+
+  
 
   const handleSave = () => {
-    if(editorRef.current) {
-      const content = editorRef.current.getContent();
-      console.log("제목: ", title);
-      console.log("내용: ", content);
-    }
-  }
+    const content = editorRef.current.getContent();
+    const newPost = {
+      id: posts.length + 1,
+      title,
+      content,
+      date,
+      images: [],
+    };
+
+    setPosts((prevPosts) => [...prevPosts, newPost]);
+    console.log(newPost);
+  };
 
   const handleImageUpload = async (blobInfo, success, failure) => {
     try {
@@ -71,6 +84,10 @@ export default function App() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
+  
+        </div>
+        <div className = "location-container">
+          
         </div>
         <Editor
           apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
@@ -114,7 +131,9 @@ export default function App() {
           }}
         />
       </div>
-      <button onClick={log}>show up to console!</button>
+      <button onClick={handleSave}>저장</button>
+
+      <PostList posts={posts}/> 
     </div>
   );
 }

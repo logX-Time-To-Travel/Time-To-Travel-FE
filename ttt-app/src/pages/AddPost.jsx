@@ -1,7 +1,7 @@
 import Header from "../components/UI/Header.jsx";
 import Tinymce from "../plugins/Tinymce.jsx";
 import Navbar from "../components/Navbar/Navbar.jsx";
-import { useState, useRef } from "react";
+
 
 const AddPost = () => {
 
