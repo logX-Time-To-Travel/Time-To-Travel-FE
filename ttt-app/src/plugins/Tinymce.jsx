@@ -18,6 +18,7 @@ export default function App() {
       id: posts.length + 1,
       title,
       content,
+      location,
       date,
       images: [],
     };
