@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   GoogleMap,
   LoadScript,
@@ -20,11 +20,28 @@ const libraries = ["places"];
 
 const LocationSelector = ({ onSelectLocation }) => {
   const [map, setMap] = useState(null);
-  const [markerPosition, setMarkerPosition] = useState(center);
+  const [markerPosition, setMarkerPosition] = useState(null);
+  const [center, setCenter] = useState({ lat: 0, lng: 0 });
   const autocompleteRef = useRef(null);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setCenter({ lat: latitude, lng: longitude });
+        setMarkerPosition({ lat: latitude, lng: longitude });
+      },
+      () => {
+        console.error("위치 접근에 오류가 있습니다.");
+      }
+    );
+  }, []);
 
   const onLoad = (map) => {
     setMap(map);
+    if (center) {
+      map.panTo(center);
+    }
   };
 
   const onUnmount = () => {
@@ -48,7 +65,10 @@ const LocationSelector = ({ onSelectLocation }) => {
   };
 
   return (
-    <LoadScript googleMapsApiKey="YOUR_API_KEY" libraries={libraries}>
+    <LoadScript
+      googleMapsApiKey={import.meta.env.VITE_GOOGLEMAP_API_KEY}
+      libraries={libraries}
+    >
       <Autocomplete
         onLoad={(autocomplete) => (autocompleteRef.current = autocomplete)}
         onPlaceChanged={onPlaceChanged}
@@ -68,7 +88,7 @@ const LocationSelector = ({ onSelectLocation }) => {
       >
         <Marker position={markerPosition} />
       </GoogleMap>
-      <button onClick={handleConfirmLocation}>Confirm Location</button>
+      <button onClick={handleConfirmLocation}>위치를 선택하시겠습니까?</button>
     </LoadScript>
   );
 };

@@ -28,7 +28,6 @@ export default function App() {
     console.log(newPost);
   };
 
-  
   const handleLocationSelect = (selectedLocation) => {
     setLocation(selectedLocation);
     setShowMap(false);
@@ -93,14 +92,19 @@ export default function App() {
           />
         </div>
         <div className="location-container">
-          <button onClick = {()=>setShowMap(true)}>위치 선택</button>
-          {showMap && <LocationSelector onSelectLocation={handleLocationSelect} />}
-          {location && <p>Selected Location: {location.lat}, {location.lng}</p>}
+          <button onClick={() => setShowMap(true)}>위치 선택</button>
+          {showMap && (
+            <LocationSelector onSelectLocation={handleLocationSelect} />
+          )}
+          {location && (
+            <p>
+              위치를 입력하세요 : {location.lat}, {location.lng}
+            </p>
+          )}
         </div>
         <Editor
           apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
-          onInit={
-(_evt, editor) => (editorRef.current = editor)}
+          onInit={(_evt, editor) => (editorRef.current = editor)}
           // initialValue="<p></p>"
           init={{
             // images_upload_url: '/upload/image',
