@@ -14,6 +14,7 @@ export default function App() {
   const [posts, setPosts] = useState([]);
 
   const handleSave = () => {
+
     const content = editorRef.current.getContent();
     const newPost = {
       id: posts.length + 1,
@@ -26,12 +27,13 @@ export default function App() {
 
     setPosts((prevPosts) => [...prevPosts, newPost]);
     console.log(newPost);
+    console.log(location);
   };
 
   const handleLocationSelect = (lat, lng, address) => {
-    setLocation(lat, lng, address);
+    setLocation({lat, lng, address});
     setShowMap(false);
-    console.log("위치가 선택됨: ", {lat}, {lng}, {address});
+    console.log("위치가 선택됨: ", { lat }, { lng }, { address });
   };
 
   const handleImageUpload = async (blobInfo, success, failure) => {
