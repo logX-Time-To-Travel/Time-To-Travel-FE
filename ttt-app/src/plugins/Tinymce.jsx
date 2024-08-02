@@ -8,7 +8,7 @@ import "./Tinymce.css";
 export default function App() {
   const editorRef = useRef(null);
   const [title, setTitle] = useState("");
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState({ lat: "", lng: "", address: "" });
   const [showMap, setShowMap] = useState(false);
   const date = new Date().toLocaleString();
   const [posts, setPosts] = useState([]);
@@ -28,9 +28,10 @@ export default function App() {
     console.log(newPost);
   };
 
-  const handleLocationSelect = (selectedLocation) => {
-    setLocation(selectedLocation);
+  const handleLocationSelect = (lat, lng, address) => {
+    setLocation(lat, lng, address);
     setShowMap(false);
+    console.log("위치가 선택됨: ", {lat}, {lng}, {address});
   };
 
   const handleImageUpload = async (blobInfo, success, failure) => {
@@ -95,11 +96,6 @@ export default function App() {
           <button onClick={() => setShowMap(true)}>위치 선택</button>
           {showMap && (
             <LocationSelector onSelectLocation={handleLocationSelect} />
-          )}
-          {location && (
-            <p>
-              위치를 입력하세요 : {location.lat}, {location.lng}
-            </p>
           )}
         </div>
         <Editor

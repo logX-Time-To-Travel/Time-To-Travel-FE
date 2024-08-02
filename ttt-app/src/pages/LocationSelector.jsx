@@ -11,17 +11,13 @@ const containerStyle = {
   height: "400px",
 };
 
-const center = {
-  lat: -3.745,
-  lng: -38.523,
-};
-
 const libraries = ["places"];
 
 const LocationSelector = ({ onSelectLocation }) => {
   const [map, setMap] = useState(null);
   const [markerPosition, setMarkerPosition] = useState(null);
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
+  const [address, setAddress] = useState("");
   const autocompleteRef = useRef(null);
 
   useEffect(() => {
@@ -30,12 +26,24 @@ const LocationSelector = ({ onSelectLocation }) => {
         const { latitude, longitude } = position.coords;
         setCenter({ lat: latitude, lng: longitude });
         setMarkerPosition({ lat: latitude, lng: longitude });
+        fetchAddress(latitude, longitude);
       },
       () => {
         console.error("위치 접근에 오류가 있습니다.");
       }
     );
   }, []);
+
+  const fetchAddress = (lat, lng) => {
+    const geocoder = new window.google.maps.Geocoder();
+    geocoder.geocode({ location: { lat, lng } }, (results, status) => {
+      if (status === "OK" && results[0]) {
+        setAddress(results[0].formatted_address);
+      } else {
+        console.error("Error fetching address");
+      }
+    });
+  };
 
   const onLoad = (map) => {
     setMap(map);
@@ -48,6 +56,10 @@ const LocationSelector = ({ onSelectLocation }) => {
     setMap(null);
   };
 
+  const handleConfirmLocation = () => {
+    onSelectLocation(markerPosition.lat, markerPosition.lng, address);
+  };
+
   const onPlaceChanged = () => {
     const place = autocompleteRef.current.getPlace();
     if (place.geometry) {
@@ -57,11 +69,9 @@ const LocationSelector = ({ onSelectLocation }) => {
         lng: location.lng(),
       });
       map.panTo(location);
-    }
-  };
+      fetchAddress(location.lat(), location.lng());
 
-  const handleConfirmLocation = () => {
-    onSelectLocation(markerPosition);
+    }
   };
 
   return (
@@ -82,13 +92,14 @@ const LocationSelector = ({ onSelectLocation }) => {
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={10}
+        zoom={50}
         onLoad={onLoad}
         onUnmount={onUnmount}
       >
         <Marker position={markerPosition} />
       </GoogleMap>
       <button onClick={handleConfirmLocation}>위치를 선택하시겠습니까?</button>
+      
     </LoadScript>
   );
 };
