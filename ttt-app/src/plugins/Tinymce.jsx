@@ -15,25 +15,29 @@ export default function App() {
 
   // 멤버 세션 정보를 가져오는 비동기 함수
   const fetchMemberSession = async () => {
-    try {
-      const response = await fetch("/member/session", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({}),
-      });
+    // try {
+    //   const response = await fetch("/member/session", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({}),
+    //   });
 
-      if (!response.ok) {
-        throw new Error("멤버 세션에 접근 실패하였습니다.");
-      }
+    //   if (!response.ok) {
+    //     throw new Error("멤버 세션에 접근 실패하였습니다.");
+    //   }
 
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
+    //   const data = await response.json();
+    //   return data;
+    // } catch (error) {
+    //   console.error(error);
+    //   return null;
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ memberId: "1" });
+      }, 1000);
+    });
   };
 
   // 컴포넌트가 마운트될 때 멤버 정보를 가져오는 useEffect 훅
