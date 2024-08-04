@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 
 import PostList from "../pages/PostList";
@@ -6,86 +6,94 @@ import LocationSelector from "../pages/LocationSelector";
 import "./Tinymce.css";
 
 export default function App() {
-  const editorRef = useRef(null);
-  const [title, setTitle] = useState("");
-  const [location, setLocation] = useState({ lat: "", lng: "", address: "" });
-  const [showMap, setShowMap] = useState(false);
-  const date = new Date().toLocaleString();
-  const [posts, setPosts] = useState([]);
+  const editorRef = useRef(null); // 에디터 참조 설정
+  const [title, setTitle] = useState(""); // 제목 상태 설정
+  const [location, setLocation] = useState({ lat: "", lng: "", address: "" }); // 위치 상태 설정
+  const [showMap, setShowMap] = useState(false); // 지도 표시 상태 설정
+  const [memberId, setMemberId] = useState(""); // 멤버 ID 상태 설정
+  const [posts, setPosts] = useState([]); // 포스트 상태 설정
 
+  // 멤버 세션 정보를 가져오는 비동기 함수
+  const fetchMemberSession = async () => {
+    try {
+      const response = await fetch("/member/session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      });
+
+      if (!response.ok) {
+        throw new Error("멤버 세션에 접근 실패하였습니다.");
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
+  // 컴포넌트가 마운트될 때 멤버 정보를 가져오는 useEffect 훅
+  useEffect(() => {
+    const getMemberInfo = async () => {
+      const data = await fetchMemberSession();
+      if (data) {
+        setMemberId(data.memberId);
+      }
+    };
+
+    getMemberInfo();
+  }, []);
+
+  // 새 포스트를 저장하는 함수
   const handleSave = () => {
-
     const content = editorRef.current.getContent();
     const newPost = {
       id: posts.length + 1,
       title,
       content,
       location,
-      date,
+      date: new Date().toLocaleDateString(),
       images: [],
+      memberId,
     };
 
-    setPosts((prevPosts) => [...prevPosts, newPost]);
+    setPosts((prevPosts) => [newPost, ...prevPosts]);
     console.log(newPost);
-    console.log(location);
   };
 
+  // 위치가 선택되었을 때 호출되는 함수
   const handleLocationSelect = (lat, lng, address) => {
-    setLocation({lat, lng, address});
+    setLocation({ lat, lng, address });
     setShowMap(false);
     console.log("위치가 선택됨: ", { lat }, { lng }, { address });
   };
 
-  const handleImageUpload = async (blobInfo, success, failure) => {
-    try {
-      const formData = new FormData();
-      formData.append("file", blobInfo.blob(), blobInfo.filename());
-
-      const response = await fetch("/image/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error("Image upload failed");
-      }
-
-      const result = await response.json();
-      success(result.url); // 서버에서 반환된 이미지 URL 사용
-    } catch (error) {
-      failure("Failed to upload image: " + error.message);
-    }
-  };
-
+  // 더미 이미지 업로드 핸들러
   const dummyHandleImageUpload = (blobInfo, progress) =>
     new Promise((resolve, reject) => {
-      // Progress 이벤트 핸들러 (필요 시 사용)
-      const simulateProgress = (loaded, total) => {
-        if (progress) {
-          progress((loaded / total) * 100);
-        }
-      };
-
-      // 이미지 업로드 시뮬레이션 (1초 후에 성공 콜백 호출)
       setTimeout(() => {
         try {
-          const dummyUrl = "https://picsum.photos/200/300?grayscale"; // 임의의 이미지 URL
+          const dummyUrl = "https://picsum.photos/200/300?grayscale";
           console.log("Dummy URL:", dummyUrl);
           resolve(dummyUrl);
         } catch (error) {
           reject("Image upload failed: " + error.message);
         }
-      }, 1000); // 1초 후에 완료
+      }, 1000);
 
-      // 프로그레스 시뮬레이션
-      simulateProgress(100, 100);
+      if (progress) {
+        progress(100);
+      }
     });
 
   return (
     <div className="Editor-page">
       <div className="Editor-container">
         <div className="title-container">
-          {/* 제목 필드 추가 */}
           <input
             type="text"
             placeholder="제목을 입력하세요"
@@ -103,11 +111,7 @@ export default function App() {
         <Editor
           apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
           onInit={(_evt, editor) => (editorRef.current = editor)}
-          // initialValue="<p></p>"
           init={{
-            // images_upload_url: '/upload/image',
-            // automatic_uploads: true,
-            selector: "textarea",
             height: 500,
             width: "100%",
             menubar: false,
@@ -135,15 +139,13 @@ export default function App() {
               "  image | blocks | bold forecolor | undo redo |",
               " alignleft aligncenter alignright alignjustify | bullist numlist outdent indent ",
             ],
-
             content_style:
               "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-            images_upload_handler: dummyHandleImageUpload, // 추후 서버와 연동 시 handleImageUpload로 변경 예정
+            images_upload_handler: dummyHandleImageUpload,
           }}
         />
       </div>
       <button onClick={handleSave}>저장</button>
-
       <PostList posts={posts} />
     </div>
   );
