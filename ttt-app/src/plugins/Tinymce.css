@@ -31,7 +31,7 @@
 
 .location-container > button {
     margin-inline: 1px;
-    color: #FF8A00;
+    color: #f18100;
     background-color:transparent;
     border: none;
     /* padding: 10px 9px; */
@@ -47,8 +47,8 @@
     width: 100%;
     position: relative;
     display: flex;
-    border: 2px solid #FF8A00;
-    padding: 7px;
+    border: 2px solid #ffc078;
+    padding: 10px;
     align-items: center;
     border-radius: 5px;
     justify-content: center;
@@ -56,7 +56,6 @@
 
 .location-container:hover {
     background-color:  #fcc470;
-    color:white;
     border: none;
 }
 
@@ -69,7 +68,7 @@
     justify-content: center;
     flex-direction: column;
     margin-inline: 15px;
-    
+
 }
 
 .save-button-container .button {

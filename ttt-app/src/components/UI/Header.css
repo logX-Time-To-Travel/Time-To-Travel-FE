@@ -56,9 +56,6 @@
         font-size: 15px;
     }
 
-    .Header {
-        flex-direction: row;
-    }
 
     .homebutton_section {
         font-size: 25px;
@@ -67,10 +64,6 @@
 
 /* 화면 크기가 480px 이하일 때 적용되는 스타일 */
 @media (max-width: 480px) {
-    .homebutton_section {
-        flex-direction: column; /* 플렉스 방향을 열로 변경하여 세로로 쌓이게 함 */
-        align-items: center; /* 중앙 정렬 */
-    }
 
     .title {
         position: absolute;
@@ -83,6 +76,6 @@
     .homebutton_section {
         width: 100%; /* 작은 화면에서는 전체 너비를 차지 */
         text-align: center; /* 중앙 정렬 */
-        margin-bottom: 10px; /* 요소 간 간격 조정 */
+        align-items: center;
     }
 }
