@@ -111,11 +111,19 @@ export default function App() {
         </div>
         <div className="location-container">
           <img src={img} />
-          <button onClick={() => setShowMap(true)}>위치선택 하러가기</button>
-          {showMap && (
-            <LocationSelector onSelectLocation={handleLocationSelect} />
-          )}
+          <button onClick={() => setShowMap(true)}>위치선택</button>
+
+          {/* {showMap && (
+              <div>
+                <LocationSelector onSelectLocation={handleLocationSelect} />
+              </div>
+            )} */}
         </div>
+
+        {showMap && (
+          <LocationSelector onSelectLocation={handleLocationSelect} />
+        )}
+
         <Editor
           apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
           onInit={(_evt, editor) => (editorRef.current = editor)}
@@ -154,9 +162,9 @@ export default function App() {
         />
       </div>
       <div className="save-button-container">
-        <Button onClick={handleSave} text="게시물 저장" />
+        <Button path="/Blog" customFunc={handleSave} text="게시물 저장" />
       </div>
-      <PostList posts={posts} />
+      {/* <PostList posts={posts} /> */}
     </div>
   );
 }

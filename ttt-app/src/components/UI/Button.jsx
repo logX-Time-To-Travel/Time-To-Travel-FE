@@ -1,11 +1,12 @@
 import "./Button.css";
 import { useNavigate } from "react-router-dom";
 
-const Button = ({ text, path, onClick }) => {
+const Button = ({ text, path, onClick, customFunc }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
     navigate(path);
+    customFunc();
   };
   return (
     <div>

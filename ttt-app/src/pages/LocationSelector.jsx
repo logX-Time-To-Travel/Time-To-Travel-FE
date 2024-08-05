@@ -1,16 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import {
-  GoogleMap,
-  LoadScript,
-  Autocomplete,
-  Marker,
-} from "@react-google-maps/api";
-
-const containerStyle = {
-  width: "400px",
-  height: "400px",
-};
-
+import "./LocationSelector.css";
+import { LoadScript, Autocomplete } from "@react-google-maps/api";
+import "../assets/Search_icon.png";
 const libraries = ["places"];
 
 const LocationSelector = ({ onSelectLocation }) => {
@@ -70,7 +61,6 @@ const LocationSelector = ({ onSelectLocation }) => {
       });
       map.panTo(location);
       fetchAddress(location.lat(), location.lng());
-
     }
   };
 
@@ -83,13 +73,13 @@ const LocationSelector = ({ onSelectLocation }) => {
         onLoad={(autocomplete) => (autocompleteRef.current = autocomplete)}
         onPlaceChanged={onPlaceChanged}
       >
-        <input
-          type="text"
-          placeholder="Search location"
-          style={{ width: "90%", padding: "10px", margin: "20px" }}
-        />
+        {/* <img src="../assets/Search_icon.png" /> */}
+        <div className="SearchBar-container">
+          <input className="searchBar" type="text" placeholder="장소 검색"
+           />
+        </div>
       </Autocomplete>
-      <GoogleMap
+      {/* <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
         zoom={50}
@@ -97,9 +87,8 @@ const LocationSelector = ({ onSelectLocation }) => {
         onUnmount={onUnmount}
       >
         <Marker position={markerPosition} />
-      </GoogleMap>
+      </GoogleMap> */}
       <button onClick={handleConfirmLocation}>위치를 선택하시겠습니까?</button>
-      
     </LoadScript>
   );
 };
