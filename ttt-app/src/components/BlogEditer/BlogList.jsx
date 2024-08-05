@@ -1,8 +1,6 @@
 import Button from "../UI/Button";
 import "./BlogList.css";
 
-
-
 const BlogList = () => {
   return (
     <div>
@@ -14,9 +12,8 @@ const BlogList = () => {
           </select>
         </div>
         <div className="post-preview">
-          <Button text="게시글 모아보기"/>
+          <Button text="게시글 모아보기" />
         </div>
-
       </div>
     </div>
   );
