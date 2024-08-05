@@ -3,7 +3,9 @@ import { Editor } from "@tinymce/tinymce-react";
 
 import PostList from "../pages/PostList";
 import LocationSelector from "../pages/LocationSelector";
+import img from "../assets/Icon_Map1.png";
 import "./Tinymce.css";
+import Button from "../components/UI/Button";
 
 export default function App() {
   const editorRef = useRef(null); // 에디터 참조 설정
@@ -15,6 +17,7 @@ export default function App() {
 
   // 멤버 세션 정보를 가져오는 비동기 함수
   const fetchMemberSession = async () => {
+    // 실제 API 요청 코드문
     // try {
     //   const response = await fetch("/member/session", {
     //     method: "POST",
@@ -33,6 +36,7 @@ export default function App() {
     // } catch (error) {
     //   console.error(error);
     //   return null;
+
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({ memberId: "1" });
@@ -59,8 +63,7 @@ export default function App() {
       id: posts.length + 1,
       title,
       content,
-      location,
-      date: new Date().toLocaleDateString(),
+      location: [],
       images: [],
       memberId,
     };
@@ -107,7 +110,8 @@ export default function App() {
           />
         </div>
         <div className="location-container">
-          <button onClick={() => setShowMap(true)}>위치 선택</button>
+          <img src={img} />
+          <button onClick={() => setShowMap(true)}>위치선택 하러가기</button>
           {showMap && (
             <LocationSelector onSelectLocation={handleLocationSelect} />
           )}
@@ -116,7 +120,7 @@ export default function App() {
           apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
           onInit={(_evt, editor) => (editorRef.current = editor)}
           init={{
-            height: 500,
+            height: 330,
             width: "100%",
             menubar: false,
             plugins: [
@@ -140,7 +144,7 @@ export default function App() {
               "wordcount",
             ],
             toolbar: [
-              "  image | blocks | bold forecolor | undo redo |",
+              "  image blocks bold forecolor undo redo |",
               " alignleft aligncenter alignright alignjustify | bullist numlist outdent indent ",
             ],
             content_style:
@@ -149,7 +153,9 @@ export default function App() {
           }}
         />
       </div>
-      <button onClick={handleSave}>저장</button>
+      <div className="save-button-container">
+        <Button onClick={handleSave} text="게시물 저장" />
+      </div>
       <PostList posts={posts} />
     </div>
   );

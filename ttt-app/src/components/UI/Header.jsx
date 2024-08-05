@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./Header.css";
+import backicon from "../../assets/Icon_Back.png";
 
 const Header = ({ text, homebtn }) => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const Header = ({ text, homebtn }) => {
     <header className="Header">
       <div className="homebutton_section">
         <button onClick={handleClick} className="home-button">
-          {homebtn}
+          <img src={backicon} /> 홈
         </button>
       </div>
       <div className="title">
