@@ -1,4 +1,4 @@
-import { useState } from "react"; // useState (상태 관리) 사용
+import { useState } from "react"; // useState (상태 관리) 사용, useEffect (사이드 이펙트 관리 - 특정 조건이 변경될 때마다 특정 작업을 수행하도록 설정) 사용
 import { useNavigate } from "react-router-dom"; // useNavigate (페이지 이동) 사용
 import PropTypes from "prop-types"; // PropTypes (타입 검사) 사용
 
@@ -24,6 +24,7 @@ const SignUp = ({ onSignUp }) => {
   const [passwordError, setPasswordError] = useState(""); // 비밀번호 오류 메시지 상태
   const [confirmPasswordError, setConfirmPasswordError] = useState(""); // 비밀번호 확인 오류 메시지 상태
   const [nicknameError, setNicknameError] = useState(""); // 닉네임 오류 메시지 상태
+  const [nicknameAvailableMessage, setNicknameAvailableMessage] = useState("");
 
   const [showPassword, setShowPassword] = useState(false); // 비밀번호 표시 상태
   const [showConfirmPassword, setShowConfirmPassword] = useState(false); // 비밀번호 확인 표시 상태
@@ -42,6 +43,33 @@ const SignUp = ({ onSignUp }) => {
   // 프로필 사진 변경 핸들러
   const handleProfilePicChange = (e) => {
     setProfilePic(URL.createObjectURL(e.target.files[0])); // 프로필 사진 미리보기 설정
+  };
+
+  //닉네임 입력값 변경시 nicknameError 초기화 함수
+  const handleNicknameChange = (e) => {
+    setNickname(e.target.value);
+    setNicknameError("");
+  };
+
+  // 닉네임 중복 체크 함수
+  const checkUsernameDuplicate = async (username) => {
+    try {
+      await axios.post(
+        "http://127.0.0.1:8080/member/check-username",
+        { username },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      setNicknameError("");
+      setNicknameAvailableMessage("이 닉네임을 사용할 수 있습니다.");
+    } catch (error) {
+      setNicknameError("이미 사용 중인 닉네임입니다."); // 오류 발생 시 메시지 설정
+      setNicknameAvailableMessage(""); // 닉네임 사용 가능 메시지 초기화
+    }
   };
 
   // 폼 제출 핸들러
@@ -106,12 +134,14 @@ const SignUp = ({ onSignUp }) => {
           onSignUp(response.data);
           alert("회원가입이 완료되었습니다.");
           navigate("/signin");
-        } else {
-          alert("회원가입 요청이 실패했습니다.");
         }
       } catch (error) {
         console.error("Error during signup:", error);
-        alert("회원가입 요청 중 오류가 발생했습니다.");
+        if (error.response && error.response.status === 400) {
+          alert(error.response.data); // 서버에서 보낸 오류 메시지 표시
+        } else {
+          alert("회원가입 요청 중 오류가 발생했습니다.");
+        }
       }
     }
   };
@@ -302,14 +332,28 @@ const SignUp = ({ onSignUp }) => {
             <label>
               닉네임 <span className="SignUp-required">*</span>
             </label>
-            <input
-              type="text"
-              placeholder="한글, 영문, 숫자가 포함될 수 있습니다"
-              value={nickname}
-              onChange={(e) => setNickname(e.target.value)} // 닉네임 입력값 업데이트
-            />
+            <div className="nickname-input-container">
+              <input
+                type="text"
+                placeholder="한글, 영문, 숫자가 포함될 수 있습니다"
+                value={nickname}
+                onChange={handleNicknameChange} // 닉네임 입력값 업데이트
+              />
+              <button
+                type="button"
+                className="nickname-check-button"
+                onClick={() => checkUsernameDuplicate(nickname)}
+              >
+                닉네임 확인
+              </button>
+            </div>
             {nicknameError && (
               <p className="SignUp-error-message">{nicknameError}</p> // 닉네임 오류 메시지 표시
+            )}
+            {nicknameAvailableMessage && (
+              <p className="SignUp-success-message">
+                {nicknameAvailableMessage}
+              </p> // 닉네임 사용 가능 메시지 표시
             )}
           </div>
 

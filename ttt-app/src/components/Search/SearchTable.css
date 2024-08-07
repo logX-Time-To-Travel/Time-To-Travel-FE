@@ -1,0 +1,80 @@
+.searchMap-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #ffffff;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #e1e1e1;
+  height: 50px;
+}
+
+.back-button {
+  margin-right: 10px;
+  margin-top: 5px;
+  background: none;
+  border: none;
+
+  cursor: pointer;
+}
+
+.searchMap-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+  border-radius: 4px;
+  font-size: 12px;
+  border: none;
+}
+
+.searchMap-button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  background: url("https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-search-strong-512.png")
+    no-repeat center;
+  background-size: 20px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+}
+
+.searchMap-button:hover {
+  opacity: 0.8; /* 마우스 오버 시 투명도 조정 */
+}
+
+.history-container {
+  flex: 1;
+  padding: 10px;
+}
+
+.history-container h3 {
+  margin: 0 0 10px 0;
+}
+
+.history-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.history-container li {
+  padding: 5px 0;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+@media (max-width: 550px) {
+  .searchMap-input {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 415px) {
+  .searchMap-input {
+    font-size: 11px;
+  }
+}
