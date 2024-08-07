@@ -73,7 +73,10 @@ export default function App() {
           />
         </div>
         <Editor
-          apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
+          apiKey={
+            (import.meta.env.VITE_TINYMCE_API_KEY =
+              "b3vov53scsx1m1bf3z67h2tz3nhdk62165pgj7iqwl51clkq")
+          }
           onInit={(_evt, editor) => (editorRef.current = editor)}
           // initialValue="<p></p>"
           init={{

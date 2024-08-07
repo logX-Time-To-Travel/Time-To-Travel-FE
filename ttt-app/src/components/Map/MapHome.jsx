@@ -7,13 +7,15 @@ const MapHome = () => {
   const [markers, setMarkers] = useState([]);
   const [currentPosition, setCurrentPosition] = useState({ lat: 0, lng: 0 });
   const [searchQuery, setSearchQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 1024);
   const navigate = useNavigate();
 
   useEffect(() => {
     // 구글 맵 API 스크립트 로드
     const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLEMAP_API_KEY}`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${(import.meta.env.VITE_GOOGLEMAP_API_KEY =
+      "AIzaSyCBDYsrNEO1_IjXApM0As-mKCFrhlALUhM")}&libraries=places`;
     script.async = true;
     document.body.appendChild(script);
 
@@ -93,13 +95,35 @@ const MapHome = () => {
           });
           infowindow.open(map);
         } else {
-          console.error(
-            "Geocode was not successful for the following reason:",
-            status
-          );
+          console.error("검색 실패", status);
         }
       });
     }
+  };
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+
+    // 검색어에 따라 연관 검색어 가져오기
+    if (value) {
+      const service = new window.google.maps.places.AutocompleteService();
+      service.getPlacePredictions({ input: value }, (predictions, status) => {
+        if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+          setSuggestions(predictions);
+        } else {
+          setSuggestions([]);
+        }
+      });
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setSearchQuery(suggestion.description);
+    setSuggestions([]);
+    handleSearch();
   };
 
   const handleCurrentLocation = () => {
@@ -137,13 +161,25 @@ const MapHome = () => {
               type="text"
               placeholder="주제나 장소를 검색하세요"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={handleSearchChange}
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
                   handleSearch();
                 }
               }}
             />
+            {suggestions.length > 0 && (
+              <ul className="suggestions-list">
+                {suggestions.map((suggestion) => (
+                  <li
+                    key={suggestion.place_id}
+                    onClick={() => handleSuggestionClick(suggestion)}
+                  >
+                    {suggestion.description}
+                  </li>
+                ))}
+              </ul>
+            )}
             <button
               className="map-controls-btn"
               onClick={handleSearch}
