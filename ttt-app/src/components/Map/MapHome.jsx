@@ -1,21 +1,30 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import "./MapHome.css";
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import './MapHome.css';
 
 const MapHome = () => {
   const [map, setMap] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [currentPosition, setCurrentPosition] = useState({ lat: 0, lng: 0 });
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 1024);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
+    // URL에서 검색어 추출
+    const params = new URLSearchParams(location.search);
+    const query = params.get('query');
+    if (query) {
+      setSearchQuery(query);
+    }
+
     // 구글 맵 API 스크립트 로드
-    const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${(import.meta.env.VITE_GOOGLEMAP_API_KEY =
-      "AIzaSyCBDYsrNEO1_IjXApM0As-mKCFrhlALUhM")}&libraries=places`;
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${
+      import.meta.env.VITE_GOOGLEMAP_API_KEY
+    }&libraries=places`;
     script.async = true;
     document.body.appendChild(script);
 
@@ -23,7 +32,7 @@ const MapHome = () => {
       setIsMobileView(window.innerWidth <= 1024);
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     // 지도 초기화
     const initMap = () => {
@@ -33,7 +42,7 @@ const MapHome = () => {
           setCurrentPosition({ lat: latitude, lng: longitude });
 
           const map = new window.google.maps.Map(
-            document.getElementById("map"),
+            document.getElementById('map'),
             {
               center: { lat: latitude, lng: longitude },
               zoom: 13,
@@ -49,14 +58,19 @@ const MapHome = () => {
           const marker = new window.google.maps.Marker({
             position: { lat: latitude, lng: longitude },
             map,
-            title: "내 위치",
+            title: '내 위치',
           });
           setMarkers((prevMarkers) => [...prevMarkers, marker]);
+
+          // URL에 query 파라미터가 있을 때 검색 실행
+          if (query) {
+            handleSearch(query, map);
+          }
         },
         (error) => {
-          console.error("Error getting current position:", error);
+          console.error('Error getting current position:', error);
           const map = new window.google.maps.Map(
-            document.getElementById("map"),
+            document.getElementById('map'),
             {
               center: { lat: 37.5665, lng: 126.978 },
               zoom: 13,
@@ -68,6 +82,11 @@ const MapHome = () => {
             }
           );
           setMap(map);
+
+          // URL에 query 파라미터가 있을 때 검색 실행
+          if (query) {
+            handleSearch(query, map);
+          }
         }
       );
     };
@@ -76,26 +95,26 @@ const MapHome = () => {
 
     return () => {
       document.body.removeChild(script);
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [location.search]);
 
-  const handleSearch = () => {
+  const handleSearch = (searchQuery, mapInstance) => {
     if (searchQuery) {
       const geocoder = new window.google.maps.Geocoder();
       geocoder.geocode({ address: searchQuery }, (results, status) => {
-        if (status === "OK") {
+        if (status === 'OK') {
           const { location } = results[0].geometry;
-          map.setCenter(location);
-          map.setZoom(13);
+          mapInstance.setCenter(location);
+          mapInstance.setZoom(13);
 
           const infowindow = new window.google.maps.InfoWindow({
             content: results[0].formatted_address,
             position: location,
           });
-          infowindow.open(map);
+          infowindow.open(mapInstance);
         } else {
-          console.error("검색 실패", status);
+          console.error('검색 실패', status);
         }
       });
     }
@@ -123,7 +142,7 @@ const MapHome = () => {
   const handleSuggestionClick = (suggestion) => {
     setSearchQuery(suggestion.description);
     setSuggestions([]);
-    handleSearch();
+    handleSearch(suggestion.description, map);
   };
 
   const handleCurrentLocation = () => {
@@ -137,18 +156,18 @@ const MapHome = () => {
         const marker = new window.google.maps.Marker({
           position: currentPosition,
           map,
-          title: "내 위치",
+          title: '내 위치',
         });
         setMarkers((prevMarkers) => [...prevMarkers, marker]);
       },
       (error) => {
-        console.error("Error getting current position:", error);
+        console.error('Error getting current position:', error);
       }
     );
   };
 
   const handleSearchBarClick = () => {
-    navigate("/search");
+    navigate('/search');
   };
 
   return (
@@ -163,8 +182,8 @@ const MapHome = () => {
               value={searchQuery}
               onChange={handleSearchChange}
               onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  handleSearch();
+                if (e.key === 'Enter') {
+                  handleSearch(searchQuery, map);
                 }
               }}
             />
@@ -182,7 +201,7 @@ const MapHome = () => {
             )}
             <button
               className="map-controls-btn"
-              onClick={handleSearch}
+              onClick={() => handleSearch(searchQuery, map)}
             ></button>
           </div>
         )}
