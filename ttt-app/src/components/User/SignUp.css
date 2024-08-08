@@ -141,3 +141,34 @@
 .SignUp-agreement .icon {
   font-size: 1.5rem;
 }
+
+.nickname-input-container {
+  display: flex;
+  align-items: center;
+}
+
+.nickname-check-button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.nickname-check-button:hover {
+  background-color: #0056b3;
+}
+
+.SignUp-error-message {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+.SignUp-success-message {
+  color: blue;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
