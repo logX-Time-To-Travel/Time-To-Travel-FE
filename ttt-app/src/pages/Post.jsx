@@ -2,7 +2,7 @@ import "./Post.css";
 import Modal from "../components/UI/Modal";
 import { useState } from "react";
 
-const Post = ({ post }) => {
+const Post = (post) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleModal = () => {
@@ -27,10 +27,7 @@ const Post = ({ post }) => {
 
       <div className="post-content">
         <h3>{post.title}</h3>
-        <div className="date-location">
-          <span className="date">{post.date}</span>
-          {/* <span className="location">{post.location}</span> */}
-        </div>
+      =
         <p>{post.content}</p>
       </div>
       <div>

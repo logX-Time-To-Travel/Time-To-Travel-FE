@@ -1,42 +1,20 @@
 import { useState, useRef, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
-
-import PostList from "../pages/PostList";
 import LocationSelector from "../pages/LocationSelector";
 import img from "../assets/Icon_Map1.png";
 import "./Tinymce.css";
 import Button from "../components/UI/Button";
 
-export default function App() {
+export default function Tinymce({ addPost }) { // eslint-disable-line react/prop-types
+
   const editorRef = useRef(null); // 에디터 참조 설정
   const [title, setTitle] = useState(""); // 제목 상태 설정
   const [location, setLocation] = useState({ lat: "", lng: "", address: "" }); // 위치 상태 설정
   const [showMap, setShowMap] = useState(false); // 지도 표시 상태 설정
   const [memberId, setMemberId] = useState(""); // 멤버 ID 상태 설정
-  const [posts, setPosts] = useState([]); // 포스트 상태 설정
 
   // 멤버 세션 정보를 가져오는 비동기 함수
   const fetchMemberSession = async () => {
-    // 실제 API 요청 코드문
-    // try {
-    //   const response = await fetch("/member/session", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({}),
-    //   });
-
-    //   if (!response.ok) {
-    //     throw new Error("멤버 세션에 접근 실패하였습니다.");
-    //   }
-
-    //   const data = await response.json();
-    //   return data;
-    // } catch (error) {
-    //   console.error(error);
-    //   return null;
-
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({ memberId: "1" });
@@ -60,15 +38,14 @@ export default function App() {
   const handleSave = () => {
     const content = editorRef.current.getContent();
     const newPost = {
-      id: posts.length + 1,
+      id: Date.now(),
       title,
       content,
-      location: [],
+      location: { ...location },
       images: [],
       memberId,
     };
-
-    setPosts((prevPosts) => [newPost, ...prevPosts]);
+    addPost(newPost); // addPost 함수 호출
     console.log(newPost);
   };
 
@@ -112,12 +89,6 @@ export default function App() {
         <div className="location-container">
           <img src={img} />
           <button onClick={() => setShowMap(true)}>위치선택</button>
-
-          {/* {showMap && (
-              <div>
-                <LocationSelector onSelectLocation={handleLocationSelect} />
-              </div>
-            )} */}
         </div>
 
         {showMap && (
@@ -162,9 +133,8 @@ export default function App() {
         />
       </div>
       <div className="save-button-container">
-        <Button path="/Blog" customFunc={handleSave} text="게시물 저장" />
+        <Button path="/blog" customFunc={handleSave} text="게시물 저장" />
       </div>
-      {/* <PostList posts={posts} /> */}
     </div>
   );
 }
