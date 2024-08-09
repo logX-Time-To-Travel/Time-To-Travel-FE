@@ -25,6 +25,7 @@ const SignUp = ({ onSignUp }) => {
   const [confirmPasswordError, setConfirmPasswordError] = useState(""); // 비밀번호 확인 오류 메시지 상태
   const [nicknameError, setNicknameError] = useState(""); // 닉네임 오류 메시지 상태
   const [nicknameAvailableMessage, setNicknameAvailableMessage] = useState("");
+  const [isNicknameChecked, setIsNicknameChecked] = useState(false); //닉네임 중복 체크 상태
 
   const [showPassword, setShowPassword] = useState(false); // 비밀번호 표시 상태
   const [showConfirmPassword, setShowConfirmPassword] = useState(false); // 비밀번호 확인 표시 상태
@@ -66,6 +67,7 @@ const SignUp = ({ onSignUp }) => {
 
       setNicknameError("");
       setNicknameAvailableMessage("이 닉네임을 사용할 수 있습니다.");
+      setIsNicknameChecked(true); // 중복 체크 성공 시 true로 설정
     } catch (error) {
       setNicknameError("이미 사용 중인 닉네임입니다."); // 오류 발생 시 메시지 설정
       setNicknameAvailableMessage(""); // 닉네임 사용 가능 메시지 초기화
@@ -75,6 +77,11 @@ const SignUp = ({ onSignUp }) => {
   // 폼 제출 핸들러
   const handleSubmit = async (e) => {
     e.preventDefault(); // 폼 제출 시 새로고침 방지
+
+    if (!isNicknameChecked) {
+      alert("닉네임 중복 체크를 완료해 주세요.");
+      return; // 닉네임 중복 체크가 완료되지 않았으면 폼 제출을 중단
+    }
 
     let valid = true; // 유효성 검사 플래그
 
