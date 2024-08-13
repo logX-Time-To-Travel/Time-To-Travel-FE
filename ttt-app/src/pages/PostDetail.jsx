@@ -1,9 +1,51 @@
+import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar/Navbar';
 import './PostDetail.css';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const PostDetail = () => {
-  // 더미 데이터 (HTML 내용 포함)
-  const post = {
+  const { id } = useLocation();
+  const [post, setPost] = useState({
+    id: null,
+    username: '',
+    title: '',
+    data: '',
+    locations: [],
+    likeCount: 0,
+    viewCount: 0,
+    createdAt: '',
+  });
+  const [member, setMember] = useState({});
+  const [isAuthor, setAuthor] = useState(false);
+  const [locationText, setLocationText] = useState('');
+
+  const fetchData = async () => {
+    const userResponse = await axios.get('/member/session');
+    const postResponse = await axios.get(`/post/${id}`);
+    setMember(userResponse.data);
+    setPost(postResponse.data);
+  };
+
+  const setInfo = () => {
+    if (post.username === member.username) {
+      setAuthor(true);
+    }
+
+    if (post.locations.length === 1) {
+      setLocationText('단일 여행');
+    } else {
+      setLocationText(`${post.locations.length}개의 여행`);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+    setInfo();
+  }, [id]);
+
+  /*
+  const dummyPost = {
     id: 1,
     username: '나는 zㅣ존짱짱므째이',
     title: '오늘은 석계문고에 다녀왔습니다.',
@@ -17,11 +59,7 @@ const PostDetail = () => {
     viewCount: 123,
     createdAt: '2024년 3월 21일',
   };
-
-  const isSingleLocation = post.locations.length === 1;
-  const locationText = isSingleLocation
-    ? '단일 여행'
-    : `${post.locations.length}개의 장소`;
+  */
 
   return (
     <div className="post-detail-container">
