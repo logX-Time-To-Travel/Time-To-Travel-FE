@@ -4,6 +4,12 @@ import './PostDetail.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
+import heartBefore from '../assets/heart-before.png';
+import heartAfter from '../assets/heart-after.png';
+import commentsIcon from '../assets/Comments.png';
+import starBefore from '../assets/star-before.png';
+import starAfter from '../assets/star-after.png';
+
 const PostDetail = () => {
   const { id } = useLocation();
   const [post, setPost] = useState({
@@ -14,11 +20,14 @@ const PostDetail = () => {
     locations: [],
     likeCount: 0,
     viewCount: 0,
+    commentCount: 0,
     createdAt: '',
   });
   const [member, setMember] = useState({});
   const [isAuthor, setAuthor] = useState(false);
   const [locationText, setLocationText] = useState('');
+  const [isLiked, setIsLiked] = useState(false);
+  const [isScrapped, setIsScrapped] = useState(false);
 
   const fetchData = async () => {
     const userResponse = await axios.get('/member/session');
@@ -37,6 +46,21 @@ const PostDetail = () => {
     } else {
       setLocationText(`${post.locations.length}개의 여행`);
     }
+  };
+
+  const handleLikeClick = () => {
+    setIsLiked(!isLiked);
+    setPost((prev) => ({
+      ...prev,
+      likeCount: isLiked ? prev.likeCount - 1 : prev.likeCount + 1,
+    }));
+  };
+
+  const handleScrapClick = () => {
+    setIsScrapped(!isScrapped);
+    setPost((prev) => ({
+      ...prev,
+    }));
   };
 
   useEffect(() => {
@@ -58,6 +82,7 @@ const PostDetail = () => {
       { id: 2, name: '또 다른 장소' },
     ],
     likeCount: 53,
+    commentCount: 12,
     viewCount: 123,
     createdAt: '2024년 3월 21일',
   };
@@ -68,7 +93,7 @@ const PostDetail = () => {
         <div className="post-detail-title">{post.title}</div>
         <div className="post-detail-info">
           <span className="post-detail-username">{post.username}</span>
-          <strong>|</strong>
+          <strong> | </strong>
           <span className="post-detail-date">{post.createdAt}</span>
         </div>
         <div className="post-detail-type">{locationText}</div>
@@ -79,8 +104,20 @@ const PostDetail = () => {
       />
       <div className="post-detail-footer">
         <div className="post-detail-more">
-          <div className="post-detail-likes">{post.likeCount}</div>
-          <div className="post-detail-views">{post.viewCount}</div>
+          <div className="post-detail-more-gap">
+            <div className="post-detail-likes" onClick={handleLikeClick}>
+              <img src={isLiked ? heartAfter : heartBefore} alt="Like" />
+              {post.likeCount}
+            </div>
+            <div className="post-detail-comments">
+              <img src={commentsIcon} alt="Comments" />
+              {post.commentCount}
+            </div>
+          </div>
+
+          <div className="post-detail-scrap" onClick={handleScrapClick}>
+            <img src={isScrapped ? starAfter : starBefore} alt="Scrap" />
+          </div>
         </div>
         <Navbar />
       </div>
