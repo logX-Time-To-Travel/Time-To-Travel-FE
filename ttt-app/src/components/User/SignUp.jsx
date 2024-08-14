@@ -1,9 +1,9 @@
-import { useState } from "react"; // useState (상태 관리) 사용, useEffect (사이드 이펙트 관리 - 특정 조건이 변경될 때마다 특정 작업을 수행하도록 설정) 사용
+import { useState } from "react"; // useState (상태 관리) 사용
 import { useNavigate } from "react-router-dom"; // useNavigate (페이지 이동) 사용
 import PropTypes from "prop-types"; // PropTypes (타입 검사) 사용
-
-import "./SignUp.css"; //SignUp.css 와 연결.
 import axios from "axios";
+
+import "./SignUp.css"; // SignUp.css 와 연결.
 
 // 이메일 유효성 검사
 const validateEmail = (email) => {
@@ -25,6 +25,7 @@ const SignUp = ({ onSignUp }) => {
   const [confirmPasswordError, setConfirmPasswordError] = useState(""); // 비밀번호 확인 오류 메시지 상태
   const [nicknameError, setNicknameError] = useState(""); // 닉네임 오류 메시지 상태
   const [nicknameAvailableMessage, setNicknameAvailableMessage] = useState("");
+  const [isNicknameChecked, setIsNicknameChecked] = useState(false); // 닉네임 중복 체크 상태
 
   const [showPassword, setShowPassword] = useState(false); // 비밀번호 표시 상태
   const [showConfirmPassword, setShowConfirmPassword] = useState(false); // 비밀번호 확인 표시 상태
@@ -45,10 +46,19 @@ const SignUp = ({ onSignUp }) => {
     setProfilePic(URL.createObjectURL(e.target.files[0])); // 프로필 사진 미리보기 설정
   };
 
-  //닉네임 입력값 변경시 nicknameError 초기화 함수
+  // 닉네임 입력값 변경 시 nicknameError 초기화 함수
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);
     setNicknameError("");
+  };
+
+  //hancleBack 함수
+  const handleBack = () => {
+    if (step > 1) {
+      setStep(step - 1); // 이전 단계로 이동
+    } else {
+      navigate(-1); // 이전 페이지로 이동
+    }
   };
 
   // 닉네임 중복 체크 함수
@@ -66,15 +76,22 @@ const SignUp = ({ onSignUp }) => {
 
       setNicknameError("");
       setNicknameAvailableMessage("이 닉네임을 사용할 수 있습니다.");
+      setIsNicknameChecked(true); // 중복 체크 성공 시 true로 설정
     } catch (error) {
       setNicknameError("이미 사용 중인 닉네임입니다."); // 오류 발생 시 메시지 설정
       setNicknameAvailableMessage(""); // 닉네임 사용 가능 메시지 초기화
+      setIsNicknameChecked(false); // 중복 체크 실패 시 false로 설정
     }
   };
 
   // 폼 제출 핸들러
   const handleSubmit = async (e) => {
     e.preventDefault(); // 폼 제출 시 새로고침 방지
+
+    if (!isNicknameChecked) {
+      alert("닉네임 중복 체크를 완료해 주세요.");
+      return; // 닉네임 중복 체크가 완료되지 않았으면 폼 제출을 중단
+    }
 
     let valid = true; // 유효성 검사 플래그
 
@@ -187,33 +204,40 @@ const SignUp = ({ onSignUp }) => {
 
   return (
     <div className="SignUp-container">
-      <span className="SignUp-back-btn" onClick={() => navigate(-1)}>
-        {/* ㄴ>이전 페이지로 이동 버튼 */}
-        &lt;
-      </span>
-      <div className="SignUp-description">
-        계속하시려면 약관을 잘 읽고 동의해주세요.
-      </div>
+      {step === 1 && (
+        <>
+          <span className="SignUp-back-btn" onClick={() => navigate(-1)}>
+            {/* 이전 페이지로 이동 버튼 (뒤로가기 버튼)*/}
+            뒤로가기
+          </span>
+          <div className="SignUp-title">약관 동의</div>
+          <div className="SignUp-description">
+            계속하시려면 약관을 잘 읽고 동의해 주세요.
+          </div>
+        </>
+      )}
 
-      {step === 1 && ( // 첫 번째 단계: 약관 동의
-        <div>
+      {step === 1 && (
+        <div className="SignUp-terms-container">
+          {/* 필수 약관 전체 동의 */}
           <div
-            className={`SignUp-agreement ${allRequiredTerms ? "active" : ""}`} // 필수 약관 전체 동의
+            className={`SignUp-agreement ${allRequiredTerms ? "active" : ""}`}
             onClick={handleAllRequiredTerms}
           >
             <span className="text">필수 약관 전체 동의하기</span>
-            <span className="icon">V</span>
+            <span className="icon">✔</span>
           </div>
 
+          {/* 이용약관 동의 */}
           <div
-            className={`SignUp-agreement ${terms1 ? "active" : ""}`} // 개별 필수 약관 동의
+            className={`SignUp-term-item ${terms1 ? "active" : ""}`}
             onClick={() => handleIndividualRequiredTerm(terms1, setTerms1)}
           >
             <span className="text">
-              v 이용약관 <span className="highlight">*</span>
+              ✔ 이용약관 <span className="required">*</span>
             </span>
             <span
-              className="icon" // 이용약관 링크로 이동
+              className="icon"
               onClick={(e) => {
                 e.stopPropagation();
                 navigate("/terms/terms1");
@@ -222,15 +246,17 @@ const SignUp = ({ onSignUp }) => {
               &gt;
             </span>
           </div>
+
+          {/* 개인정보 처리방침 동의 */}
           <div
-            className={`SignUp-agreement ${terms2 ? "active" : ""}`} // 개별 필수 약관 동의
+            className={`SignUp-term-item ${terms2 ? "active" : ""}`}
             onClick={() => handleIndividualRequiredTerm(terms2, setTerms2)}
           >
             <span className="text">
-              v 개인정보 처리방침 <span className="highlight">*</span>
+              ✔ 개인정보 처리방침 <span className="required">*</span>
             </span>
             <span
-              className="icon" // 개인정보 처리방침 링크로 이동
+              className="icon"
               onClick={(e) => {
                 e.stopPropagation();
                 navigate("/terms/terms2");
@@ -239,16 +265,18 @@ const SignUp = ({ onSignUp }) => {
               &gt;
             </span>
           </div>
+
+          {/* 게시물 및 댓글 작성 윤리 지침 동의 */}
           <div
-            className={`SignUp-agreement ${terms3 ? "active" : ""}`} // 개별 필수 약관 동의
+            className={`SignUp-term-item ${terms3 ? "active" : ""}`}
             onClick={() => handleIndividualRequiredTerm(terms3, setTerms3)}
           >
             <span className="text">
-              v 게시물 및 댓글 작성 윤리 지침{" "}
-              <span className="highlight">*</span>
+              ✔ 게시물 및 댓글 작성 윤리 지침{" "}
+              <span className="required">*</span>
             </span>
             <span
-              className="icon" // 윤리 지침 링크로 이동
+              className="icon"
               onClick={(e) => {
                 e.stopPropagation();
                 navigate("/terms/terms3");
@@ -258,21 +286,23 @@ const SignUp = ({ onSignUp }) => {
             </span>
           </div>
 
+          {/* 선택 약관 전체 동의 */}
           <div
-            className={`SignUp-agreement ${allOptionalTerms ? "active" : ""}`} // 선택 약관 전체 동의
+            className={`SignUp-agreement ${allOptionalTerms ? "active" : ""}`}
             onClick={handleAllOptionalTerms}
           >
             <span className="text">선택 약관 전체 동의하기</span>
-            <span className="icon">V</span>
+            <span className="icon">✔</span>
           </div>
 
+          {/* 마케팅 정보 수신 동의 */}
           <div
-            className={`SignUp-agreement ${terms4 ? "active" : ""}`} // 개별 선택 약관 동의
+            className={`SignUp-term-item ${terms4 ? "active" : ""}`}
             onClick={() => handleIndividualOptionalTerm(terms4, setTerms4)}
           >
-            <span className="text">v 마케팅 정보 수신 동의 [선택]</span>
+            <span className="text">✔ 마케팅 정보 수신 동의 [선택]</span>
             <span
-              className="icon" // 마케팅 정보 수신 동의 링크로 이동
+              className="icon"
               onClick={(e) => {
                 e.stopPropagation();
                 navigate("/terms/terms4");
@@ -281,13 +311,15 @@ const SignUp = ({ onSignUp }) => {
               &gt;
             </span>
           </div>
+
+          {/* 버그 자동 전송 동의 */}
           <div
-            className={`SignUp-agreement ${terms5 ? "active" : ""}`} // 개별 선택 약관 동의
+            className={`SignUp-term-item ${terms5 ? "active" : ""}`}
             onClick={() => handleIndividualOptionalTerm(terms5, setTerms5)}
           >
-            <span className="text">v 버그 자동 전송 [선택]</span>
+            <span className="text">✔ 버그 자동 전송 [선택]</span>
             <span
-              className="icon" // 버그 자동 전송 링크로 이동
+              className="icon"
               onClick={(e) => {
                 e.stopPropagation();
                 navigate("/terms/terms5");
@@ -297,47 +329,51 @@ const SignUp = ({ onSignUp }) => {
             </span>
           </div>
 
+          {/* 계속하기 버튼 */}
           <button
             type="button"
             className={`SignUp-continue-btn ${
               allRequiredTerms ? "enabled" : "disabled"
-            }`} // 필수 약관 동의 여부에 따라 버튼 활성화
-            onClick={() => allRequiredTerms && setStep(2)} // 필수 약관 동의 시 다음 단계로 이동
-            disabled={!allRequiredTerms} // 필수 약관 동의하지 않으면 버튼 비활성화
+            }`}
+            onClick={() => allRequiredTerms && setStep(2)}
+            disabled={!allRequiredTerms}
           >
             계속하기
           </button>
         </div>
       )}
 
-      {step === 2 && ( // 두 번째 단계: 회원가입 폼
+      {step === 2 && (
         <form onSubmit={handleSubmit}>
+          <div className="SignUp-back-btn-alt" onClick={handleBack}>
+            &lt;
+          </div>
+          {/* 두 번째 단계에서 사용되는 뒤로가기 버튼 */}
           <div className="SignUp-profile-pic-container">
             <label className="SignUp-profile-pic">
               {profilePic ? (
                 <img
                   src={profilePic}
                   alt="Profile"
-                  style={{ borderRadius: "50%" }} // 프로필 사진 미리보기
+                  style={{ borderRadius: "50%" }}
                 />
               ) : (
                 ""
               )}
-              <input type="file" onChange={handleProfilePicChange} />{" "}
-              {/* ㄴ> 프로필 사진 변경 */}
+              <input type="file" onChange={handleProfilePicChange} />
             </label>
           </div>
 
           <div className="SignUp-form-group">
             <label>
-              닉네임 <span className="SignUp-required">*</span>
+              닉네임 <span className="required">*</span>
             </label>
             <div className="nickname-input-container">
               <input
                 type="text"
                 placeholder="한글, 영문, 숫자가 포함될 수 있습니다"
                 value={nickname}
-                onChange={handleNicknameChange} // 닉네임 입력값 업데이트
+                onChange={handleNicknameChange}
               />
               <button
                 type="button"
@@ -348,85 +384,81 @@ const SignUp = ({ onSignUp }) => {
               </button>
             </div>
             {nicknameError && (
-              <p className="SignUp-error-message">{nicknameError}</p> // 닉네임 오류 메시지 표시
+              <p className="SignUp-error-message">{nicknameError}</p>
             )}
             {nicknameAvailableMessage && (
               <p className="SignUp-success-message">
                 {nicknameAvailableMessage}
-              </p> // 닉네임 사용 가능 메시지 표시
+              </p>
             )}
           </div>
 
           <div className="SignUp-form-group">
             <label>
-              이메일 <span className="SignUp-required">*</span>
+              이메일 <span className="required">*</span>
             </label>
             <input
               type="email"
               placeholder="you@syu.ac.kr"
               value={email}
-              onChange={(e) => setEmail(e.target.value)} // 이메일 입력값 업데이트
+              onChange={(e) => setEmail(e.target.value)}
             />
-            {emailError && (
-              <p className="SignUp-error-message">{emailError}</p> // 이메일 오류 메시지 표시
-            )}
+            {emailError && <p className="SignUp-error-message">{emailError}</p>}
           </div>
 
           <div className="SignUp-form-group" style={{ position: "relative" }}>
             <label>
-              비밀번호 <span className="SignUp-required">*</span>
+              비밀번호 <span className="required">*</span>
             </label>
             <input
               type={showPassword ? "text" : "password"}
               placeholder="8자 이상, 특수문자 포함"
               value={password}
-              onChange={(e) => setPassword(e.target.value)} // 비밀번호 입력값 업데이트
-              style={{ paddingRight: "40px" }} // 오른쪽 여백 추가
+              onChange={(e) => setPassword(e.target.value)}
+              style={{ paddingRight: "40px" }}
             />
             <button
               type="button"
               className="SignUp-eye-btn"
-              onClick={() => setShowPassword(!showPassword)} // 비밀번호 표시 토글
+              onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword ? "🙈" : "👁"}
+              <i
+                className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"}
+              ></i>
             </button>
             {passwordError && (
-              <p className="SignUp-error-message">{passwordError}</p> // 비밀번호 오류 메시지 표시
+              <p className="SignUp-error-message">{passwordError}</p>
             )}
           </div>
 
           <div className="SignUp-form-group" style={{ position: "relative" }}>
             <label>
-              비밀번호 다시 입력 <span className="SignUp-required">*</span>
+              비밀번호 다시 입력 <span className="required">*</span>
             </label>
             <input
               type={showConfirmPassword ? "text" : "password"}
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)} // 비밀번호 확인 입력값 업데이트
-              style={{ paddingRight: "40px" }} // 오른쪽 여백 추가
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              style={{ paddingRight: "40px" }}
             />
             <button
               type="button"
               className="SignUp-eye-btn"
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)} // 비밀번호 확인 표시 토글
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             >
-              {showConfirmPassword ? "🙈" : "👁"}
+              <i
+                className={
+                  showConfirmPassword ? "fas fa-eye-slash" : "fas fa-eye"
+                }
+              ></i>
             </button>
             {confirmPasswordError && (
-              <p className="SignUp-error-message">{confirmPasswordError}</p> // 비밀번호 확인 오류 메시지 표시
+              <p className="SignUp-error-message">{confirmPasswordError}</p>
             )}
           </div>
 
           <button type="submit" className="SignUp-continue-btn enabled">
-            계속하기
-          </button>
-
-          <button
-            type="button"
-            className="SignUp-back-btn"
-            onClick={() => setStep(1)} // 이전 단계로 돌아가기
-          >
-            뒤로가기
+            완료
           </button>
         </form>
       )}
