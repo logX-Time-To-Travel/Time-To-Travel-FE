@@ -37,7 +37,7 @@ const PostDetail = () => {
   };
 
   const setInfo = () => {
-    if (post.username === member.username) {
+    if (post.username == member.username) {
       setAuthor(true);
     }
 
@@ -63,13 +63,24 @@ const PostDetail = () => {
     }));
   };
 
+  const handleEditClick = () => {
+    // 수정 작업
+  };
+
+  const handleDeleteClick = () => {
+    // 수정 작업
+  };
+
   useEffect(() => {
     // fetchData();     // API 호출 함수 주석 처리
 
     setPost(dummyPost); // 더미데이터 사용
     setMember({ username: '천재123' }); // 더미 유저 추가
-    setInfo(); // 유지 예정
   }, [id]);
+
+  useEffect(() => {
+    setInfo();
+  }, [post, member]);
 
   const dummyPost = {
     id: 1,
@@ -106,7 +117,7 @@ const PostDetail = () => {
       </div>
       <div className="post-detail-footer">
         <div className="post-detail-more">
-          <div className="post-detail-more-gap">
+          <div className="post-detail-more-leftside">
             <div className="post-detail-likes" onClick={handleLikeClick}>
               <img src={isLiked ? heartAfter : heartBefore} alt="Like" />
               {post.likeCount}
@@ -116,9 +127,26 @@ const PostDetail = () => {
               {post.commentCount}
             </div>
           </div>
-
-          <div className="post-detail-scrap" onClick={handleScrapClick}>
-            <img src={isScrapped ? starAfter : starBefore} alt="Scrap" />
+          <div className="post-detail-more-rightside">
+            <div className="post-detail-scrap" onClick={handleScrapClick}>
+              <img src={isScrapped ? starAfter : starBefore} alt="Scrap" />
+            </div>
+            {isAuthor && (
+              <div className="post-detail-more-buttons">
+                <button
+                  className="post-detail-more-edit"
+                  onClick={handleEditClick}
+                >
+                  수정
+                </button>
+                <button
+                  className="post-detail-more-delete"
+                  onClick={handleDeleteClick}
+                >
+                  삭제
+                </button>
+              </div>
+            )}
           </div>
         </div>
         <Navbar />
