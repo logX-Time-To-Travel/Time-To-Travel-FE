@@ -52,6 +52,7 @@
 
 .post-detail-more {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding: 10px 20px;
   border-top: 1px solid #eaeaea;
@@ -64,21 +65,34 @@
   z-index: 10;
 }
 
+.post-detail-more-gap {
+  display: flex;
+  gap: 15px;
+}
+
 .post-detail-likes,
-.post-detail-views {
+.post-detail-comments,
+.post-detail-scrap {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 3px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.post-detail-likes::before {
-  content: '❤️';
-  margin-right: 5px;
+.post-detail-likes {
+  color: crimson;
 }
 
-.post-detail-views::before {
-  content: '👁️';
-  margin-right: 5px;
+.post-detail-likes img,
+.post-detail-comments img {
+  width: 24px;
+  height: 24px;
+}
+
+.post-detail-scrap img {
+  width: 26px; /* 스크랩 아이콘 크기를 키움 */
+  height: 26px;
 }
 
 .navbar {
