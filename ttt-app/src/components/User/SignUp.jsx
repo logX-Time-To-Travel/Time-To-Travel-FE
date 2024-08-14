@@ -1,8 +1,6 @@
 import { useState } from "react"; // useState (상태 관리) 사용, useEffect (사이드 이펙트 관리 - 특정 조건이 변경될 때마다 특정 작업을 수행하도록 설정) 사용
 import { useNavigate } from "react-router-dom"; // useNavigate (페이지 이동) 사용
 import PropTypes from "prop-types"; // PropTypes (타입 검사) 사용
-
-import "./SignUp.css"; //SignUp.css 와 연결.
 import axios from "axios";
 
 // 이메일 유효성 검사
