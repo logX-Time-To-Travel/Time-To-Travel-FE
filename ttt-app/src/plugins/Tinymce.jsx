@@ -1,12 +1,13 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import LocationSelector from "../pages/LocationSelector";
 import img from "../assets/Icon_Map1.png";
 import "./Tinymce.css";
 import Button from "../components/UI/Button";
+import PostContext from "./PostContext";
 
-export default function Tinymce({ addPost }) { // eslint-disable-line react/prop-types
-
+export default function Tinymce() {
+  const { addPost } = useContext(PostContext);
   const editorRef = useRef(null); // 에디터 참조 설정
   const [title, setTitle] = useState(""); // 제목 상태 설정
   const [location, setLocation] = useState({ lat: "", lng: "", address: "" }); // 위치 상태 설정

@@ -1,13 +1,13 @@
 import "./Blog.css";
-
-// 컴포넌트
+import { useContext } from "react";
+import PostContext from "../plugins/PostContext";
 import Header from "./../components/UI/Header";
 import PostList from "./PostList";
 
 // 페이지
 
-const Blog = ({ posts }) => {
-  console.log(posts);
+const Blog = () => {
+  const { posts } = useContext(PostContext);
   return (
     <div>
       <div className="page-container">
