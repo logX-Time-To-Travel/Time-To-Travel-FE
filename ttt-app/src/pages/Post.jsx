@@ -2,7 +2,7 @@ import "./Post.css";
 import Modal from "../components/UI/Modal";
 import { useState } from "react";
 
-const Post = (post) => {
+const Post = ({ post }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleModal = () => {
@@ -25,10 +25,14 @@ const Post = (post) => {
         {/* <img src={post.images[0]} alt={key} /> */}
       </div>
 
-      <div className="post-content">
-        <h3>{post.title}</h3>
-      =
-        <p>{post.content}</p>
+      <div className="post-container">
+        <div className="post-title">
+          <h3>{post.title}</h3>
+        </div>
+        <div className="post-location">{post.location.address}</div>
+        <div className="post-content">
+          {post.content.replace(/<\/?[^>]+(>|$)/g, "")}
+        </div>
       </div>
       <div>
         <button className="more-button" onClick={handleModal}>
