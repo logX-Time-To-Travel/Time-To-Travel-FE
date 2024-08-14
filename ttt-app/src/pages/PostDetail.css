@@ -1,8 +1,13 @@
 .post-detail-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.post-detail-scrollable {
+  flex-grow: 1;
+  overflow-y: auto;
 }
 
 .post-detail-header {
@@ -42,12 +47,13 @@
   padding: 20px;
   font-size: 16px;
   line-height: 1.6;
+  margin-bottom: 130px;
 }
 
 .post-detail-footer {
   background-color: white;
-  padding-bottom: 60px;
   position: relative;
+  padding-bottom: 60px;
 }
 
 .post-detail-more {
@@ -56,12 +62,14 @@
   justify-content: space-between;
   padding: 10px 20px;
   border-top: 1px solid #eaeaea;
-  position: absolute;
-  bottom: 70px;
-  left: 0;
-  right: 0;
+  border-radius: 5px;
+  margin-inline: 5px;
   background-color: white;
   box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  bottom: 70px; /* navbar 위에 위치 */
+  left: 0;
+  right: 0;
   z-index: 10;
 }
 
@@ -91,20 +99,6 @@
 }
 
 .post-detail-scrap img {
-  width: 26px; /* 스크랩 아이콘 크기를 키움 */
+  width: 26px;
   height: 26px;
-}
-
-.navbar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 50px;
-  background-color: white;
-  border-top: 1px solid #eaeaea;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  z-index: 5;
 }
