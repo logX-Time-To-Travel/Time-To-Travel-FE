@@ -73,9 +73,15 @@
   z-index: 10;
 }
 
-.post-detail-more-gap {
+.post-detail-more-leftside,
+.post-detail-more-rightside {
   display: flex;
+  align-items: center;
   gap: 15px;
+}
+
+.post-detail-more-rightside {
+  gap: 5px;
 }
 
 .post-detail-likes,
@@ -101,4 +107,21 @@
 .post-detail-scrap img {
   width: 26px;
   height: 26px;
+}
+
+.post-detail-more-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.post-detail-more-edit,
+.post-detail-more-delete {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.post-detail-more-delete {
+  color: crimson;
 }
