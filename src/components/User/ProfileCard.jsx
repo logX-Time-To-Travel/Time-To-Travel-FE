@@ -1,4 +1,4 @@
-import "../User/ProfileCard.css";
+import './ProfileCard.css';
 
 const ProfileCard = () => {
   return (
@@ -8,8 +8,9 @@ const ProfileCard = () => {
       </div>
       <div className="profile-info">
         <div className="profile-id">사용자</div>
-        <div className="profile-intro">한줄소개<after></after></div>
-        
+        <div className="profile-intro">
+          한줄소개<after></after>
+        </div>
       </div>
     </div>
   );

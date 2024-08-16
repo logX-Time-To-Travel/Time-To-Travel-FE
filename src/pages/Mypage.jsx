@@ -1,9 +1,9 @@
-import ProfileCard from "./../components/User/ProfileCard";
-import "./Mypage.css";
-import btnimg from "../assets/Button-Edit.png";
-import Navbar from "./../components/Navbar/Navbar";
+import ProfileCard from '../components/User/ProfileCard';
+import './Mypage.css';
+import btnimg from '../assets/Button-Edit.png';
+import Navbar from '../components/Navbar/Navbar';
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const Mypage = () => {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const Mypage = () => {
           <button
             className="detail-btn"
             onClick={() => {
-              navigate("/blog");
+              navigate('/blog');
             }}
           >
             보기
@@ -43,7 +43,7 @@ const Mypage = () => {
           <button
             className="detail-btn"
             onClick={() => {
-              navigate("/blog");
+              navigate('/blog');
             }}
           >
             보기
