@@ -9,6 +9,7 @@ import heartAfter from '../assets/heart-after.png';
 import commentsIcon from '../assets/Comments.png';
 import starBefore from '../assets/star-before.png';
 import starAfter from '../assets/star-after.png';
+import PostProfile from '../components/Post/PostProfile';
 
 const PostDetail = () => {
   const { id } = useLocation();
@@ -150,24 +151,13 @@ const PostDetail = () => {
           className="post-detail-content"
           dangerouslySetInnerHTML={{ __html: post.data }}
         />
-        <div className="post-detail-info-container">
-          <div className="post-detail-info-profile">
-            <img
-              src={post.profileImageUrl}
-              alt="Profile"
-              className="post-detail-info-image"
-            />
-            <div>
-              <div className="post-detail-info-username">{post.username}</div>
-              <div className="post-detail-info-posts">
-                작성 게시글 {post.postCount}개
-              </div>
-            </div>
-          </div>
-          <div className="post-detail-info-introduction">
-            {post.introduction}
-          </div>
-        </div>
+
+        <PostProfile
+          profileImageUrl={post.profileImageUrl}
+          username={post.username}
+          postCount={post.postCount}
+          introduction={post.introduction}
+        />
       </div>
 
       <div className="post-detail-footer">
