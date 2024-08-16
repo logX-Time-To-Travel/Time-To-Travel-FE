@@ -6,6 +6,7 @@ const Home = () => {
   return (
     <div className="Home-container">
       <MapHome />
+
       <Navbar />
     </div>
   );

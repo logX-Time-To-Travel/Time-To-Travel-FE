@@ -153,6 +153,7 @@
   position: absolute;
   right: 10px;
 }
+
 @media (max-width: 550px) {
   .map-controls button.current-location {
     position: fixed;
