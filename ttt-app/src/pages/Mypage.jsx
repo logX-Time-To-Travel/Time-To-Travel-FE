@@ -4,7 +4,6 @@ import btnimg from "../assets/Button-Edit.png";
 import Navbar from "./../components/Navbar/Navbar";
 
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 const Mypage = () => {
   const navigate = useNavigate();

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.css';
 import './Navbar.css';
 
+
 const Navbar = () => {
   return (
     <div className="navigation-bar">
