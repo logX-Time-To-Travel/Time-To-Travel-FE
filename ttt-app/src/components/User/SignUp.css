@@ -325,3 +325,49 @@
 .nickname-check-button:hover {
   background-color: #0056b3;
 }
+
+/* 완료 메시지 화면 스타일 */
+.SignUp-complete-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}
+
+.SignUp-welcome-title {
+  margin-top: 60px; /* 필요에 따라 값을 조정 */
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 41px;
+  color: #000000;
+  margin-bottom: 20px;
+}
+
+.SignUp-welcome-message {
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: #484848;
+  margin-bottom: 40px;
+}
+
+.SignUp-complete-btn {
+  width: 370px;
+  height: 44px;
+  background: #0d2af0;
+  box-shadow: 0px 4px 12px rgba(13, 42, 240, 0.4),
+    inset 0px 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  font-family: "Outfit";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  color: #ffc700;
+  cursor: pointer;
+}

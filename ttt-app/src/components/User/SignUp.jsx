@@ -40,6 +40,7 @@ const SignUp = ({ onSignUp }) => {
   const [terms5, setTerms5] = useState(false); // 버그 전송 동의 상태
 
   const [step, setStep] = useState(1); // 현재 단계 상태
+  const [isSignUpComplete, setIsSignUpComplete] = useState(false); //회원가입 상태
 
   // 프로필 사진 변경 핸들러
   const handleProfilePicChange = (e) => {
@@ -154,8 +155,8 @@ const SignUp = ({ onSignUp }) => {
 
         if (response.status === 200) {
           onSignUp(response.data);
-          alert("회원가입이 완료되었습니다.");
-          navigate("/signin");
+          //alert("회원가입이 완료되었습니다."); //이 부분 제거
+          setIsSignUpComplete(true); // 회원가입이 완료되면 완료 상태를 true로 설정
         }
       } catch (error) {
         console.error("Error during signup:", error);
@@ -166,6 +167,10 @@ const SignUp = ({ onSignUp }) => {
         }
       }
     }
+  };
+
+  const handleComplete = () => {
+    navigate("/signin"); // 로그인 화면으로 이동
   };
 
   // 모든 필수 약관 동의 핸들러
@@ -348,128 +353,150 @@ const SignUp = ({ onSignUp }) => {
         </div>
       )}
 
-      {step === 2 && (
-        <form onSubmit={handleSubmit}>
-          <div className="SignUp-back-btn-alt" onClick={handleBack}>
-            &lt;
-          </div>
-          {/* 두 번째 단계에서 사용되는 뒤로가기 버튼 */}
-          <div className="SignUp-profile-pic-container">
-            <label className="SignUp-profile-pic">
-              {profilePic ? (
-                <img
-                  src={profilePic}
-                  alt="Profile"
-                  style={{ borderRadius: "50%" }}
-                />
-              ) : (
-                ""
-              )}
-              <div className="SignUp-profile-pic-overlay">
-                <i className="fas fa-camera"></i> {/* 카메라 아이콘 추가 */}
+      {step === 2 &&
+        (!isSignUpComplete ? (
+          <>
+            <form onSubmit={handleSubmit}>
+              <div className="SignUp-back-btn-alt" onClick={handleBack}>
+                &lt;
               </div>
-              <input type="file" onChange={handleProfilePicChange} />
-            </label>
-          </div>
+              {/* 두 번째 단계에서 사용되는 뒤로가기 버튼 */}
+              <div className="SignUp-profile-pic-container">
+                <label className="SignUp-profile-pic">
+                  {profilePic ? (
+                    <img
+                      src={profilePic}
+                      alt="Profile"
+                      style={{ borderRadius: "50%" }}
+                    />
+                  ) : (
+                    ""
+                  )}
+                  <div className="SignUp-profile-pic-overlay">
+                    <i className="fas fa-camera"></i> {/* 카메라 아이콘 추가 */}
+                  </div>
+                  <input type="file" onChange={handleProfilePicChange} />
+                </label>
+              </div>
 
-          <div className="SignUp-form-group">
-            <label>
-              닉네임 <span className="required">*</span>
-            </label>
-            <div className="nickname-input-container">
-              <input
-                type="text"
-                placeholder="한글, 영문, 숫자가 포함될 수 있습니다"
-                value={nickname}
-                onChange={handleNicknameChange}
-              />
-              <button
-                type="button"
-                className="nickname-check-button"
-                onClick={() => checkUsernameDuplicate(nickname)}
+              <div className="SignUp-form-group">
+                <label>
+                  닉네임 <span className="required">*</span>
+                </label>
+                <div className="nickname-input-container">
+                  <input
+                    type="text"
+                    placeholder="한글, 영문, 숫자가 포함될 수 있습니다"
+                    value={nickname}
+                    onChange={handleNicknameChange}
+                  />
+                  <button
+                    type="button"
+                    className="nickname-check-button"
+                    onClick={() => checkUsernameDuplicate(nickname)}
+                  >
+                    닉네임 확인
+                  </button>
+                </div>
+                {nicknameError && (
+                  <p className="SignUp-error-message">{nicknameError}</p>
+                )}
+                {nicknameAvailableMessage && (
+                  <p className="SignUp-success-message">
+                    {nicknameAvailableMessage}
+                  </p>
+                )}
+              </div>
+
+              <div className="SignUp-form-group">
+                <label>
+                  이메일 <span className="required">*</span>
+                </label>
+                <input
+                  type="email"
+                  placeholder="you@syu.ac.kr"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                {emailError && (
+                  <p className="SignUp-error-message">{emailError}</p>
+                )}
+              </div>
+
+              <div
+                className="SignUp-form-group"
+                style={{ position: "relative" }}
               >
-                닉네임 확인
+                <label>
+                  비밀번호 <span className="required">*</span>
+                </label>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="8자 이상, 특수문자 포함"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  style={{ paddingRight: "40px" }}
+                />
+                <button
+                  type="button"
+                  className="SignUp-eye-btn"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  <i
+                    className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"}
+                  ></i>
+                </button>
+                {passwordError && (
+                  <p className="SignUp-error-message">{passwordError}</p>
+                )}
+              </div>
+
+              <div
+                className="SignUp-form-group"
+                style={{ position: "relative" }}
+              >
+                <label>
+                  비밀번호 다시 입력 <span className="required">*</span>
+                </label>
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  style={{ paddingRight: "40px" }}
+                />
+                <button
+                  type="button"
+                  className="SignUp-eye-btn"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  <i
+                    className={
+                      showConfirmPassword ? "fas fa-eye-slash" : "fas fa-eye"
+                    }
+                  ></i>
+                </button>
+                {confirmPasswordError && (
+                  <p className="SignUp-error-message">{confirmPasswordError}</p>
+                )}
+              </div>
+
+              <button type="submit" className="SignUp-continue-btn enabled">
+                완료
               </button>
-            </div>
-            {nicknameError && (
-              <p className="SignUp-error-message">{nicknameError}</p>
-            )}
-            {nicknameAvailableMessage && (
-              <p className="SignUp-success-message">
-                {nicknameAvailableMessage}
-              </p>
-            )}
-          </div>
-
-          <div className="SignUp-form-group">
-            <label>
-              이메일 <span className="required">*</span>
-            </label>
-            <input
-              type="email"
-              placeholder="you@syu.ac.kr"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            {emailError && <p className="SignUp-error-message">{emailError}</p>}
-          </div>
-
-          <div className="SignUp-form-group" style={{ position: "relative" }}>
-            <label>
-              비밀번호 <span className="required">*</span>
-            </label>
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="8자 이상, 특수문자 포함"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              style={{ paddingRight: "40px" }}
-            />
-            <button
-              type="button"
-              className="SignUp-eye-btn"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              <i
-                className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"}
-              ></i>
+            </form>
+          </>
+        ) : (
+          <div className="SignUp-complete-container">
+            <h2 className="SignUp-welcome-title">환영합니다!</h2>
+            <p className="SignUp-welcome-message">
+              Time To Travel 사용을 환영합니다. 이제 로그인 후 사용 가능한 모든
+              기능이 열렸습니다.
+            </p>
+            <button onClick={handleComplete} className="SignUp-complete-btn">
+              완료
             </button>
-            {passwordError && (
-              <p className="SignUp-error-message">{passwordError}</p>
-            )}
           </div>
-
-          <div className="SignUp-form-group" style={{ position: "relative" }}>
-            <label>
-              비밀번호 다시 입력 <span className="required">*</span>
-            </label>
-            <input
-              type={showConfirmPassword ? "text" : "password"}
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              style={{ paddingRight: "40px" }}
-            />
-            <button
-              type="button"
-              className="SignUp-eye-btn"
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            >
-              <i
-                className={
-                  showConfirmPassword ? "fas fa-eye-slash" : "fas fa-eye"
-                }
-              ></i>
-            </button>
-            {confirmPasswordError && (
-              <p className="SignUp-error-message">{confirmPasswordError}</p>
-            )}
-          </div>
-
-          <button type="submit" className="SignUp-continue-btn enabled">
-            완료
-          </button>
-        </form>
-      )}
+        ))}
     </div>
   );
 };
