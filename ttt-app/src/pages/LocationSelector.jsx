@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Autocomplete } from "@react-google-maps/api";
 import "./LocationSelector.css";
-import { LoadScript, Autocomplete } from "@react-google-maps/api";
-import "../assets/Search_icon.png";
-const libraries = ["places"];
 
 const LocationSelector = ({ onSelectLocation }) => {
   const [map, setMap] = useState(null);
@@ -77,15 +75,11 @@ const LocationSelector = ({ onSelectLocation }) => {
   };
 
   return (
-    <LoadScript
-      googleMapsApiKey={import.meta.env.VITE_GOOGLEMAP_API_KEY}
-      libraries={libraries}
-    >
+    <div>
       <Autocomplete
         onLoad={(autocomplete) => (autocompleteRef.current = autocomplete)}
         onPlaceChanged={onPlaceChanged}
       >
-        {/* <img src="../assets/Search_icon.png" /> */}
         <div className="SearchBar-container">
           <input className="searchBar" type="text" placeholder="장소 검색" />
         </div>
@@ -100,7 +94,7 @@ const LocationSelector = ({ onSelectLocation }) => {
         <Marker position={markerPosition} />
       </GoogleMap> */}
       <button onClick={handleConfirmLocation}>위치를 선택하시겠습니까?</button>
-    </LoadScript>
+    </div>
   );
 };
 
