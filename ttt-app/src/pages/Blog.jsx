@@ -12,7 +12,7 @@ const Blog = () => {
     <div>
       <div className="page-container">
         <div className="blog-container">
-          <Header homebtn={"홈으로"} text={"작성한 게시물"} />
+          <Header homebtn={" "} text={"내 작성 게시글"} />
           <PostList posts={posts} />
         </div>
       </div>

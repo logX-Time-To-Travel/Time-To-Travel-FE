@@ -1,4 +1,5 @@
 import Post from "./Post";
+import "./PostList.css";
 
 const PostList = ({ posts }) => {
   return (
