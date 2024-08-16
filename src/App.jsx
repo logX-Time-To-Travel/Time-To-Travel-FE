@@ -1,22 +1,23 @@
-import { PostProvider } from "./plugins/PostContext";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { LoadScript } from "@react-google-maps/api";
-import { useState } from "react";
-import Home from "./pages/Home";
-import Blog from "./pages/Blog";
-import Auth from "./pages/Auth";
-import SearchPage from "./pages/SearchPage";
-import AddPost from "./pages/AddPost";
-import Profile from "./pages/Profile";
-import SignUp from "./components/User/SignUp";
-import SignIn from "./components/User/SignIn";
-import MapHome from "./components/Map/MapHome";
-import Terms from "./components/User/Terms";
-import Tinymce from "./plugins/Tinymce";
-import Mypage from "./pages/Mypage";
-import PostDetail from "./pages/PostDetail";
+import { PostProvider } from './plugins/PostContext';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { LoadScript } from '@react-google-maps/api';
+import { useState } from 'react';
+import Home from './pages/Home';
+import Blog from './pages/Blog';
+import Auth from './pages/Auth';
+import SearchPage from './pages/SearchPage';
+import AddPost from './pages/AddPost';
+import Profile from './pages/Profile';
+import SignUp from './components/User/SignUp';
+import SignIn from './components/User/SignIn';
+import MapHome from './components/Map/MapHome';
+import Terms from './components/User/Terms';
+import Tinymce from './plugins/Tinymce';
+import Mypage from './pages/Mypage';
+import PostDetail from './pages/PostDetail';
+import './App.css';
 
-const libraries = ["places"];
+const libraries = ['places'];
 
 function App() {
   const [user, setUser] = useState(null);
@@ -56,12 +57,12 @@ function App() {
               path="/map"
               element={user ? <MapHome /> : <Navigate to="/signin" />}
             />
-            <Route path="/profile" element={user ? <MapHome /> : <Profile />} />{" "}
+            <Route path="/profile" element={user ? <MapHome /> : <Profile />} />{' '}
             {/* 사용자 로그인 시 지도 페이지로 이동 */}
             <Route
               path="/signup"
               element={<SignUp onSignUp={handleSignUp} />}
-            />{" "}
+            />{' '}
             {/* SignUp 라우트에 onSignUp 핸들러 추가 */}
             <Route
               path="/signin"
@@ -69,13 +70,13 @@ function App() {
                 <SignIn
                   onSignIn={(user) => {
                     handleSignIn(user);
-                    window.location.href = "/home";
+                    window.location.href = '/home';
                   }}
                 />
               }
-            />{" "}
+            />{' '}
             {/* SignIn 라우트에 onSignIn 핸들러 수정: 로그인 후 /home으로 이동 */}
-            <Route path="/terms/:type" element={<Terms />} />{" "}
+            <Route path="/terms/:type" element={<Terms />} />{' '}
             {/* Terms 컴포넌트에 대한 라우트 추가 */}
           </Routes>
         </BrowserRouter>
