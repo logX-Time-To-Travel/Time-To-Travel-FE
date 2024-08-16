@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar/Navbar';
 import './PostDetail.css';
 import axios from 'axios';
@@ -12,6 +12,7 @@ import starAfter from '../assets/star-after.png';
 
 const PostDetail = () => {
   const { id } = useLocation();
+  const navigate = useNavigate();
   const [post, setPost] = useState({
     id: null,
     title: '',
@@ -72,7 +73,17 @@ const PostDetail = () => {
   };
 
   const handleDeleteClick = () => {
-    // 수정 작업
+    if (confirm('게시물을 삭제하겠습니까?')) {
+      axios
+        .delete(`/post/${id}`)
+        .then(() => {
+          alert('삭제되었습니다.');
+          navigate(`member/${post.username}`);
+        })
+        .catch(
+          alert('오류로 게시글을 삭제할 수 없습니다. 다시 시도해 주세요.')
+        );
+    }
   };
 
   useEffect(() => {
@@ -139,7 +150,26 @@ const PostDetail = () => {
           className="post-detail-content"
           dangerouslySetInnerHTML={{ __html: post.data }}
         />
+        <div className="post-detail-info-container">
+          <div className="post-detail-info-profile">
+            <img
+              src={post.profileImageUrl}
+              alt="Profile"
+              className="post-detail-info-image"
+            />
+            <div>
+              <div className="post-detail-info-username">{post.username}</div>
+              <div className="post-detail-info-posts">
+                작성 게시글 {post.postCount}개
+              </div>
+            </div>
+          </div>
+          <div className="post-detail-info-introduction">
+            {post.introduction}
+          </div>
+        </div>
       </div>
+
       <div className="post-detail-footer">
         <div className="post-detail-more">
           <div className="post-detail-more-leftside">
