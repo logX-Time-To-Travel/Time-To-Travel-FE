@@ -1,0 +1,116 @@
+.searchMap-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #ffffff;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #e1e1e1;
+  height: 50px;
+}
+
+.back-button {
+  margin-right: 10px;
+  margin-top: 5px;
+  background: none;
+  border: none;
+
+  cursor: pointer;
+}
+
+.searchMap-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-top: 5px;
+  border-radius: 4px;
+  font-size: 12px;
+  border: none;
+}
+
+.searchMap-button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  background: url("https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-search-strong-512.png")
+    no-repeat center;
+  background-size: 20px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+}
+
+.searchMap-button:hover {
+  opacity: 0.8; /* 마우스 오버 시 투명도 조정 */
+}
+
+.history-container {
+  flex: 1;
+  padding: 10px;
+}
+
+.history-container h3 {
+  margin: 0 0 10px 0;
+}
+
+.history-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.history-container li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 왼쪽과 오른쪽 요소 간의 공간 분배 */
+  padding: 5px 0;
+  border-bottom: 1px solid #e1e1e1;
+  color: black; /* 글자색을 검정색으로 설정 */
+  transition: background-color 0.3s; /* 부드러운 배경색 전환 효과 */
+  height: 40px;
+}
+
+.history-container li:hover {
+  background-color: #f0f0f0; /* 호버 시 배경색 변경 */
+}
+
+.marker-icon {
+  width: 10px; /* 마커 아이콘 크기 조정 */
+  height: 10px;
+  margin-right: 8px; /* 아이콘과 글자 사이의 간격 */
+  background-color: black; /* 마커 아이콘 색상 */
+  border-radius: 50%; /* 둥근 모양으로 만들기 */
+}
+
+.delete-button {
+  height: 30px;
+  width: 10px; /* 버튼 너비 조정 */
+  color: black;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 중앙 정렬 */
+  margin-left: auto; /* 오른쪽 끝으로 이동 */
+  margin-right: -30px;
+}
+
+.delete-button:active {
+  background: none;
+}
+
+@media (max-width: 550px) {
+  .searchMap-input {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 415px) {
+  .searchMap-input {
+    font-size: 11px;
+  }
+}

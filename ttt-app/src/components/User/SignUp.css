@@ -1,43 +1,194 @@
-/* SignUp.css */
+/* Global Styles */
+.required {
+  color: #ee2448;
+}
+
+/* First Step Styles (약관 동의) */
+/* 전체 레이아웃 및 배경 */
 .SignUp-container {
-  max-width: 400px;
+  max-width: 430px;
+  height: 932px;
   margin: auto;
   padding: 2rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
-  text-align: left;
+  background: #fafafa;
   position: relative;
 }
 
-.SignUp-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 2rem;
-  position: relative; /* 추가 */
-}
-
-.SignUp-back-btn {
-  font-size: 1.5rem;
-  cursor: pointer;
-  position: absolute; /* 변경 */
-  top: 10px; /* 상단에서 10px */
-  left: 10px; /* 왼쪽에서 10px */
+/* 페이지 헤더 */
+.SignUp-title {
+  font-family: "Outfit", sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 35px;
+  color: #000000;
+  margin-left: 34px;
+  margin-top: 137px;
 }
 
 .SignUp-description {
-  color: #555555;
-  font-size: 1rem;
-  text-align: center;
-  margin-bottom: 2rem;
-  margin-top: 1rem; /* 추가: 상단 여백 */
+  font-family: "Outfit", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: #484848;
+  margin-left: 34px;
+  margin-top: 20px;
 }
 
+/* 약관 동의 섹션 */
+.SignUp-terms-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  gap: 5px;
+  position: absolute;
+  width: 388px;
+  left: 21px;
+  top: 312px;
+}
+
+/* 필수 약관 전체 동의 */
+.SignUp-agreement {
+  width: 388px;
+  height: 40px;
+  background: #ffffff;
+  box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.03);
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.SignUp-agreement.active {
+  background: #ffffff;
+  color: #0d2af0;
+  box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.03);
+}
+
+.SignUp-agreement .text {
+  font-family: "Outfit", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: #000000;
+}
+
+.SignUp-agreement.active .text {
+  color: #0d2af0;
+}
+
+/* 약관 세부 항목 */
+.SignUp-term-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 388px;
+  height: 30px; /* 높이 줄이기 */
+  border-radius: 12px;
+  background: none;
+  box-shadow: none; /* 그림자 제거 */
+  padding: 0 10px; /* 좌우 패딩 줄이기 */
+  margin-bottom: 8px; /* 아래 간격 줄이기 */
+  cursor: pointer;
+}
+
+.SignUp-term-item.active .text,
+.SignUp-term-item.active .icon {
+  color: #0d2af0;
+}
+
+.SignUp-term-item .text {
+  display: flex;
+  align-items: center;
+  font-family: "Outfit", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  color: #979797;
+}
+
+.SignUp-term-item .required {
+  color: #ee2448;
+  font-weight: 700;
+  margin-left: 5px;
+}
+
+.SignUp-term-item .icon {
+  font-size: 1.5rem;
+  color: #979797;
+  background: none;
+  border: none;
+  line-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 버튼 스타일 */
+
+/* Back Button */
+.SignUp-back-btn {
+  position: absolute;
+  width: 100%; /* 계속하기 버튼과 동일한 너비 */
+  height: 44px; /* 계속하기 버튼과 동일한 높이 */
+  left: 0px; /* 계속하기 버튼과 동일한 위치 */
+  top: 715px; /* 기존 top 속성에서 약간 위로 당겨 조정 */
+  background: none;
+  border-radius: 12px;
+  font-family: "Outfit", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  letter-spacing: -0.03em;
+  color: #979797;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.SignUp-back-btn:hover {
+  color: #555555;
+}
+
+/* Continue Button */
+.SignUp-continue-btn {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  margin-top: 20px; /* 상단 여백 추가 */
+  box-shadow: 0px 4px 12px rgba(13, 42, 240, 0.4);
+}
+
+.SignUp-continue-btn.enabled {
+  background-color: #0d2af0; /* 강조된 상태 */
+  color: #ffc700; /* 텍스트 색상 */
+  box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.03);
+}
+
+.SignUp-continue-btn.disabled {
+  background-color: #d4d4d4; /* 비활성화 상태 */
+  box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.03);
+}
+
+/* 기타 스타일 */
 .SignUp-profile-pic-container {
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
+  margin-top: 40px; /* 프로필 이미지를 더 아래로 이동 */
 }
 
 .SignUp-profile-pic {
@@ -66,78 +217,84 @@
   margin-bottom: 0.5rem;
 }
 
-.SignUp-form-group label .SignUp-required {
-  color: pink;
-}
-
 .SignUp-form-group input {
   width: 100%;
   padding: 0.5rem;
-  padding-right: 2.5rem; /* 오른쪽 여백 추가 */
+  padding-right: 2.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.SignUp-form-group .SignUp-eye-btn {
+/* 비밀번호 필드의 아이콘 버튼 */
+.SignUp-eye-btn {
   position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
+  right: 10px; /* 오른쪽에 고정된 위치 */
+  top: 50%; /* 상단에서 50% */
+
   cursor: pointer;
   background: none;
   border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1rem; /* 아이콘 크기 조정 */
+  color: #686868; /* 아이콘 색상 */
+  z-index: 2; /* 아이콘이 다른 요소들 위에 오도록 */
+  width: 24px; /* 버튼 크기 고정 */
+  height: 24px; /* 버튼 크기 고정 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.SignUp-form-group .SignUp-error-message {
-  color: pink;
+/* 입력 필드의 오른쪽 패딩을 넓게 설정해 아이콘이 들어갈 공간 확보 */
+.SignUp-form-group input {
+  padding-right: 50px; /* 아이콘이 위치할 공간을 더 확보 */
+  box-sizing: border-box; /* 패딩이 포함된 크기로 계산 */
+}
+
+/* 아이콘 자체에 대한 스타일 */
+.SignUp-eye-btn i {
+  font-size: 18px; /* 아이콘 크기 조정 */
+  color: #686868; /* 아이콘 색상 */
+}
+
+.SignUp-error-message {
+  color: red;
   font-size: 0.875rem;
-  text-align: right;
+  position: absolute; /* 위치를 절대적으로 설정 */
+  top: 50%; /* 입력 필드의 중간 높이에 맞추기 */
+  right: 0; /* 오른쪽 끝에 위치 */
+  transform: translateY(-155%); /* 중간 정렬 */
+  white-space: nowrap; /* 줄바꿈 방지 */
+  text-align: right; /* 오른쪽 정렬 */
 }
 
-.SignUp-continue-btn {
-  width: 100%;
-  padding: 1rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  margin-bottom: 1rem;
+.SignUp-success-message {
+  color: blue;
+  font-size: 0.875rem;
+  position: absolute; /* 위치를 절대적으로 설정 */
+  top: 50%; /* 입력 필드의 중간 높이에 맞추기 */
+  right: 0; /* 오른쪽 끝에 위치 */
+  transform: translateY(-185%); /* 중간 정렬 */
+  white-space: nowrap; /* 줄바꿈 방지 */
+  text-align: right; /* 오른쪽 정렬 */
+}
+
+.nickname-input-container {
+  display: flex;
+  align-items: center;
+}
+
+.nickname-check-button {
+  margin-left: 10px;
+  padding: 5px 10px;
   background-color: #007bff;
   color: white;
-}
-
-.SignUp-back-btn {
-  width: 100%;
-  padding: 1rem;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  color: #555555;
+  border-radius: 5px;
   cursor: pointer;
-  background: none;
 }
 
-.SignUp-agreement {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background: #f0f0f0;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-}
-
-.SignUp-agreement.active {
-  background: #007bff;
-  color: white;
-}
-
-.SignUp-agreement .text {
-  flex-grow: 1;
-  margin-right: 1rem;
-}
-
-.SignUp-agreement .icon {
-  font-size: 1.5rem;
+.nickname-check-button:hover {
+  background-color: #0056b3;
 }

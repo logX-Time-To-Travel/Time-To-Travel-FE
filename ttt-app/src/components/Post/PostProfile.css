@@ -1,0 +1,50 @@
+.post-profile-container {
+  padding-left: 40px;
+  padding-right: 40px;
+  margin-bottom: 150px;
+}
+
+.post-profile-user {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.post-profile-image {
+  background-color: #888;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.post-profile-username {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.post-profile-posts {
+  font-size: 14px;
+  color: #888;
+}
+
+.post-profile-introduction {
+  position: relative;
+  font-size: 14px;
+  line-height: 1.5;
+  background-color: #f0f0f0;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.post-profile-introduction::before {
+  content: '';
+  position: absolute;
+  top: -15px; /* 화살표를 위쪽으로 이동 */
+  left: 20px; /* 화살표를 프로필 이미지 위치에 맞게 조정 */
+  border-width: 0 15px 15px 15px;
+  border-style: solid;
+  border-color: transparent transparent #f0f0f0 transparent;
+}

@@ -1,13 +1,15 @@
-import { Link } from "react-router-dom";
-import "@fortawesome/fontawesome-free/css/all.css";
-import "./Navbar.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import '@fortawesome/fontawesome-free/css/all.css';
+import './Navbar.css';
+
 
 const Navbar = () => {
   return (
     <div className="navigation-bar">
       <Link
         to="/"
-        className={`nav-item ${location.pathname === "/home" ? " active" : ""}`}
+        className={`nav-item ${location.pathname === '/home' ? ' active' : ''}`}
       >
         <i className="fas fa-map-marker-alt"></i>
         <span>지도</span>
@@ -15,7 +17,7 @@ const Navbar = () => {
       <Link
         to="/addpost"
         className={`nav-item ${
-          location.pathname === "/addpost" ? " active" : ""
+          location.pathname === '/addpost' ? ' active' : ''
         }`}
       >
         <i className="fas fa-edit"></i>
@@ -24,7 +26,7 @@ const Navbar = () => {
       <Link
         to="/mypage"
         className={`nav-item ${
-          location.pathname === "/mypage" ? " active" : ""
+          location.pathname === '/mypage' ? ' active' : ''
         }`}
       >
         <i className="fas fa-user"></i>
@@ -33,7 +35,7 @@ const Navbar = () => {
       <Link
         to="/search"
         className={`nav-item ${
-          location.pathname === "/search" ? " active" : ""
+          location.pathname === '/search' ? ' active' : ''
         }`}
       >
         <i className="fas fa-star"></i>

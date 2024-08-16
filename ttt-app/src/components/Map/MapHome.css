@@ -102,6 +102,30 @@
   cursor: pointer;
 }
 
+.suggestions-list {
+  position: absolute;
+  top: 100%; /* 검색창 바로 아래 위치 */
+  left: 5; /* 왼쪽 정렬 */
+  background-color: white;
+  margin-left: -5px;
+  border-radius: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  width: calc(100% - 10px);
+  margin-top: -50px;
+}
+
+.suggestions-list li {
+  padding: 10px; /* 각 항목의 여백 */
+  cursor: pointer; /* 포인터 커서 */
+  transition: background-color 0.3s; /* 배경 색상 변화 애니메이션 */
+}
+
+.suggestions-list li:hover {
+  background-color: #f0f0f0; /* 마우스 오버 시 배경색 변화 */
+}
+
 .mobile-btn {
   background-color: #ffffff;
   display: flex;
@@ -129,6 +153,7 @@
   position: absolute;
   right: 10px;
 }
+
 @media (max-width: 550px) {
   .map-controls button.current-location {
     position: fixed;
