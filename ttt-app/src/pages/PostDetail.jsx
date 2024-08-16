@@ -31,6 +31,7 @@ const PostDetail = () => {
   const [locationText, setLocationText] = useState('');
   const [isLiked, setIsLiked] = useState(false);
   const [isScrapped, setIsScrapped] = useState(false);
+  const [headerColor, setHeaderColor] = useState('#FAA500');
 
   const fetchData = async () => {
     const userResponse = await axios.get('/member/session');
@@ -75,6 +76,21 @@ const PostDetail = () => {
   };
 
   useEffect(() => {
+    const colors = [
+      '#FAA500', // 주황색
+      '#88C137', // 초록색
+      '#EE2448', // 빨간색
+      '#23BEC3', // 하늘색
+      '#27BFB3', // 청록색
+      '#C91AA9', // 핑크색
+      '#7360DC', // 보라색
+      '#97ACB6', // 회색
+    ];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    setHeaderColor(randomColor);
+  }, []);
+
+  useEffect(() => {
     // fetchData();     // API 호출 함수 주석 처리
 
     setPost(dummyPost); // 더미데이터 사용
@@ -107,7 +123,10 @@ const PostDetail = () => {
   return (
     <div className="post-detail-container">
       <div className="post-detail-scrollable">
-        <div className="post-detail-header">
+        <div
+          className="post-detail-header"
+          style={{ backgroundColor: headerColor }}
+        >
           <div className="post-detail-title">{post.title}</div>
           <div className="post-detail-info">
             <span className="post-detail-username">{post.username}</span>
