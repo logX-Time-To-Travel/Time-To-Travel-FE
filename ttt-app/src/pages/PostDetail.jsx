@@ -10,6 +10,7 @@ import commentsIcon from '../assets/Comments.png';
 import starBefore from '../assets/star-before.png';
 import starAfter from '../assets/star-after.png';
 import PostProfile from '../components/Post/PostProfile';
+import PostMore from '../components/Post/PostMore';
 
 const PostDetail = () => {
   const { id } = useLocation();
@@ -161,39 +162,23 @@ const PostDetail = () => {
       </div>
 
       <div className="post-detail-footer">
-        <div className="post-detail-more">
-          <div className="post-detail-more-leftside">
-            <div className="post-detail-likes" onClick={handleLikeClick}>
-              <img src={isLiked ? heartAfter : heartBefore} alt="Like" />
-              {post.likeCount}
-            </div>
-            <div className="post-detail-comments">
-              <img src={commentsIcon} alt="Comments" />
-              {post.commentCount}
-            </div>
-          </div>
-          <div className="post-detail-more-rightside">
-            <div className="post-detail-scrap" onClick={handleScrapClick}>
-              <img src={isScrapped ? starAfter : starBefore} alt="Scrap" />
-            </div>
-            {isAuthor && (
-              <div className="post-detail-more-buttons">
-                <button
-                  className="post-detail-more-edit"
-                  onClick={handleEditClick}
-                >
-                  수정
-                </button>
-                <button
-                  className="post-detail-more-delete"
-                  onClick={handleDeleteClick}
-                >
-                  삭제
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
+        <PostMore
+          handleLikeClick={handleLikeClick}
+          handleScrapClick={handleScrapClick}
+          handleEditClick={handleEditClick}
+          handleDeleteClick={handleDeleteClick}
+          isLiked={isLiked}
+          isScrapped={isScrapped}
+          isAuthor={isAuthor}
+          likeCount={post.likeCount}
+          commentCount={post.commentCount}
+          heartAfter={heartAfter}
+          heartBefore={heartBefore}
+          starAfter={starAfter}
+          starBefore={starBefore}
+          commentsIcon={commentsIcon}
+        />
+
         <Navbar />
       </div>
     </div>

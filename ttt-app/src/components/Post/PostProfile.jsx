@@ -1,3 +1,5 @@
+import './PostProfile.css';
+
 const PostProfile = ({
   profileImageUrl,
   username,
@@ -5,21 +7,19 @@ const PostProfile = ({
   introduction,
 }) => {
   return (
-    <div className="post-detail-info-container">
-      <div className="post-detail-info-profile">
+    <div className="post-profile-container">
+      <div className="post-profile-user">
         <img
           src={profileImageUrl}
           alt="Profile"
-          className="post-detail-info-image"
+          className="post-profile-image"
         />
         <div>
-          <div className="post-detail-info-username">{username}</div>
-          <div className="post-detail-info-posts">
-            작성 게시글 {postCount}개
-          </div>
+          <div className="post-profile-username">{username}</div>
+          <div className="post-profile-posts">작성 게시글 {postCount}개</div>
         </div>
       </div>
-      <div className="post-detail-info-introduction">{introduction}</div>
+      <div className="post-profile-introduction">{introduction}</div>
     </div>
   );
 };
