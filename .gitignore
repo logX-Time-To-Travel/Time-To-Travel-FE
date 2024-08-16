@@ -13,6 +13,7 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+desktop.ini
 *.local
 
 # Editor directories and files
