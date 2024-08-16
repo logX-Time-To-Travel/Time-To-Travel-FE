@@ -1,5 +1,5 @@
-/* Global Styles */
-.required {
+/* SignUp 컴포넌트 안에서만 전역 적용. */
+.SignUp-container .required {
   color: #ee2448;
 }
 
@@ -187,19 +187,45 @@
 .SignUp-profile-pic-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 2rem;
-  margin-top: 40px; /* 프로필 이미지를 더 아래로 이동 */
+  margin-top: 50px;
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 1; /* 기본 이미지의 z-index를 설정하여 가장 위에 렌더링되도록 설정 */
 }
 
 .SignUp-profile-pic {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   background-color: #f0f0f0;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  position: relative; /* overlay를 위치시키기 위해 relative 설정 */
+}
+
+.SignUp-profile-pic-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 정중앙에 위치시키기 위한 설정 */
+  color: #ffffff; /* 표식의 색상 */
+  font-size: 24px; /* 아이콘 또는 텍스트 크기 */
+  pointer-events: none; /* overlay가 클릭 이벤트를 방해하지 않도록 설정 */
+}
+
+.SignUp-profile-pic-overlay i {
+  color: #ffffff; /* 아이콘의 색상 */
+  font-size: 24px; /* 아이콘의 크기 */
+  z-index: 1; /* 아이콘의 z-index를 낮게 설정하여 이미지 아래에 위치하게 설정 */
+}
+
+.SignUp-profile-pic img {
+  width: 100%; /* 이미지가 컨테이너에 맞게 조정되도록 설정 */
+  height: 100%;
+  border-radius: 50%; /* 둥근 모양 유지 */
+  z-index: 2; /* 이미지를 아이콘보다 위로 렌더링되도록 설정 */
 }
 
 .SignUp-profile-pic input {
@@ -256,6 +282,7 @@
 .SignUp-eye-btn i {
   font-size: 18px; /* 아이콘 크기 조정 */
   color: #686868; /* 아이콘 색상 */
+  margin-top: 4px; /* 아이콘을 아래로 미세 이동 */
 }
 
 .SignUp-error-message {

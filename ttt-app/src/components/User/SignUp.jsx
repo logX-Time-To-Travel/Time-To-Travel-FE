@@ -43,7 +43,12 @@ const SignUp = ({ onSignUp }) => {
 
   // 프로필 사진 변경 핸들러
   const handleProfilePicChange = (e) => {
-    setProfilePic(URL.createObjectURL(e.target.files[0])); // 프로필 사진 미리보기 설정
+    const file = e.target.files[0]; //파일 미리보기 설정
+    if (file) {
+      setProfilePic(URL.createObjectURL(file));
+    } else {
+      setProfilePic(null); // 이미지가 없을 때 상태를 null로 설정
+    }
   };
 
   // 닉네임 입력값 변경 시 nicknameError 초기화 함수
@@ -360,6 +365,9 @@ const SignUp = ({ onSignUp }) => {
               ) : (
                 ""
               )}
+              <div className="SignUp-profile-pic-overlay">
+                <i className="fas fa-camera"></i> {/* 카메라 아이콘 추가 */}
+              </div>
               <input type="file" onChange={handleProfilePicChange} />
             </label>
           </div>
