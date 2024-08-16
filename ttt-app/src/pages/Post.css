@@ -19,24 +19,31 @@
 }
 
 .post-images {
+  position: relative;
   width: 100%; 
-  height: 200px; 
+  height: 220px; 
   border-radius: 6px;
   margin-bottom: 5px;
   overflow: hidden; 
-  background-color: #e1e1e1;
+  background-color: #c6c5c5;
 }
 
 .post-images img {
   width: 100%; 
   height: 100%;
   object-fit: cover; 
+  display: block;
 
 }
 
 .post-location {
-  color: #fdba34ee;
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  color: #ffffff;
   font-weight: bold;
+  padding: 4px 8px;
+  font-size: 12px;
 }
 
 .post-title {

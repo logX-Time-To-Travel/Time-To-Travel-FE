@@ -42,7 +42,7 @@ export default function Tinymce() {
       id: Date.now(),
       title,
       content,
-      location: { ...location },
+      location,
       images: [],
       memberId,
     };

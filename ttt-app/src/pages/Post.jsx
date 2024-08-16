@@ -23,13 +23,14 @@ const Post = ({ post }) => {
     <div className="post">
       <div className="post-images">
         {/* <img src={post.images[0]} alt={key} /> */}
+        <div className="post-location">{post.location.address}</div>
       </div>
 
       <div className="post-container">
         <div className="post-title">
           <h3>{post.title}</h3>
         </div>
-        {/* <div className="post-location">{post.location.address}</div> */}
+      
         
         {/* <div className="post-content">
           {post.content.replace(/<\/?[^>]+(>|$)/g, "")}

@@ -26,13 +26,17 @@ const LocationSelector = ({ onSelectLocation }) => {
   }, []);
 
   const fetchAddress = (lat, lng) => {
-    const geocoder = new window.google.maps.Geocoder();
-    geocoder.geocode({ location: { lat, lng } }, (results, status) => {
-      if (status === "OK" && results[0]) {
-        setAddress(results[0].formatted_address);
-      } else {
-        console.error("Error fetching address");
-      }
+    return new Promise((resolve, reject) => {
+      const geocoder = new window.google.maps.Geocoder();
+      geocoder.geocode({ location: { lat, lng } }, (results, status) => {
+        if (status === "OK" && results[0]) {
+          setAddress(results[0].formatted_address);
+          resolve(results[0].formatted_address); // 성공 시 resolve 호출
+        } else {
+          console.error("Error fetching address");
+          reject("Error fetching address"); // 실패 시 reject 호출
+        }
+      });
     });
   };
 
@@ -47,8 +51,16 @@ const LocationSelector = ({ onSelectLocation }) => {
     setMap(null);
   };
 
-  const handleConfirmLocation = () => {
-    onSelectLocation(markerPosition.lat, markerPosition.lng, address);
+  const handleConfirmLocation = async () => {
+    if (markerPosition) {
+      await fetchAddress(markerPosition.lat, markerPosition.lng); // 주소를 먼저 업데이트
+      console.log("Lat:", markerPosition.lat);
+      console.log("Lng:", markerPosition.lng);
+      console.log("Address:", address);
+      onSelectLocation(markerPosition.lat, markerPosition.lng, address);
+    } else {
+      console.error("Marker position is not set.");
+    }
   };
 
   const onPlaceChanged = () => {
@@ -75,8 +87,7 @@ const LocationSelector = ({ onSelectLocation }) => {
       >
         {/* <img src="../assets/Search_icon.png" /> */}
         <div className="SearchBar-container">
-          <input className="searchBar" type="text" placeholder="장소 검색"
-           />
+          <input className="searchBar" type="text" placeholder="장소 검색" />
         </div>
       </Autocomplete>
       {/* <GoogleMap
