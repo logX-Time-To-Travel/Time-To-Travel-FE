@@ -63,8 +63,44 @@
 }
 
 .history-container li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 왼쪽과 오른쪽 요소 간의 공간 분배 */
   padding: 5px 0;
   border-bottom: 1px solid #e1e1e1;
+  color: black; /* 글자색을 검정색으로 설정 */
+  transition: background-color 0.3s; /* 부드러운 배경색 전환 효과 */
+  height: 40px;
+}
+
+.history-container li:hover {
+  background-color: #f0f0f0; /* 호버 시 배경색 변경 */
+}
+
+.marker-icon {
+  width: 10px; /* 마커 아이콘 크기 조정 */
+  height: 10px;
+  margin-right: 8px; /* 아이콘과 글자 사이의 간격 */
+  background-color: black; /* 마커 아이콘 색상 */
+  border-radius: 50%; /* 둥근 모양으로 만들기 */
+}
+
+.delete-button {
+  height: 30px;
+  width: 10px; /* 버튼 너비 조정 */
+  color: black;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 중앙 정렬 */
+  margin-left: auto; /* 오른쪽 끝으로 이동 */
+  margin-right: -30px;
+}
+
+.delete-button:active {
+  background: none;
 }
 
 @media (max-width: 550px) {

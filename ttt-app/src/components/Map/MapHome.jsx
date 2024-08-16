@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import './MapHome.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import "./MapHome.css";
 
 const MapHome = () => {
   const [map, setMap] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [currentPosition, setCurrentPosition] = useState({ lat: 0, lng: 0 });
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 1024);
   const navigate = useNavigate();
@@ -15,13 +15,13 @@ const MapHome = () => {
   useEffect(() => {
     // URL에서 검색어 추출
     const params = new URLSearchParams(location.search);
-    const query = params.get('query');
+    const query = params.get("query");
     if (query) {
       setSearchQuery(query);
     }
 
     // 구글 맵 API 스크립트 로드
-    const script = document.createElement('script');
+    const script = document.createElement("script");
     script.src = `https://maps.googleapis.com/maps/api/js?key=${
       import.meta.env.VITE_GOOGLEMAP_API_KEY
     }&libraries=places`;
@@ -32,7 +32,7 @@ const MapHome = () => {
       setIsMobileView(window.innerWidth <= 1024);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     // 지도 초기화
     const initMap = () => {
@@ -42,7 +42,7 @@ const MapHome = () => {
           setCurrentPosition({ lat: latitude, lng: longitude });
 
           const map = new window.google.maps.Map(
-            document.getElementById('map'),
+            document.getElementById("map"),
             {
               center: { lat: latitude, lng: longitude },
               zoom: 13,
@@ -58,7 +58,7 @@ const MapHome = () => {
           const marker = new window.google.maps.Marker({
             position: { lat: latitude, lng: longitude },
             map,
-            title: '내 위치',
+            title: "내 위치",
           });
           setMarkers((prevMarkers) => [...prevMarkers, marker]);
 
@@ -68,9 +68,9 @@ const MapHome = () => {
           }
         },
         (error) => {
-          console.error('Error getting current position:', error);
+          console.error("Error getting current position:", error);
           const map = new window.google.maps.Map(
-            document.getElementById('map'),
+            document.getElementById("map"),
             {
               center: { lat: 37.5665, lng: 126.978 },
               zoom: 13,
@@ -95,7 +95,7 @@ const MapHome = () => {
 
     return () => {
       document.body.removeChild(script);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, [location.search]);
 
@@ -103,7 +103,7 @@ const MapHome = () => {
     if (searchQuery) {
       const geocoder = new window.google.maps.Geocoder();
       geocoder.geocode({ address: searchQuery }, (results, status) => {
-        if (status === 'OK') {
+        if (status === "OK") {
           const { location } = results[0].geometry;
           mapInstance.setCenter(location);
           mapInstance.setZoom(13);
@@ -114,7 +114,7 @@ const MapHome = () => {
           });
           infowindow.open(mapInstance);
         } else {
-          console.error('검색 실패', status);
+          console.error("검색 실패", status);
         }
       });
     }
@@ -156,18 +156,18 @@ const MapHome = () => {
         const marker = new window.google.maps.Marker({
           position: currentPosition,
           map,
-          title: '내 위치',
+          title: "내 위치",
         });
         setMarkers((prevMarkers) => [...prevMarkers, marker]);
       },
       (error) => {
-        console.error('Error getting current position:', error);
+        console.error("Error getting current position:", error);
       }
     );
   };
 
   const handleSearchBarClick = () => {
-    navigate('/search');
+    navigate("/search");
   };
 
   return (
@@ -182,7 +182,7 @@ const MapHome = () => {
               value={searchQuery}
               onChange={handleSearchChange}
               onKeyPress={(e) => {
-                if (e.key === 'Enter') {
+                if (e.key === "Enter") {
                   handleSearch(searchQuery, map);
                 }
               }}
