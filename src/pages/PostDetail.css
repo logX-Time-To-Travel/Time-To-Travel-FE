@@ -1,4 +1,5 @@
 .post-detail-container {
+  font-family: var(--Outfit);
   display: flex;
   flex-direction: column;
   height: 100vh;
