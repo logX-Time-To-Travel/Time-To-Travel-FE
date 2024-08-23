@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import './Comment.css';
+import BackIcon from '../assets/Icon_ Back 1.png';
 import { useState } from 'react';
 
 const Comment = () => {
@@ -89,7 +90,7 @@ const Comment = () => {
             navigate(`/post/${id}`);
           }}
         >
-          뒤로가기
+          <img src={BackIcon} />
         </div>
         <div className="comment-title">댓글 {dummyData.commentCount}개</div>
       </div>
