@@ -6,6 +6,7 @@ const Comment = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [expandedCommentId, setExpandedCommentId] = useState(null);
+  const [username, setUsername] = useState('tester2');
 
   const handleToggleExpand = (id) => {
     setExpandedCommentId(expandedCommentId === id ? null : id);
@@ -94,6 +95,7 @@ const Comment = () => {
       </div>
       <div className="comment-array">
         {dummyData.comments.map((comment) => {
+          const isAuthor = username === comment.username;
           const isExpanded = expandedCommentId === comment.id;
           const isLongContent = comment.content.length > 130;
 
@@ -111,13 +113,21 @@ const Comment = () => {
                     : `${comment.content.slice(0, 130)}...`}
                 </div>
                 <div className="comment-more">
-                  {isLongContent && (
-                    <button
-                      className="comment-toggle"
-                      onClick={() => handleToggleExpand(comment.id)}
-                    >
-                      {isExpanded ? '접기' : '더보기'}
-                    </button>
+                  <div>
+                    {isLongContent && (
+                      <button
+                        className="comment-toggle"
+                        onClick={() => handleToggleExpand(comment.id)}
+                      >
+                        {isExpanded ? '접기' : '더보기'}
+                      </button>
+                    )}
+                  </div>
+                  {isAuthor && (
+                    <div className="comment-edit">
+                      <button className="comment-button">수정</button>
+                      <button className="comment-button">삭제</button>
+                    </div>
                   )}
                 </div>
                 <div className="comment-time">{comment.time}</div>
@@ -132,7 +142,7 @@ const Comment = () => {
           className="comment-input"
           placeholder="댓글을 입력하세요..."
         />
-        <button className="comment-button">전송</button>
+        <button className="comment-submit">전송</button>
       </div>
     </div>
   );
