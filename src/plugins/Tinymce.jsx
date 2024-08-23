@@ -8,13 +8,13 @@ import PostContext from './PostContext';
 
 export default function Tinymce() {
   const { addPost } = useContext(PostContext);
-  const editorRef = useRef(null); // 에디터 참조 설정
-  const [title, setTitle] = useState(''); // 제목 상태 설정
+  const editorRef = useRef(null); 
+  const [title, setTitle] = useState('');
   const [location, setLocation] = useState({ lat: '', lng: '', address: '' }); // 위치 상태 설정
-  const [showMap, setShowMap] = useState(false); // 지도 표시 상태 설정
-  const [memberId, setMemberId] = useState(''); // 멤버 ID 상태 설정
+  const [showMap, setShowMap] = useState(false); 
+  const [memberId, setMemberId] = useState(''); 
 
-  // 멤버 세션 정보를 가져오는 비동기 함수
+
   const fetchMemberSession = async () => {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -23,7 +23,6 @@ export default function Tinymce() {
     });
   };
 
-  // 컴포넌트가 마운트될 때 멤버 정보를 가져오는 useEffect 훅
   useEffect(() => {
     const getMemberInfo = async () => {
       const data = await fetchMemberSession();
@@ -35,7 +34,6 @@ export default function Tinymce() {
     getMemberInfo();
   }, []);
 
-  // 새 포스트를 저장하는 함수
   const handleSave = () => {
     const content = editorRef.current.getContent();
     const newPost = {
@@ -46,11 +44,11 @@ export default function Tinymce() {
       images: [],
       memberId,
     };
-    addPost(newPost); // addPost 함수 호출
+    addPost(newPost);
     console.log(newPost);
   };
 
-  // 위치가 선택되었을 때 호출되는 함수
+
   const handleLocationSelect = (lat, lng, address) => {
     setLocation({ lat, lng, address });
     setShowMap(false);
