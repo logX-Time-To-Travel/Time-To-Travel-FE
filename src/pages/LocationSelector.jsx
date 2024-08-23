@@ -6,7 +6,6 @@ const LocationSelector = ({ onSelectLocation }) => {
   const [map, setMap] = useState(null);
   const [markerPosition, setMarkerPosition] = useState(null);
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
-  const [address, setAddress] = useState('');
   const autocompleteRef = useRef(null);
 
   useEffect(() => {
@@ -15,7 +14,6 @@ const LocationSelector = ({ onSelectLocation }) => {
         const { latitude, longitude } = position.coords;
         setCenter({ lat: latitude, lng: longitude });
         setMarkerPosition({ lat: latitude, lng: longitude });
-        fetchAddress(latitude, longitude);
       },
       () => {
         console.error('위치 접근에 오류가 있습니다.');
@@ -23,42 +21,42 @@ const LocationSelector = ({ onSelectLocation }) => {
     );
   }, []);
 
-  const fetchAddress = (lat, lng) => {
+  const fetchPlaceDetails = (placeId) => {
     return new Promise((resolve, reject) => {
-      const geocoder = new window.google.maps.Geocoder();
-      geocoder.geocode({ location: { lat, lng } }, (results, status) => {
-        if (status === 'OK' && results[0]) {
-          setAddress(results[0].formatted_address);
-          resolve(results[0].formatted_address);
+      const service = new window.google.maps.places.PlacesService(
+        document.createElement('div')
+      );
+
+      service.getDetails({ placeId }, (place, status) => {
+        if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+          resolve(place.name); // 장소의 정확한 이름 반환
         } else {
-          console.error('Error fetching address');
-          reject('Error fetching address');
+          reject('Error fetching place details');
         }
       });
     });
   };
 
-  const onLoad = (map) => {
-    setMap(map);
-    if (center) {
-      map.panTo(center);
-    }
-  };
-
-  const onUnmount = () => {
-    setMap(null);
-  };
-
   const handleConfirmLocation = async () => {
     if (markerPosition) {
-      const fetchedAddress = await fetchAddress(
-        markerPosition.lat,
-        markerPosition.lng
-      );
-      console.log('Lat:', markerPosition.lat);
-      console.log('Lng:', markerPosition.lng);
-      console.log('Address:', fetchedAddress); // fetchAddress 함수가 반환하는 주소를 출력
-      onSelectLocation(markerPosition.lat, markerPosition.lng, fetchedAddress); // address 대신 fetchedAddress 사용
+      try {
+        const place = autocompleteRef.current.getPlace();
+        if (place && place.place_id) {
+          const fetchedPlaceName = await fetchPlaceDetails(place.place_id);
+          console.log('Lat:', markerPosition.lat);
+          console.log('Lng:', markerPosition.lng);
+          console.log('Place Name:', fetchedPlaceName);
+          onSelectLocation(
+            markerPosition.lat,
+            markerPosition.lng,
+            fetchedPlaceName
+          );
+        } else {
+          console.error('No place ID found.');
+        }
+      } catch (error) {
+        console.error('Error fetching place name:', error);
+      }
     } else {
       console.error('Marker position is not set.');
     }
@@ -73,7 +71,6 @@ const LocationSelector = ({ onSelectLocation }) => {
         lng: location.lng(),
       });
       map.panTo(location);
-      fetchAddress(location.lat(), location.lng());
     }
   };
 
