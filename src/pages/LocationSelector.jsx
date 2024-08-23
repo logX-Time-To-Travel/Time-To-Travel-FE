@@ -1,12 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Autocomplete } from "@react-google-maps/api";
-import "./LocationSelector.css";
+import React, { useState, useRef, useEffect } from 'react';
+import { Autocomplete } from '@react-google-maps/api';
+import './LocationSelector.css';
 
 const LocationSelector = ({ onSelectLocation }) => {
   const [map, setMap] = useState(null);
   const [markerPosition, setMarkerPosition] = useState(null);
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState('');
   const autocompleteRef = useRef(null);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const LocationSelector = ({ onSelectLocation }) => {
         fetchAddress(latitude, longitude);
       },
       () => {
-        console.error("위치 접근에 오류가 있습니다.");
+        console.error('위치 접근에 오류가 있습니다.');
       }
     );
   }, []);
@@ -27,12 +27,12 @@ const LocationSelector = ({ onSelectLocation }) => {
     return new Promise((resolve, reject) => {
       const geocoder = new window.google.maps.Geocoder();
       geocoder.geocode({ location: { lat, lng } }, (results, status) => {
-        if (status === "OK" && results[0]) {
+        if (status === 'OK' && results[0]) {
           setAddress(results[0].formatted_address);
-          resolve(results[0].formatted_address); // 성공 시 resolve 호출
+          resolve(results[0].formatted_address);
         } else {
-          console.error("Error fetching address");
-          reject("Error fetching address"); // 실패 시 reject 호출
+          console.error('Error fetching address');
+          reject('Error fetching address');
         }
       });
     });
@@ -51,13 +51,16 @@ const LocationSelector = ({ onSelectLocation }) => {
 
   const handleConfirmLocation = async () => {
     if (markerPosition) {
-      await fetchAddress(markerPosition.lat, markerPosition.lng); // 주소를 먼저 업데이트
-      console.log("Lat:", markerPosition.lat);
-      console.log("Lng:", markerPosition.lng);
-      console.log("Address:", address);
-      onSelectLocation(markerPosition.lat, markerPosition.lng, address);
+      const fetchedAddress = await fetchAddress(
+        markerPosition.lat,
+        markerPosition.lng
+      );
+      console.log('Lat:', markerPosition.lat);
+      console.log('Lng:', markerPosition.lng);
+      console.log('Address:', fetchedAddress); // fetchAddress 함수가 반환하는 주소를 출력
+      onSelectLocation(markerPosition.lat, markerPosition.lng, fetchedAddress); // address 대신 fetchedAddress 사용
     } else {
-      console.error("Marker position is not set.");
+      console.error('Marker position is not set.');
     }
   };
 
@@ -84,15 +87,6 @@ const LocationSelector = ({ onSelectLocation }) => {
           <input className="searchBar" type="text" placeholder="장소 검색" />
         </div>
       </Autocomplete>
-      {/* <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={50}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-      >
-        <Marker position={markerPosition} />
-      </GoogleMap> */}
       <button onClick={handleConfirmLocation}>위치를 선택하시겠습니까?</button>
     </div>
   );
