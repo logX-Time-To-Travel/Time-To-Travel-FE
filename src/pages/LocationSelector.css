@@ -1,11 +1,16 @@
+.SearchBar-container {
+    display: flex;
+    width: 100%; /* 너비를 100%로 설정 */
+}
+
 .SearchBar-container .searchBar {
     position: relative;
     display: flex;
-    border: 1px solid #fe9f06;
+    border: 1px solid #767676;
     border-radius: 30px;
     padding: 10px;
     width: 100%; /* 너비를 100%로 설정하여 컨테이너 전체를 차지하도록 설정 */
-    box-sizing: border-box; 
+    box-sizing: border-box; /* 패딩을 포함한 전체 너비 계산 */
 }
 
 .searchBar input {
@@ -17,13 +22,6 @@
 }
 
 .searchBar::placeholder {
-    color: #fe9f06;
+    color: #848383;
     padding-left: 10px; /* 플레이스홀더의 왼쪽 여백을 추가 */
-
-}
-
-
-.SearchBar-container {
-    display: flex;
-    width: 100%;
 }

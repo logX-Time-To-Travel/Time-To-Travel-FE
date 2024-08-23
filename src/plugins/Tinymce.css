@@ -4,82 +4,159 @@
     justify-content: center;
     flex-direction: column;
     height: auto;
-    margin: 20px;
+    margin-inline: 15px; /* 양옆 여백 축소 */
+    margin-top: 10px;
 }
 
-.Editor-page {
-    margin-top: 15px;
+.location-selector {
+    position: relative;
+    width: 100%;
+    padding: 10px auto;
+    margin-inline: 0px;
 }
 
 .title-container {
-    margin-bottom: 2px;
+    margin-bottom: 10px; /* 아래쪽 간격 축소 */
     width: 100%;
     border: none;
 }
 
 .title-box::placeholder {
-    color:  #FF8A00;
+    color: #a0a0a0;
 }
 
 .title-box {
     width: 100%;
-    height: 70px;
-    padding-inline: 15px;
-    
-    color: #FF8A00;
-    font-size: 22px;
+    height: 40px; /* 높이 축소 */
+    padding-inline: 5px; /* 내부 패딩 축소 */
+    color: #726f6f;
+    font-size: 25px; /* 폰트 크기 축소 */
     font-weight: bold;
     border: none;
-    border-bottom: 1px solid  #ff8800;
+    border-bottom: 2px solid #e0e0e0;
 }
 
-.location-container > button {
-    margin-inline: 1px;
-    color: #f18100;
-    background-color:transparent;
-    border: none;
-    /* padding: 10px 9px; */
-    cursor: pointer;
+.visit-date-container {
+    width: 100%;
+    background-color: #ffffff; /* 흰색 배경 */
+    padding: 8px; /* 패딩 축소 */
+    border-radius: 8px; /* 경계선 둥근 정도 조정 */
+    margin-bottom: 8px; /* 하단 여백 축소 */
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* 그림자 축소 */
+}
+
+.date-label {
+    display: block;
+    margin-bottom: 4px;
     font-weight: bold;
-    font-size: 15px;
+    color: #555555;
+    font-size: 12px; /* 폰트 크기 축소 */
+}
+
+.date-selection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 입력 필드와 텍스트를 중앙 정렬 */
+    margin-bottom: 5px; /* 필드 간 간격 축소 */
+}
+
+.date-input {
+    width: 45px; /* 입력 필드 크기 축소 */
     text-align: center;
-    
+    padding: 5px;
+    border: 2px solid #e3e3e3; /* 테두리 두께 유지 */
+    border-radius: 8px; /* 입력 필드 둥근 모서리 적용 */
+    font-size: 12px; /* 폰트 크기 축소 */
+    margin-right: 3px; /* 입력 필드 간의 간격 조정 */
 }
 
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* 체크박스와 텍스트를 왼쪽 정렬 */
+    margin-top: 3px; /* 체크박스 위쪽 간격 축소 */
+}
+
+.checkbox-container input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #e0e0e0;
+    margin-right: 4px;
+    width: 16px; /* 체크박스 크기 축소 */
+    height: 16px; /* 체크박스 크기 축소 */
+    border-radius: 50%; /* 체크박스를 둥근 모양으로 */
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    border: 1px solid #cccccc;
+}
+
+.checkbox-container input[type="checkbox"]:checked {
+    background-color: #FFC107; /* 체크되었을 때의 색상 */
+    border: none;
+}
+
+.checkbox-container input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 10px; /* 내부 원 크기 축소 */
+    height: 10px; /* 내부 원 크기 축소 */
+    border-radius: 50%;
+    background-color: #fff; /* 흰색 원 표시 */
+}
+
+.checkbox-container label {
+    font-weight: bold;
+    color: #ece8e8;
+    font-size: 12px; /* 폰트 크기 축소 */
+    margin-left: 0; /* 체크박스와 텍스트 사이 간격 제거 */
+}
 
 .location-container {
-    width: 100%;
-    position: relative;
     display: flex;
-    border: 2px solid #ffc078;
-    padding: 10px;
     align-items: center;
-    border-radius: 5px;
     justify-content: center;
-}
-
-.location-container:hover {
-    background-color:  #fcc470;
-    border: none;
-}
-
-.location-container > button:hover {
-    color: white;
-}
-
-.save-button-container {
-    display:flex;
-    justify-content: center;
-    flex-direction: column;
-    margin-inline: 15px;
-
-}
-
-.save-button-container .button {
+    background-color: #fdfdfd; /* 파란색 배경 */
+    border-radius: 5px; /* 모서리를 둥글게 조정 */
+    padding: 10px 12px; /* 패딩 조정 */
+    margin-top: 8px; /* 간격 축소 */
+    cursor: pointer;
     width: 100%;
 }
 
-/* .location-container > img {
-    width: 20px;
+.location-content {
+    display: flex;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+}
 
-}  */
+.location-container button {
+    background-color: transparent;
+    border: none;
+    color: #000dff; /* 흰색 텍스트 */
+    font-weight: bold;
+    font-size: 16px; /* 폰트 크기 */
+    cursor: pointer;
+}
+
+.location-content img {
+    margin-right: 15px; /* 아이콘과 텍스트 사이 간격 */
+    width: 20px; /* 이미지 크기 조정 */
+}
+
+.location-content span {
+    color: #ffffff; /* 흰색 텍스트 */
+    font-weight: bold;
+    font-size: 15px; /* 폰트 크기 */
+}
+
+.selected-location {
+    margin-top: 8px; /* 간격 축소 */
+    font-size: 12px; /* 폰트 크기 축소 */
+    color: #333;
+    text-align: center;
+}

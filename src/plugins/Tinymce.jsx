@@ -1,19 +1,16 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
-import LocationSelector from '../pages/LocationSelector';
-import img from '../assets/Icon_Map1.png';
+import LocationModal from '../components/BlogEditor/LocationModal'; // 모달 컴포넌트 임포트
 import './Tinymce.css';
-import Button from '../components/UI/Button';
 import PostContext from './PostContext';
 
 export default function Tinymce() {
   const { addPost } = useContext(PostContext);
-  const editorRef = useRef(null); 
+  const editorRef = useRef(null);
   const [title, setTitle] = useState('');
-  const [location, setLocation] = useState({ lat: '', lng: '', address: '' }); // 위치 상태 설정
-  const [showMap, setShowMap] = useState(false); 
-  const [memberId, setMemberId] = useState(''); 
-
+  const [location, setLocation] = useState({ lat: '', lng: '', address: '' });
+  const [showModal, setShowModal] = useState(false); // 모달 상태 추가
+  const [memberId, setMemberId] = useState('');
 
   const fetchMemberSession = async () => {
     return new Promise((resolve) => {
@@ -48,30 +45,11 @@ export default function Tinymce() {
     console.log(newPost);
   };
 
-
   const handleLocationSelect = (lat, lng, address) => {
     setLocation({ lat, lng, address });
-    setShowMap(false);
+    setShowModal(false); // 모달 닫기
     console.log('위치가 선택됨: ', { lat }, { lng }, { address });
   };
-
-  // 더미 이미지 업로드 핸들러
-  const dummyHandleImageUpload = (blobInfo, progress) =>
-    new Promise((resolve, reject) => {
-      setTimeout(() => {
-        try {
-          const dummyUrl = 'https://picsum.photos/200/300?grayscale';
-          console.log('Dummy URL:', dummyUrl);
-          resolve(dummyUrl);
-        } catch (error) {
-          reject('Image upload failed: ' + error.message);
-        }
-      }, 1000);
-
-      if (progress) {
-        progress(100);
-      }
-    });
 
   return (
     <div className="Editor-page">
@@ -85,29 +63,32 @@ export default function Tinymce() {
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
-        <div className="location-container">
-          <img src={img} />
-          <button onClick={() => setShowMap(true)}>위치선택</button>
-        </div>
 
-        {location.address && (
-          <div className="selected-location">
-            <p>선택된 위치: {location.address}</p>
+        {!location.address && (
+          <div className="location-container">
+            <button onClick={() => setShowModal(true)}>
+              위치선택 창으로 이동하기
+            </button>
           </div>
         )}
 
-        {showMap && (
-          <LocationSelector onSelectLocation={handleLocationSelect} />
+        <LocationModal
+          show={showModal}
+          onClose={() => setShowModal(false)}
+          onSelectLocation={handleLocationSelect}
+        />
+
+        {location.address && (
+          <div className="selected-location">
+            <p>다녀온 곳: {location.address}</p>
+          </div>
         )}
 
         <Editor
-          apiKey={
-            (import.meta.env.VITE_TINYMCE_API_KEY =
-              'b3vov53scsx1m1bf3z67h2tz3nhdk62165pgj7iqwl51clkq')
-          }
+          apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
           onInit={(_evt, editor) => (editorRef.current = editor)}
           init={{
-            height: 330,
+            height: 350,
             width: '100%',
             menubar: false,
             plugins: [
@@ -136,12 +117,8 @@ export default function Tinymce() {
             ],
             content_style:
               'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-            images_upload_handler: dummyHandleImageUpload,
           }}
         />
-      </div>
-      <div className="save-button-container">
-        <Button path="/blog" customFunc={handleSave} text="게시물 저장" />
       </div>
     </div>
   );
