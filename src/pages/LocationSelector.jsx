@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Autocomplete } from '@react-google-maps/api';
 import './LocationSelector.css';
 
-const LocationSelector = ({ onSelectLocation }) => {
+const LocationSelector = ({ onSelectLocation, onClose }) => {
   const [map, setMap] = useState(null);
   const [markerPosition, setMarkerPosition] = useState(null);
   const [center, setCenter] = useState({ lat: 0, lng: 0 });
@@ -84,7 +84,16 @@ const LocationSelector = ({ onSelectLocation }) => {
           <input className="searchBar" type="text" placeholder="장소 검색" />
         </div>
       </Autocomplete>
-      <button onClick={handleConfirmLocation}>위치를 선택하시겠습니까?</button>
+
+      <div className="button-set">
+        <div className="select-button">
+          <button onClick={handleConfirmLocation}>선택</button>
+        </div>
+
+        <div className="cancel-button">
+          <button onClick={onClose}>취소</button>
+        </div>
+      </div>
     </div>
   );
 };

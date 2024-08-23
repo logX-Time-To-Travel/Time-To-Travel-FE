@@ -6,9 +6,10 @@
 .SearchBar-container .searchBar {
     position: relative;
     display: flex;
-    border: 1px solid #767676;
+    background-color: #e9e8e8d4;
+    border: none;
     border-radius: 30px;
-    padding: 10px;
+    padding: 13px;
     width: 100%; /* 너비를 100%로 설정하여 컨테이너 전체를 차지하도록 설정 */
     box-sizing: border-box; /* 패딩을 포함한 전체 너비 계산 */
 }
@@ -17,11 +18,49 @@
     border: none;
     outline: none;
     flex: 1;
-    padding: 0 10px; /* 입력 필드의 왼쪽과 오른쪽 여백을 추가 */
     width: 100%; /* 너비를 100%로 설정하여 부모 컨테이너를 채우도록 설정 */
 }
 
 .searchBar::placeholder {
     color: #848383;
-    padding-left: 10px; /* 플레이스홀더의 왼쪽 여백을 추가 */
+    padding-left: 20px; /* 플레이스홀더의 왼쪽 여백을 추가 */
+}
+
+
+.select-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    /* flex-direction: column; */
+}
+
+.button-set {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.select-button > button{
+    margin: 2px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: blue;
+    color: white;
+}
+
+.cancel-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    /* flex-direction: column; */
+}
+
+
+.cancel-button > button{
+    margin: 2px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: 2px solid #e2e2e2;
+    background-color: rgb(255, 255, 255);
+    color: rgb(130, 130, 130);
 }

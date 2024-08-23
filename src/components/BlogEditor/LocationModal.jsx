@@ -8,10 +8,10 @@ const LocationModal = ({ show, onClose, onSelectLocation }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <button onClick={onClose} className="close-button">
-          X
-        </button>
-        <LocationSelector onSelectLocation={onSelectLocation} />
+        <LocationSelector
+          onSelectLocation={onSelectLocation}
+          onClose={onClose}
+        />
       </div>
     </div>
   );
