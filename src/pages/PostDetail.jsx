@@ -145,12 +145,14 @@ const PostDetail = () => {
           style={{ backgroundColor: headerColor }}
         >
           <div className="post-detail-title">{post.title}</div>
-          <div className="post-detail-info">
-            <span className="post-detail-username">{post.username}</span>
-            <strong> | </strong>
-            <span className="post-detail-date">{post.createdAt}</span>
+          <div className="post-detail-info-container">
+            <div className="post-detail-info">
+              <span className="post-detail-username">{post.username}</span>
+              <strong> | </strong>
+              <span className="post-detail-date">{post.createdAt}</span>
+            </div>
+            <div className="post-detail-type">{locationText}</div>
           </div>
-          <div className="post-detail-type">{locationText}</div>
         </div>
         <div
           className="post-detail-content"
