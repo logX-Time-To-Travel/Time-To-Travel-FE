@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar/Navbar';
 import './PostDetail.css';
 import axios from 'axios';
@@ -13,7 +13,7 @@ import PostProfile from '../components/Post/PostProfile';
 import PostMore from '../components/Post/PostMore';
 
 const PostDetail = () => {
-  const { id } = useLocation();
+  const { id } = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState({
     id: null,
@@ -61,6 +61,10 @@ const PostDetail = () => {
       ...prev,
       likeCount: isLiked ? prev.likeCount - 1 : prev.likeCount + 1,
     }));
+  };
+
+  const handleCommentClick = () => {
+    navigate(`/comment/${id}`);
   };
 
   const handleScrapClick = () => {
@@ -163,8 +167,10 @@ const PostDetail = () => {
 
       <div className="post-detail-footer">
         <PostMore
+          postId={id}
           handleLikeClick={handleLikeClick}
           handleScrapClick={handleScrapClick}
+          handleCommentClick={handleCommentClick}
           handleEditClick={handleEditClick}
           handleDeleteClick={handleDeleteClick}
           isLiked={isLiked}

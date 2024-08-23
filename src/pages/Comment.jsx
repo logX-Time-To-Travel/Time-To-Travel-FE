@@ -1,8 +1,9 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './Comment.css';
 import { useState } from 'react';
 
 const Comment = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const [expandedCommentId, setExpandedCommentId] = useState(null);
 
@@ -80,8 +81,14 @@ const Comment = () => {
   return (
     <div className="comment-container">
       <div className="comment-header">
-        <div className="comment-backward" onClick={() => navigate(-1)}>
-          ←
+        <div
+          className="comment-backward"
+          onClick={() => {
+            console.log('뒤로가기');
+            navigate(`/post/${id}`);
+          }}
+        >
+          뒤로가기
         </div>
         <div className="comment-title">댓글 {dummyData.commentCount}개</div>
       </div>
