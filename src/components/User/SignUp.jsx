@@ -1,9 +1,12 @@
-import { useState } from "react"; // useState (상태 관리) 사용
-import { useNavigate } from "react-router-dom"; // useNavigate (페이지 이동) 사용
-import PropTypes from "prop-types"; // PropTypes (타입 검사) 사용
-import axios from "axios";
+import { useState, useContext, useEffect } from 'react'; // useState (상태 관리) 사용
+import { useNavigate } from 'react-router-dom'; // useNavigate (페이지 이동) 사용
+import PropTypes from 'prop-types'; // PropTypes (타입 검사) 사용
+import BackIcon from '../../assets/Icon_ Back 1.png';
+import BackIconRight from '../../assets/Icon_ Back reverse.png';
+import { AuthContext } from './AuthContext';
+import axios from 'axios';
 
-import "./SignUp.css"; // SignUp.css 와 연결.
+import './SignUp.css'; // SignUp.css 와 연결.
 
 // 이메일 유효성 검사
 const validateEmail = (email) => {
@@ -14,17 +17,17 @@ const validateEmail = (email) => {
 // 회원가입 컴포넌트
 const SignUp = ({ onSignUp }) => {
   const navigate = useNavigate(); // 페이지 이동 훅
-  const [email, setEmail] = useState(""); // 이메일 상태
-  const [password, setPassword] = useState(""); // 비밀번호 상태
-  const [confirmPassword, setConfirmPassword] = useState(""); // 비밀번호 확인 상태
-  const [nickname, setNickname] = useState(""); // 닉네임 상태
+  const [email, setEmail] = useState(''); // 이메일 상태
+  const [password, setPassword] = useState(''); // 비밀번호 상태
+  const [confirmPassword, setConfirmPassword] = useState(''); // 비밀번호 확인 상태
+  const [nickname, setNickname] = useState(''); // 닉네임 상태
   const [profilePic, setProfilePic] = useState(null); // 프로필 사진 상태
 
-  const [emailError, setEmailError] = useState(""); // 이메일 오류 메시지 상태
-  const [passwordError, setPasswordError] = useState(""); // 비밀번호 오류 메시지 상태
-  const [confirmPasswordError, setConfirmPasswordError] = useState(""); // 비밀번호 확인 오류 메시지 상태
-  const [nicknameError, setNicknameError] = useState(""); // 닉네임 오류 메시지 상태
-  const [nicknameAvailableMessage, setNicknameAvailableMessage] = useState("");
+  const [emailError, setEmailError] = useState(''); // 이메일 오류 메시지 상태
+  const [passwordError, setPasswordError] = useState(''); // 비밀번호 오류 메시지 상태
+  const [confirmPasswordError, setConfirmPasswordError] = useState(''); // 비밀번호 확인 오류 메시지 상태
+  const [nicknameError, setNicknameError] = useState(''); // 닉네임 오류 메시지 상태
+  const [nicknameAvailableMessage, setNicknameAvailableMessage] = useState('');
   const [isNicknameChecked, setIsNicknameChecked] = useState(false); // 닉네임 중복 체크 상태
 
   const [showPassword, setShowPassword] = useState(false); // 비밀번호 표시 상태
@@ -41,6 +44,26 @@ const SignUp = ({ onSignUp }) => {
 
   const [step, setStep] = useState(1); // 현재 단계 상태
   const [isSignUpComplete, setIsSignUpComplete] = useState(false); //회원가입 상태
+  const { setMemberId, setUsername } = useContext(AuthContext); // useContext 사용
+
+  useEffect(() => {
+    // 기본 프로필 사진을 로드하여 설정
+    const fetchDefaultProfilePic = async () => {
+      try {
+        const response = await axios.get(
+          'http://127.0.0.1:8080/images/default.png',
+          {
+            responseType: 'blob', // 이미지 데이터를 가져오기 위해 blob 타입으로 지정
+          }
+        );
+        setProfilePic(URL.createObjectURL(response.data)); // 상태에 기본 프로필 사진 설정
+      } catch (error) {
+        console.error('Error loading default profile picture:', error);
+      }
+    };
+
+    fetchDefaultProfilePic();
+  }, []);
 
   // 프로필 사진 변경 핸들러
   const handleProfilePicChange = (e) => {
@@ -55,7 +78,7 @@ const SignUp = ({ onSignUp }) => {
   // 닉네임 입력값 변경 시 nicknameError 초기화 함수
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);
-    setNicknameError("");
+    setNicknameError('');
   };
 
   //hancleBack 함수
@@ -71,21 +94,21 @@ const SignUp = ({ onSignUp }) => {
   const checkUsernameDuplicate = async (username) => {
     try {
       await axios.post(
-        "http://127.0.0.1:8080/member/check-username",
+        'http://127.0.0.1:8080/member/check-username',
         { username },
         {
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         }
       );
 
-      setNicknameError("");
-      setNicknameAvailableMessage("이 닉네임을 사용할 수 있습니다.");
+      setNicknameError('');
+      setNicknameAvailableMessage('이 닉네임을 사용할 수 있습니다.');
       setIsNicknameChecked(true); // 중복 체크 성공 시 true로 설정
     } catch (error) {
-      setNicknameError("이미 사용 중인 닉네임입니다."); // 오류 발생 시 메시지 설정
-      setNicknameAvailableMessage(""); // 닉네임 사용 가능 메시지 초기화
+      setNicknameError('이미 사용 중인 닉네임입니다.'); // 오류 발생 시 메시지 설정
+      setNicknameAvailableMessage(''); // 닉네임 사용 가능 메시지 초기화
       setIsNicknameChecked(false); // 중복 체크 실패 시 false로 설정
     }
   };
@@ -95,82 +118,108 @@ const SignUp = ({ onSignUp }) => {
     e.preventDefault(); // 폼 제출 시 새로고침 방지
 
     if (!isNicknameChecked) {
-      alert("닉네임 중복 체크를 완료해 주세요.");
+      alert('닉네임 중복 체크를 완료해 주세요.');
       return; // 닉네임 중복 체크가 완료되지 않았으면 폼 제출을 중단
     }
 
     let valid = true; // 유효성 검사 플래그
 
     if (!validateEmail(email)) {
-      setEmailError("유효한 이메일 주소를 입력하세요."); // 이메일 오류 메시지
+      setEmailError('유효한 이메일 주소를 입력하세요.'); // 이메일 오류 메시지
       valid = false;
     } else {
-      setEmailError("");
+      setEmailError('');
     }
 
     if (password.length < 8 || !/[!@#$%^&*]/.test(password)) {
-      setPasswordError("8자 이상, 특수문자 포함"); // 비밀번호 오류 메시지
+      setPasswordError('8자 이상, 특수문자 포함'); // 비밀번호 오류 메시지
       valid = false;
     } else {
-      setPasswordError("");
+      setPasswordError('');
     }
 
     if (password !== confirmPassword) {
-      setConfirmPasswordError("비밀번호와 일치하지 않습니다."); // 비밀번호 확인 오류 메시지
+      setConfirmPasswordError('비밀번호와 일치하지 않습니다.'); // 비밀번호 확인 오류 메시지
       valid = false;
     } else {
-      setConfirmPasswordError("");
+      setConfirmPasswordError('');
     }
 
     if (nickname.length === 0) {
-      setNicknameError("닉네임을 입력하세요."); // 닉네임 오류 메시지
+      setNicknameError('닉네임을 입력하세요.'); // 닉네임 오류 메시지
       valid = false;
     } else {
-      setNicknameError("");
+      setNicknameError('');
     }
 
     if (!allRequiredTerms) {
-      alert("약관동의를 하셔야 가입됩니다."); // 약관 동의 경고
+      alert('약관동의를 하셔야 가입됩니다.'); // 약관 동의 경고
       valid = false;
     }
 
     if (valid) {
+      let uploadedImageUrl = 'images/default.jpg';
+
+      if (profilePic) {
+        const formData = new FormData();
+        formData.append('file', profilePic);
+
+        try {
+          const uploadResponse = await axios.post(
+            'http://127.0.0.1:8080/image/upload',
+            formData,
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            }
+          );
+          uploadedImageUrl = uploadResponse.data.imageURL;
+        } catch (error) {
+          console.error('Error uploading profile picture:', error);
+        }
+      }
+
       const newUser = {
         username: nickname,
         email,
         password,
-        profileImageUrl: "images/default.jpg", // 파일 업로드가 아닌 URL로 처리
+        profileImageUrl: uploadedImageUrl, // 파일 업로드로 처리.
       };
 
       try {
         const response = await axios.post(
-          "http://127.0.0.1:8080/member/signup",
+          'http://127.0.0.1:8080/member/signup',
           newUser,
           {
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
             },
           }
         );
 
         if (response.status === 200) {
+          // Context API에 memberId와 username 저장
+          setMemberId(response.data.memberId);
+          setUsername(response.data.username);
+
           onSignUp(response.data);
           //alert("회원가입이 완료되었습니다."); //이 부분 제거
           setIsSignUpComplete(true); // 회원가입이 완료되면 완료 상태를 true로 설정
         }
       } catch (error) {
-        console.error("Error during signup:", error);
+        console.error('Error during signup:', error);
         if (error.response && error.response.status === 400) {
           alert(error.response.data); // 서버에서 보낸 오류 메시지 표시
         } else {
-          alert("회원가입 요청 중 오류가 발생했습니다.");
+          alert('회원가입 요청 중 오류가 발생했습니다.');
         }
       }
     }
   };
 
   const handleComplete = () => {
-    navigate("/signin"); // 로그인 화면으로 이동
+    navigate('/signin'); // 로그인 화면으로 이동
   };
 
   // 모든 필수 약관 동의 핸들러
@@ -194,32 +243,34 @@ const SignUp = ({ onSignUp }) => {
   const handleIndividualRequiredTerm = (term, setTerm) => {
     const newState = !term; // 현재 상태의 반대값으로 설정
     setTerm(newState); // 개별 필수 약관 동의 상태 업데이트
-    if (terms1 && terms2 && terms3 && !newState) {
-      setAllRequiredTerms(false); // 하나라도 동의하지 않으면 전체 동의 해제
-    } else if (terms1 && terms2 && terms3 && newState) {
-      setAllRequiredTerms(true); // 모두 동의하면 전체 동의 설정
-    }
+    // 현재 상태 업데이트 후 전체 필수 동의 여부 확인
+    const allChecked =
+      (terms1 && terms2 && terms3) ||
+      (newState && terms1 && terms2) ||
+      (newState && terms1 && terms3) ||
+      (newState && terms2 && terms3);
+
+    setAllRequiredTerms(allChecked);
   };
 
   // 개별 선택 약관 동의 핸들러
   const handleIndividualOptionalTerm = (term, setTerm) => {
     const newState = !term; // 현재 상태의 반대값으로 설정
     setTerm(newState); // 개별 선택 약관 동의 상태 업데이트
-    if (terms4 && terms5 && !newState) {
-      setAllOptionalTerms(false); // 하나라도 동의하지 않으면 전체 동의 해제
-    } else if (terms4 && terms5 && newState) {
-      setAllOptionalTerms(true); // 모두 동의하면 전체 동의 설정
-    }
+    // 현재 상태 업데이트 후 전체 선택 동의 여부 확인
+    const allChecked =
+      (terms4 && terms5) || (newState && terms4) || (newState && terms5);
+
+    setAllOptionalTerms(allChecked);
   };
 
   return (
     <div className="SignUp-container">
       {step === 1 && (
         <>
-          <span className="SignUp-back-btn" onClick={() => navigate(-1)}>
-            {/* 이전 페이지로 이동 버튼 (뒤로가기 버튼)*/}
-            뒤로가기
-          </span>
+          <div className="SignUp-back-btn" onClick={handleBack}>
+            <img src={BackIcon} alt="뒤로가기" />
+          </div>
           <div className="SignUp-title">약관 동의</div>
           <div className="SignUp-description">
             계속하시려면 약관을 잘 읽고 동의해 주세요.
@@ -231,7 +282,7 @@ const SignUp = ({ onSignUp }) => {
         <div className="SignUp-terms-container">
           {/* 필수 약관 전체 동의 */}
           <div
-            className={`SignUp-agreement ${allRequiredTerms ? "active" : ""}`}
+            className={`SignUp-agreement ${allRequiredTerms ? 'active' : ''}`}
             onClick={handleAllRequiredTerms}
           >
             <span className="text">필수 약관 전체 동의하기</span>
@@ -240,7 +291,7 @@ const SignUp = ({ onSignUp }) => {
 
           {/* 이용약관 동의 */}
           <div
-            className={`SignUp-term-item ${terms1 ? "active" : ""}`}
+            className={`SignUp-term-item ${terms1 ? 'active' : ''}`}
             onClick={() => handleIndividualRequiredTerm(terms1, setTerms1)}
           >
             <span className="text">
@@ -250,16 +301,16 @@ const SignUp = ({ onSignUp }) => {
               className="icon"
               onClick={(e) => {
                 e.stopPropagation();
-                navigate("/terms/terms1");
+                navigate('/terms/terms1');
               }}
             >
-              &gt;
+              <img src={BackIconRight} />
             </span>
           </div>
 
           {/* 개인정보 처리방침 동의 */}
           <div
-            className={`SignUp-term-item ${terms2 ? "active" : ""}`}
+            className={`SignUp-term-item ${terms2 ? 'active' : ''}`}
             onClick={() => handleIndividualRequiredTerm(terms2, setTerms2)}
           >
             <span className="text">
@@ -269,36 +320,36 @@ const SignUp = ({ onSignUp }) => {
               className="icon"
               onClick={(e) => {
                 e.stopPropagation();
-                navigate("/terms/terms2");
+                navigate('/terms/terms2');
               }}
             >
-              &gt;
+              <img src={BackIconRight} />
             </span>
           </div>
 
           {/* 게시물 및 댓글 작성 윤리 지침 동의 */}
           <div
-            className={`SignUp-term-item ${terms3 ? "active" : ""}`}
+            className={`SignUp-term-item ${terms3 ? 'active' : ''}`}
             onClick={() => handleIndividualRequiredTerm(terms3, setTerms3)}
           >
             <span className="text">
-              ✔ 게시물 및 댓글 작성 윤리 지침{" "}
+              ✔ 게시물 및 댓글 작성 윤리 지침{' '}
               <span className="required">*</span>
             </span>
             <span
               className="icon"
               onClick={(e) => {
                 e.stopPropagation();
-                navigate("/terms/terms3");
+                navigate('/terms/terms3');
               }}
             >
-              &gt;
+              <img src={BackIconRight} />
             </span>
           </div>
 
           {/* 선택 약관 전체 동의 */}
           <div
-            className={`SignUp-agreement ${allOptionalTerms ? "active" : ""}`}
+            className={`SignUp-agreement ${allOptionalTerms ? 'active' : ''}`}
             onClick={handleAllOptionalTerms}
           >
             <span className="text">선택 약관 전체 동의하기</span>
@@ -307,7 +358,7 @@ const SignUp = ({ onSignUp }) => {
 
           {/* 마케팅 정보 수신 동의 */}
           <div
-            className={`SignUp-term-item ${terms4 ? "active" : ""}`}
+            className={`SignUp-term-item ${terms4 ? 'active' : ''}`}
             onClick={() => handleIndividualOptionalTerm(terms4, setTerms4)}
           >
             <span className="text">✔ 마케팅 정보 수신 동의 [선택]</span>
@@ -315,16 +366,16 @@ const SignUp = ({ onSignUp }) => {
               className="icon"
               onClick={(e) => {
                 e.stopPropagation();
-                navigate("/terms/terms4");
+                navigate('/terms/terms4');
               }}
             >
-              &gt;
+              <img src={BackIconRight} />
             </span>
           </div>
 
           {/* 버그 자동 전송 동의 */}
           <div
-            className={`SignUp-term-item ${terms5 ? "active" : ""}`}
+            className={`SignUp-term-item ${terms5 ? 'active' : ''}`}
             onClick={() => handleIndividualOptionalTerm(terms5, setTerms5)}
           >
             <span className="text">✔ 버그 자동 전송 [선택]</span>
@@ -332,10 +383,10 @@ const SignUp = ({ onSignUp }) => {
               className="icon"
               onClick={(e) => {
                 e.stopPropagation();
-                navigate("/terms/terms5");
+                navigate('/terms/terms5');
               }}
             >
-              &gt;
+              <img src={BackIconRight} />
             </span>
           </div>
 
@@ -343,7 +394,7 @@ const SignUp = ({ onSignUp }) => {
           <button
             type="button"
             className={`SignUp-continue-btn ${
-              allRequiredTerms ? "enabled" : "disabled"
+              allRequiredTerms ? 'enabled' : 'disabled'
             }`}
             onClick={() => allRequiredTerms && setStep(2)}
             disabled={!allRequiredTerms}
@@ -357,8 +408,8 @@ const SignUp = ({ onSignUp }) => {
         (!isSignUpComplete ? (
           <>
             <form onSubmit={handleSubmit}>
-              <div className="SignUp-back-btn-alt" onClick={handleBack}>
-                &lt;
+              <div className="SignUp-back-btn" onClick={handleBack}>
+                <img src={BackIcon} alt="뒤로가기" />
               </div>
               {/* 두 번째 단계에서 사용되는 뒤로가기 버튼 */}
               <div className="SignUp-profile-pic-container">
@@ -367,10 +418,10 @@ const SignUp = ({ onSignUp }) => {
                     <img
                       src={profilePic}
                       alt="Profile"
-                      style={{ borderRadius: "50%" }}
+                      style={{ borderRadius: '50%' }}
                     />
                   ) : (
-                    ""
+                    ''
                   )}
                   <div className="SignUp-profile-pic-overlay">
                     <i className="fas fa-camera"></i> {/* 카메라 아이콘 추가 */}
@@ -425,17 +476,17 @@ const SignUp = ({ onSignUp }) => {
 
               <div
                 className="SignUp-form-group"
-                style={{ position: "relative" }}
+                style={{ position: 'relative' }}
               >
                 <label>
                   비밀번호 <span className="required">*</span>
                 </label>
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   placeholder="8자 이상, 특수문자 포함"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  style={{ paddingRight: "40px" }}
+                  style={{ paddingRight: '40px' }}
                 />
                 <button
                   type="button"
@@ -443,7 +494,7 @@ const SignUp = ({ onSignUp }) => {
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   <i
-                    className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"}
+                    className={showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'}
                   ></i>
                 </button>
                 {passwordError && (
@@ -453,16 +504,16 @@ const SignUp = ({ onSignUp }) => {
 
               <div
                 className="SignUp-form-group"
-                style={{ position: "relative" }}
+                style={{ position: 'relative' }}
               >
                 <label>
                   비밀번호 다시 입력 <span className="required">*</span>
                 </label>
                 <input
-                  type={showConfirmPassword ? "text" : "password"}
+                  type={showConfirmPassword ? 'text' : 'password'}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  style={{ paddingRight: "40px" }}
+                  style={{ paddingRight: '40px' }}
                 />
                 <button
                   type="button"
@@ -471,7 +522,7 @@ const SignUp = ({ onSignUp }) => {
                 >
                   <i
                     className={
-                      showConfirmPassword ? "fas fa-eye-slash" : "fas fa-eye"
+                      showConfirmPassword ? 'fas fa-eye-slash' : 'fas fa-eye'
                     }
                   ></i>
                 </button>
