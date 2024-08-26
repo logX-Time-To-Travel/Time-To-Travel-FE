@@ -1,7 +1,8 @@
 import './Post.css';
 import Modal from '../components/UI/Modal';
 import { useState } from 'react';
-
+import viewIcon from '.././assets/Icon_ View 1.png';
+import heartIcon from '.././assets/heart-after.png';
 const Post = ({ post }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -22,25 +23,31 @@ const Post = ({ post }) => {
   return (
     <div className="post">
       <div className="post-images">
-        {/* 위치 정보가 있는 경우 첫 번째 위치의 주소를 표시 */}
-        <div className="post-images">
-          {/* 위치 정보가 있는 경우 첫 번째 위치의 주소를 표시 */}
-          <div className="post-location">
-            {post.locations && post.locations.length > 0
-              ? post.locations.length > 1
-                ? post.locations[0].address +
-                  ' 외 ' +
-                  (post.locations.length - 1) +
-                  ' 곳'
-                : post.locations[0].address
-              : '위치 정보 없음'}
-          </div>
+        <div className="post-location">
+          {post.locations && post.locations.length > 0
+            ? post.locations.length > 1
+              ? post.locations[0].address +
+                ' 외 ' +
+                (post.locations.length - 1) +
+                ' 곳'
+              : post.locations[0].address
+            : '위치 정보 없음'}
         </div>
       </div>
 
       <div className="post-container">
         <div className="post-title">
           <h3>{post.title}</h3>
+        </div>
+        <div className="interest-menu">
+          <div className="interest">
+            <img src={viewIcon} />
+            <span>1.1만</span>
+          </div>
+          <div className="interest">
+            <img src={heartIcon} />
+            <span>312</span>
+          </div>
         </div>
 
         {/* <div className="post-content">

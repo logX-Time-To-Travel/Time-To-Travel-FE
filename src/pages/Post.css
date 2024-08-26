@@ -61,6 +61,25 @@
 }
 
 
+.interest-menu {
+  display: flex;
+  padding: 5px 0px;
+}
+
+.interest {
+  display: flex;
+  align-items: center;
+  margin-right: 7px;
+}
+
+.interest > span {
+  font-size: 11px;
+  font-weight: bold;
+}
+.interest > img {
+  margin-right: 2px;
+}
+
 img {
   width: 20px;
   height: 20px;
