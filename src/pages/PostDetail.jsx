@@ -44,7 +44,10 @@ const PostDetail = () => {
       }
     );
 
-    const postResponse = await axios.get(`http://localhost:8080/posts/${id}`);
+    const postResponse = await axios.get(`http://localhost:8080/posts/${id}`, {
+      withCredentials: true,
+    });
+
     setMember(userResponse.data);
     setPost(postResponse.data);
   };
