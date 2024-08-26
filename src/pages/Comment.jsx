@@ -62,7 +62,7 @@ const Comment = () => {
     }
   };
 
-  const handleEdit = async (id) => {
+  const handleEdit = async (commentId) => {
     const updatedCommentData = {
       memberId: user.memberId,
       postId: id,
@@ -70,8 +70,9 @@ const Comment = () => {
     };
 
     try {
-      await axios.put(
-        `http://localhost:8080/comment/${id}`,
+      // 수정 API 요청
+      const response = await axios.put(
+        `http://localhost:8080/comment/${commentId}`,
         updatedCommentData,
         {
           withCredentials: true,
@@ -81,17 +82,17 @@ const Comment = () => {
         }
       );
 
-      // API 요청 후 UI 업데이트
+      // UI에 반영
       setComments((prevComments) =>
         prevComments.map((comment) =>
-          comment.id === id ? { ...comment, content: editText } : comment
+          comment.id === commentId ? response.data : comment
         )
       );
 
       setEditingCommentId(null);
       setEditText('');
     } catch (error) {
-      console.error('Error updating comment:', error);
+      console.error('Error saving comment:', error);
     }
   };
 
