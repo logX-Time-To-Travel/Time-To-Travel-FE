@@ -96,13 +96,22 @@ const Comment = () => {
     }
   };
 
-  const handleDeleteClick = (id) => {
+  const handleDeleteClick = async (commentId) => {
     if (window.confirm('댓글을 삭제하시겠습니까?')) {
-      setComments((prevComments) =>
-        prevComments.filter((comment) => comment.id !== id)
-      );
+      try {
+        // 삭제 API 요청
+        await axios.delete(`http://localhost:8080/comment/${commentId}`, {
+          withCredentials: true,
+        });
+
+        // UI에 반영
+        setComments((prevComments) =>
+          prevComments.filter((comment) => comment.id !== commentId)
+        );
+      } catch (error) {
+        console.error('Error deleting comment:', error);
+      }
     }
-    // axios.delete() - 실제 데이터 삭제 로직
   };
 
   const fetchData = async () => {
