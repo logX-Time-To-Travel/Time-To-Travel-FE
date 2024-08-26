@@ -1,162 +1,215 @@
-.Editor-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: auto;
-    margin-inline: 15px; /* 양옆 여백 축소 */
-    margin-top: 10px;
+/* 전체 페이지 스타일 */
+.editor-page {
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+  background-color: #ffffff;
+  min-height: 100vh;
 }
 
-.location-selector {
-    position: relative;
-    width: 100%;
-    padding: 10px auto;
-    margin-inline: 0px;
+/* 에디터 컨테이너 스타일 */
+.editor-container {
+  background-color: #ffffff;
+  padding: 20px;
+  width: 100%;
+  max-width: 800px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.title-container {
-    margin-bottom: 10px; /* 아래쪽 간격 축소 */
-    width: 100%;
-    border: none;
+/* 제목 입력 필드 */
+.title-input {
+  display: flex;
+  justify-content: center;
+  margin-inline: 6px;
+  padding: 7px 0;
+  font-size: 30px; /* 제목 텍스트 크기 증가 */
+  font-weight: bold; /* 볼드체 적용 */
+  color: #000000;
+  border: none;
+  border-bottom: 3px solid #e7e7e700; /* 노란색 하단 테두리 */
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
 }
 
-.title-box::placeholder {
-    color: #a0a0a0;
+.title-input::placeholder {
+  font-weight: bold; /* 플레이스홀더에도 볼드체 적용 */
+  color: #d49f008f;
 }
 
-.title-box {
-    width: 100%;
-    height: 40px; /* 높이 축소 */
-    padding-inline: 5px; /* 내부 패딩 축소 */
-    color: #726f6f;
-    font-size: 25px; /* 폰트 크기 축소 */
-    font-weight: bold;
-    border: none;
-    border-bottom: 2px solid #e0e0e0;
+.title-input:focus {
+  border-color: #e7ad005f;  /* 테두리 포커스 시 진한 노란색 */
 }
 
-.visit-date-container {
-    width: 100%;
-    background-color: #ffffff; /* 흰색 배경 */
-    padding: 8px; /* 패딩 축소 */
-    border-radius: 8px; /* 경계선 둥근 정도 조정 */
-    margin-bottom: 8px; /* 하단 여백 축소 */
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* 그림자 축소 */
+/* 위치 선택 문구 */
+.location-count {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 10px;
+  font-weight: 400;
+  color: #3f3f3f;
+  margin-top: 50px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+
 }
 
-.date-label {
-    display: block;
-    margin-bottom: 4px;
-    font-weight: bold;
-    color: #555555;
-    font-size: 12px; /* 폰트 크기 축소 */
+.location-count >img {
+  opacity: 0.8;
+  margin-right: 10px;
 }
 
-.date-selection {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* 입력 필드와 텍스트를 중앙 정렬 */
-    margin-bottom: 5px; /* 필드 간 간격 축소 */
+
+.location-count-number {
+  margin-right:2px;
+  color: #72360bab; /* 포인트 색상으로 노란색 적용 */
+  font-weight: bold;
 }
 
-.date-input {
-    width: 45px; /* 입력 필드 크기 축소 */
-    text-align: center;
-    padding: 5px;
-    border: 2px solid #e3e3e3; /* 테두리 두께 유지 */
-    border-radius: 8px; /* 입력 필드 둥근 모서리 적용 */
-    font-size: 12px; /* 폰트 크기 축소 */
-    margin-right: 3px; /* 입력 필드 간의 간격 조정 */
+.location-selection {
+  display:flex;
+  flex-direction: column;
+  background-color: transparent; 
+  border: 2px solid #8c8c8c36; 
+  border-radius: 12px; /* 모서리 둥글게 */
+  padding: 15px;
+  margin-top: 0px;
 }
 
-.checkbox-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* 체크박스와 텍스트를 왼쪽 정렬 */
-    margin-top: 3px; /* 체크박스 위쪽 간격 축소 */
+/* 위치 추가 버튼 */
+.add-location-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+
+  color: rgba(255, 170, 0, 0.543);
+  border: 2px solid #ff990092;
+  border-radius: 30px;
+
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
 }
 
-.checkbox-container input[type="checkbox"] {
-    -webkit-appearance: none;
-    appearance: none;
-    background-color: #e0e0e0;
-    margin-right: 4px;
-    width: 16px; /* 체크박스 크기 축소 */
-    height: 16px; /* 체크박스 크기 축소 */
-    border-radius: 50%; /* 체크박스를 둥근 모양으로 */
-    position: relative;
-    cursor: pointer;
-    outline: none;
-    border: 1px solid #cccccc;
+.add-location-button > img {
+  width: 30px;
+  height:30px;
+  margin-right: 3px;
+  opacity: 0.5;
+}
+/* 위치 리스트 */
+.locations-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+/* 각 위치 탭 스타일 */
+.location-item {
+  border-radius: 20px; /* 모서리 둥글게 */
+  padding: 8px 12px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 470;
+  color: #5f4100bf;
 }
 
-.checkbox-container input[type="checkbox"]:checked {
-    background-color: #FFC107; /* 체크되었을 때의 색상 */
-    border: none;
+.location-item button:hover {
+  color: #ff5733; /* 호버 시 글씨색 변경 */
 }
 
-.checkbox-container input[type="checkbox"]:checked::after {
-    content: '';
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    width: 10px; /* 내부 원 크기 축소 */
-    height: 10px; /* 내부 원 크기 축소 */
-    border-radius: 50%;
-    background-color: #fff; /* 흰색 원 표시 */
+.location-item:nth-child(1) {
+  background-color: #ffe599; /* 연한 노란색 */
+
+}
+.location-item:nth-child(2) {
+  background-color: #ffd966; /* 진한 노란색 */
+
 }
 
-.checkbox-container label {
-    font-weight: bold;
-    color: #ece8e8;
-    font-size: 12px; /* 폰트 크기 축소 */
-    margin-left: 0; /* 체크박스와 텍스트 사이 간격 제거 */
+.location-item:nth-child(3) {
+  background-color: #fac559; /* 연한 주황색 */
+
 }
 
-.location-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fdfdfd; /* 파란색 배경 */
-    border-radius: 5px; /* 모서리를 둥글게 조정 */
-    padding: 10px 12px; /* 패딩 조정 */
-    margin-top: 8px; /* 간격 축소 */
-    cursor: pointer;
-    width: 100%;
+.location-item:nth-child(4) {
+  background-color: #f9cb9c; /* 연한 주황색 */
 }
 
-.location-content {
-    display: flex;
-    background-color: white;
-    align-items: center;
-    justify-content: center;
+.location-item:nth-child(5) {
+  background-color: #fff2cc; /* 매우 연한 노란색 */
 }
 
-.location-container button {
-    background-color: transparent;
-    border: none;
-    color: #000dff; /* 흰색 텍스트 */
-    font-weight: bold;
-    font-size: 16px; /* 폰트 크기 */
-    cursor: pointer;
+.location-item button {
+  background-color: transparent;
+  border: none;
+  color: #45120072;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+  transition: color 0.2s;
 }
 
-.location-content img {
-    margin-right: 15px; /* 아이콘과 텍스트 사이 간격 */
-    width: 20px; /* 이미지 크기 조정 */
+.location-item button:hover {
+  color: #333333;
 }
 
-.location-content span {
-    color: #ffffff; /* 흰색 텍스트 */
-    font-weight: bold;
-    font-size: 15px; /* 폰트 크기 */
+.tab-delete-button {
+  display: flex;
+  width: 15px;
+  height: 15px;
+  opacity: 0.5;
+  flex-direction: row;
+}
+/* 제출 버튼 */
+.submit-button {
+  width: 100%;
+  background-color: #faa300; /* 노란색 */
+  color: #ffffff;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 7px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.2s;
 }
 
-.selected-location {
-    margin-top: 8px; /* 간격 축소 */
-    font-size: 12px; /* 폰트 크기 축소 */
-    color: #333;
-    text-align: center;
+.submit-button:hover {
+  background-color: #ff9100; /* 호버 시 진한 노란색 */
+}
+
+/* 툴바 설정 */
+.mce-toolbar {
+  overflow-x: auto; /* 툴바 내용이 넘칠 때 스크롤 가능 */
+}
+
+.mce-toolbar .mce-btn-group {
+  flex-shrink: 0; /* 버튼 그룹이 줄어들지 않도록 설정 */
+}
+
+/* 반응형 디자인 */
+@media (max-width: 600px) {
+  .editor-container {
+    padding: 20px;
+  }
+
+  .title-input {
+    font-size: 20px; /* 반응형일 때 제목 크기 조정 */
+  }
+
+  .add-location-button,
+  .submit-button {
+    font-size: 14px;
+    padding: 10px;
+  }
 }
