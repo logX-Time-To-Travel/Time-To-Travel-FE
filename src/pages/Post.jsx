@@ -1,6 +1,6 @@
-import "./Post.css";
-import Modal from "../components/UI/Modal";
-import { useState } from "react";
+import './Post.css';
+import Modal from '../components/UI/Modal';
+import { useState } from 'react';
 
 const Post = ({ post }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -10,32 +10,42 @@ const Post = ({ post }) => {
   };
 
   const handleEdit = () => {
-    console.log("수정");
+    console.log('수정');
     handleModal();
   };
 
   const handleDelete = () => {
-    console.log("삭제");
+    console.log('삭제');
     handleModal();
   };
 
   return (
     <div className="post">
       <div className="post-images">
-        {/* <img src={post.images[0]} alt={key} /> */}
-        <div className="post-location">{post.location.address}</div>
+        {/* 위치 정보가 있는 경우 첫 번째 위치의 주소를 표시 */}
+        <div className="post-images">
+          {/* 위치 정보가 있는 경우 첫 번째 위치의 주소를 표시 */}
+          <div className="post-location">
+            {post.locations && post.locations.length > 0
+              ? post.locations.length > 1
+                ? post.locations[0].address +
+                  ' 외 ' +
+                  (post.locations.length - 1) +
+                  ' 곳'
+                : post.locations[0].address
+              : '위치 정보 없음'}
+          </div>
+        </div>
       </div>
 
       <div className="post-container">
         <div className="post-title">
           <h3>{post.title}</h3>
         </div>
-      
-        
+
         {/* <div className="post-content">
           {post.content.replace(/<\/?[^>]+(>|$)/g, "")}
         </div> */}
-
       </div>
       <div>
         {/* <button className="more-button" onClick={handleModal}>
