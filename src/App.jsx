@@ -17,6 +17,7 @@ import Tinymce from './plugins/Tinymce';
 import Mypage from './pages/Mypage';
 import PostDetail from './pages/PostDetail';
 import './App.css';
+import Comment from './pages/Comment';
 
 const libraries = ['places'];
 
@@ -53,6 +54,7 @@ function App() {
               <Route path="/editor" element={<Tinymce addPost={addPost} />} />
               <Route path="/addpost" element={<AddPost />} />
               <Route path="/post/:id" element={<PostDetail />} />
+              <Route path="/comment/:id" element={<Comment />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/mypage" element={<Mypage />} />
               <Route
