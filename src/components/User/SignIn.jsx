@@ -20,12 +20,10 @@ const SignIn = ({ onSignIn }) => {
     try {
       const data = { email, password }; // 로그인 데이터 객체 생성
       const response = await axios.post(
-        'http://127.0.0.1:8080/member/login',
+        'http://localhost:8080/member/login',
         data,
         {
-          headers: {
-            'Content-Type': 'application/json', // 요청 헤더에 Content-Type 설정
-          },
+          withCredentials: true,
         }
       );
 

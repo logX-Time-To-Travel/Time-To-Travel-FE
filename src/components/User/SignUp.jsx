@@ -51,7 +51,7 @@ const SignUp = ({ onSignUp }) => {
     const fetchDefaultProfilePic = async () => {
       try {
         const response = await axios.get(
-          'http://127.0.0.1:8080/images/default.png',
+          'http://localhost:8080/images/default.png',
           {
             responseType: 'blob', // 이미지 데이터를 가져오기 위해 blob 타입으로 지정
           }
@@ -94,7 +94,7 @@ const SignUp = ({ onSignUp }) => {
   const checkUsernameDuplicate = async (username) => {
     try {
       await axios.post(
-        'http://127.0.0.1:8080/member/check-username',
+        'http://localhost:8080/member/check-username',
         { username },
         {
           headers: {
@@ -166,7 +166,7 @@ const SignUp = ({ onSignUp }) => {
 
         try {
           const uploadResponse = await axios.post(
-            'http://127.0.0.1:8080/image/upload',
+            'http://localhost:8080/image/upload',
             formData,
             {
               headers: {
@@ -189,7 +189,7 @@ const SignUp = ({ onSignUp }) => {
 
       try {
         const response = await axios.post(
-          'http://127.0.0.1:8080/member/signup',
+          'http://localhost:8080/member/signup',
           newUser,
           {
             headers: {
