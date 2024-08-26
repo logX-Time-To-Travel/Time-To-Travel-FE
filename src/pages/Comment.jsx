@@ -62,15 +62,37 @@ const Comment = () => {
     }
   };
 
-  const handleSaveEdit = (id) => {
-    setComments((prevComments) =>
-      prevComments.map((comment) =>
-        comment.id === id ? { ...comment, content: editText } : comment
-      )
-    );
-    setEditingCommentId(null);
-    setEditText('');
-    // axios.put() - 실제 데이터 수정 로직
+  const handleEdit = async (id) => {
+    const updatedCommentData = {
+      memberId: user.memberId,
+      postId: id,
+      content: editText,
+    };
+
+    try {
+      await axios.put(
+        `http://localhost:8080/comment/${id}`,
+        updatedCommentData,
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      // API 요청 후 UI 업데이트
+      setComments((prevComments) =>
+        prevComments.map((comment) =>
+          comment.id === id ? { ...comment, content: editText } : comment
+        )
+      );
+
+      setEditingCommentId(null);
+      setEditText('');
+    } catch (error) {
+      console.error('Error updating comment:', error);
+    }
   };
 
   const handleDeleteClick = (id) => {
@@ -143,7 +165,7 @@ const Comment = () => {
                       <div className="comment-edit-buttons-gap">
                         <button
                           className="comment-button"
-                          onClick={() => handleSaveEdit(comment.id)}
+                          onClick={() => handleEdit(comment.id)}
                         >
                           완료
                         </button>
