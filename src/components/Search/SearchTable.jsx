@@ -41,7 +41,7 @@ const SearchTable = () => {
         try {
           const response = await axios.get(`${API_URL}/${username}`);
           if (Array.isArray(response.data)) {
-            setSearchHistory(response.data);
+            setSearchHistory(response.data.map((item) => item.query)); // query만 추출하여 배열로 설정
           } else {
             console.error('Fetched data is not an array:', response.data);
             setSearchHistory([]);
@@ -65,7 +65,7 @@ const SearchTable = () => {
       setSearchHistory(updatedHistory);
 
       try {
-        await axios.post(`${API_URL}/${username}`, { term: searchTerm });
+        await axios.post(`${API_URL}/${username}`, { keyword: searchTerm });
       } catch (error) {
         console.error('Error saving search term:', error);
         alert('검색어 저장 중 오류가 발생했습니다.');
@@ -123,7 +123,7 @@ const SearchTable = () => {
                   alt="검색기록"
                   className="marker-image"
                 />
-                {item}
+                {item} {/* item이 문자열이어야 합니다 */}
                 <button
                   className="Sdelete-button"
                   onClick={(e) => {
