@@ -11,7 +11,7 @@ const SearchTable = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchHistory, setSearchHistory] = useState([]);
   const [username, setUsername] = useState(''); // username 상태 추가
-  const [member, setMember] = useState(null); // member 상태 추가
+  const [member, setMember] = useState(null);
 
   useEffect(() => {
     const fetchMember = async () => {
@@ -20,6 +20,9 @@ const SearchTable = () => {
           'http://localhost:8080/member/session',
           {
             withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json', // 요청 헤더에 Content-Type 설정
+            },
           }
         );
         setMember(userResponse.data);
