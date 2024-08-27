@@ -16,6 +16,7 @@ import Mypage from './pages/Mypage';
 import PostDetail from './pages/PostDetail';
 import './App.css';
 import Comment from './pages/Comment';
+import EditUser from './components/User/EditUser';
 
 const libraries = ['places'];
 
@@ -55,6 +56,7 @@ function App() {
               <Route path="/comment/:id" element={<Comment />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/mypage" element={<Mypage />} />
+              <Route path="/edituser" element={<EditUser />} />
               <Route path="/terms/:type" element={<Terms />} />{' '}
             </Routes>
           </BrowserRouter>
