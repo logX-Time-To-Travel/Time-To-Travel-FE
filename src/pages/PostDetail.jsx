@@ -50,6 +50,7 @@ const PostDetail = () => {
     setMember(userResponse.data);
     setPost(postResponse.data);
     setIsLiked(postResponse.data.liked);
+    setIsScrapped(postResponse.data.scrapped);
   };
 
   const setInfo = () => {
@@ -94,6 +95,23 @@ const PostDetail = () => {
   };
 
   const handleScrapClick = () => {
+    if (!isScrapped) {
+      axios.post(
+        `http://localhost:8080/scraps/${post.id}/${member.memberId}`,
+        null,
+        {
+          withCredentials: true,
+        }
+      );
+    } else {
+      axios.delete(
+        `http://localhost:8080/scraps/${post.id}/${member.memberId}`,
+        {
+          withCredentials: true,
+        }
+      );
+    }
+
     setIsScrapped(!isScrapped);
     setPost((prev) => ({
       ...prev,
