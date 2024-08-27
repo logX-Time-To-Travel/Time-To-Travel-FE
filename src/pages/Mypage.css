@@ -37,109 +37,100 @@ letter-spacing: -0.03em;
 color: #000000; */
 
 .profile-container {
-    /* position: relative; */
-    padding: 35px 0px;
-    margin-inline: 0px;
+  font-family: var(--Noto-Sans-KR);
+  /* position: relative; */
+  padding: 35px 0px;
+  margin-inline: 0px;
 }
 
 .edit-button-container {
-    position: fixed;
-
+  position: fixed;
 }
 
 .edit-button {
-    position: absolute;
-    top: -85px;
-    right: -80px;
-    width: 60px;
-    height: 60px;
-    cursor: pointer;
-    background: transparent;
+  position: absolute;
+  top: -85px;
+  right: -80px;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  background: transparent;
 }
 
 .edit-button > img {
-
-    position: fixed;
-    width: 75px;
-    height: 75px;
+  position: fixed;
+  width: 75px;
+  height: 75px;
 }
 
-
 .info-container {
+  margin-inline: 50px;
+  border: 1px solid rgb(179, 176, 176);
+  padding: 15px;
 
-    margin-inline: 50px;
-    border : 1px solid rgb(179, 176, 176);
-    padding: 15px;
-    
-    border-radius: 15px;
-    font-size: 12px;
-    font-weight: bold;
-    line-height: 1.6;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1.6;
 }
 
 .info-box {
-    display: flex;
-    justify-content: space-between;
-    margin-inline: 11px;
+  display: flex;
+  justify-content: space-between;
+  margin-inline: 11px;
 }
 
-
 .data-set {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .data-value {
-    position:absolute;
-    margin-right: 0px;
-    margin-left: 110px;
+  position: absolute;
+  margin-right: 0px;
+  margin-left: 110px;
 }
 
 .detail-btn {
-    /* float: right; */
-    background-color: white;
-    border: none;
-    color: rgb(244, 204, 1);
-    font-weight: bold;
-    background: transparent;
+  /* float: right; */
+  background-color: white;
+  border: none;
+  color: rgb(244, 204, 1);
+  font-weight: bold;
+  background: transparent;
 }
 
 .logout-box {
-   
-    padding: 30px 0px;
-    margin-inline: 50px;
+  padding: 30px 0px;
+  margin-inline: 50px;
 }
 
 .logout-btn {
-    font-size: 10px;
-    font-weight: bold;
-    color: red;
-    border: 1px solid red;
-    background: transparent;
-    border-radius: 10px;
-    width: 100%;
-    height: 40px;
-    box-shadow: 1px 1px 6px rgb(241, 180, 180);
-    /* text-shadow: 1px 1px 1px rgb(225, 225, 225); */
+  font-size: 10px;
+  font-weight: bold;
+  color: red;
+  border: 1px solid red;
+  background: transparent;
+  border-radius: 10px;
+  width: 100%;
+  height: 40px;
+  box-shadow: 1px 1px 6px rgb(241, 180, 180);
+  /* text-shadow: 1px 1px 1px rgb(225, 225, 225); */
 }
 
 .user-state-container {
-
-    display: fixed;
-    margin-inline: 60px;
-    border: none;
-    font-weight: bold;
-    margin-top: 15px;
-    padding: 15px 0px;
-    
+  display: fixed;
+  margin-inline: 60px;
+  border: none;
+  font-weight: bold;
+  margin-top: 15px;
+  padding: 15px 0px;
 }
 
 .user-state-container .data-value {
-    
-    position: relative;
-    display: flex;
-    float: right;
-    margin-right: 1px;
-    line-height: 1.6;
+  position: relative;
+  display: flex;
+  float: right;
+  margin-right: 1px;
+  line-height: 1.6;
 }
-
