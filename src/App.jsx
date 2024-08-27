@@ -5,10 +5,8 @@ import { LoadScript } from '@react-google-maps/api';
 import { useState } from 'react';
 import Home from './pages/Home';
 import Blog from './pages/Blog';
-import Auth from './pages/Auth';
 import SearchPage from './pages/SearchPage';
 import AddPost from './pages/AddPost';
-import Profile from './pages/Profile';
 import SignUp from './components/User/SignUp';
 import SignIn from './components/User/SignIn';
 import MapHome from './components/Map/MapHome';
@@ -18,6 +16,7 @@ import Mypage from './pages/Mypage';
 import PostDetail from './pages/PostDetail';
 import './App.css';
 import Comment from './pages/Comment';
+import EditUser from './components/User/EditUser';
 
 const libraries = ['places'];
 
@@ -51,14 +50,13 @@ function App() {
               <Route path="/signin" element={<SignIn />} />
               <Route path="/home" element={<Home />} />
               <Route path="/blog" element={<Blog posts={posts} />} />
-              <Route path="/auth" element={<Auth />} />
-              <Route path="/profile" element={<Profile />} />
               <Route path="/editor" element={<Tinymce addPost={addPost} />} />
               <Route path="/addpost" element={<AddPost />} />
               <Route path="/post/:id" element={<PostDetail />} />
               <Route path="/comment/:id" element={<Comment />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/mypage" element={<Mypage />} />
+              <Route path="/edituser" element={<EditUser />} />
               <Route path="/terms/:type" element={<Terms />} />{' '}
             </Routes>
           </BrowserRouter>

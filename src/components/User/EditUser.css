@@ -1,0 +1,94 @@
+/* 전체 컨테이너 스타일 */
+.edituser-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: var(--Noto-Sans-KR);
+}
+
+/* 헤더 스타일 */
+.edituser-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  padding-inline: 25px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* 뒤로가기 버튼 스타일 */
+.edituser-backward img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+/* 저장 버튼 스타일 */
+.edituser-save {
+  cursor: pointer;
+  color: blue;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+/* 바디 스타일 */
+.edituser-body {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+
+/* 프로필 이미지 컨테이너 스타일 */
+.edituser-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.profile-change {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #e8ac37;
+}
+
+/* 닉네임 및 자기소개 타이틀 스타일 */
+.edituser-title {
+  margin-bottom: 15px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* 입력 폼 스타일 */
+.edituser-username-container {
+  margin-bottom: 50px;
+}
+
+.edituser-content {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #eaeaea;
+  font-size: 14px;
+  font-weight: 500;
+  resize: none;
+}
+
+.edituser-content:focus {
+  outline: none;
+  border-color: #e8ac37;
+}
