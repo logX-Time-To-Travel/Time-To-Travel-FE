@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar/Navbar';
 import './PostDetail.css';
 import axios from 'axios';
@@ -37,10 +37,20 @@ const PostDetail = () => {
   const [headerColor, setHeaderColor] = useState('#FAA500');
 
   const fetchData = async () => {
-    const userResponse = await axios.get('/member/session');
-    const postResponse = await axios.get(`/post/${id}`);
+    const userResponse = await axios.get(
+      'http://localhost:8080/member/session',
+      {
+        withCredentials: true,
+      }
+    );
+
+    const postResponse = await axios.get(`http://localhost:8080/posts/${id}`, {
+      withCredentials: true,
+    });
     setMember(userResponse.data);
     setPost(postResponse.data);
+    setIsLiked(postResponse.data.liked);
+    setIsScrapped(postResponse.data.scrapped);
   };
 
   const setInfo = () => {
@@ -56,6 +66,23 @@ const PostDetail = () => {
   };
 
   const handleLikeClick = () => {
+    if (!isLiked) {
+      axios.post(
+        `http://localhost:8080/likes/${post.id}/${member.memberId}`,
+        null,
+        {
+          withCredentials: true,
+        }
+      );
+    } else {
+      axios.delete(
+        `http://localhost:8080/likes/${post.id}/${member.memberId}`,
+        {
+          withCredentials: true,
+        }
+      );
+    }
+
     setIsLiked(!isLiked);
     setPost((prev) => ({
       ...prev,
@@ -68,6 +95,23 @@ const PostDetail = () => {
   };
 
   const handleScrapClick = () => {
+    if (!isScrapped) {
+      axios.post(
+        `http://localhost:8080/scraps/${post.id}/${member.memberId}`,
+        null,
+        {
+          withCredentials: true,
+        }
+      );
+    } else {
+      axios.delete(
+        `http://localhost:8080/scraps/${post.id}/${member.memberId}`,
+        {
+          withCredentials: true,
+        }
+      );
+    }
+
     setIsScrapped(!isScrapped);
     setPost((prev) => ({
       ...prev,
@@ -84,7 +128,7 @@ const PostDetail = () => {
         .delete(`/post/${id}`)
         .then(() => {
           alert('삭제되었습니다.');
-          navigate(`member/${post.username}`);
+          navigate(`/member/${post.username}`);
         })
         .catch(
           alert('오류로 게시글을 삭제할 수 없습니다. 다시 시도해 주세요.')
@@ -108,34 +152,12 @@ const PostDetail = () => {
   }, []);
 
   useEffect(() => {
-    // fetchData();     // API 호출 함수 주석 처리
-
-    setPost(dummyPost); // 더미데이터 사용
-    setMember({ username: '천재123' }); // 더미 유저 추가
-  }, [id]);
+    fetchData();
+  }, []);
 
   useEffect(() => {
     setInfo();
   }, [post, member]);
-
-  const dummyPost = {
-    id: 1,
-    title: '오늘은 석계문고에 다녀왔습니다.',
-    username: '천재123',
-    profileImageUrl: 'https://example.com/path/to/profile-image.jpg',
-    introduction: '저는 여행다니기를 좋아하는 사람입니다. 만나서 반갑습니다.',
-    data: `<p>요즘 여러 신축 건물에 위치한 예쁜 서점들을 자주 들르는 편인데, <br><br><br><br><br>테라코타 벽돌을 테마로 그에 맞춰 아름다운 조형물을 내세우거나 아예 고풍스러운 카페를 콘셉트로 잡은 후 샹들리에를 달고 은촛대를 놓은 모습을 보면 저도 모르게 만족감이 느껴집니다. 하지만 그러면서도, 어릴 적 많이 볼 수 있었던 지하 잡화점이나 문구점, 서점이 그리워질 때가 있습니다...</p>
-  <p>지하는 사실 그렇게 선호되는 건물 양식은 아닙니다. 습해서 곰팡이가 잘 피기 쉽상이고, 여름엔 더 덥고 겨울엔 더 추우니까요. <br><br><br><br><br><br><br><br><br><br><br><br>그래서 그런지 지하에 위치한 상점을 보기가 요 근래에는 더 힘들어진 듯합니다.</p>`,
-    locations: [
-      { id: 1, name: '석계문고' },
-      { id: 2, name: '또 다른 장소' },
-    ],
-    postCount: 5,
-    likeCount: 53,
-    commentCount: 12,
-    viewCount: 123,
-    createdAt: '2024년 3월 21일',
-  };
 
   return (
     <div className="post-detail-container">

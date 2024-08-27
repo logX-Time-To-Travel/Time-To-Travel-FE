@@ -7,7 +7,7 @@ import BackIcon from '../../assets/Icon_ Back 1.png';
 import './SignIn.css'; // SignIn.css 와 연결
 
 // 로그인 컴포넌트
-const SignIn = ({ onSignIn }) => {
+const SignIn = () => {
   const navigate = useNavigate(); // 페이지 이동 훅
   const [email, setEmail] = useState(''); // 이메일 상태
   const [password, setPassword] = useState(''); // 비밀번호 상태
@@ -29,9 +29,7 @@ const SignIn = ({ onSignIn }) => {
 
       if (response.status === 200) {
         alert('로그인 성공!');
-        const user = response.data;
-        onSignIn(user);
-        navigate('/profile');
+        navigate('/home');
       }
     } catch (error) {
       if (error.response && error.response.status === 400) {

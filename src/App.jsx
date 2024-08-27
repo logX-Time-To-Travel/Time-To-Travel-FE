@@ -47,6 +47,8 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Navigate to="/home" />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/signin" element={<SignIn />} />
               <Route path="/home" element={<Home />} />
               <Route path="/blog" element={<Blog posts={posts} />} />
               <Route path="/auth" element={<Auth />} />
@@ -57,34 +59,7 @@ function App() {
               <Route path="/comment/:id" element={<Comment />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/mypage" element={<Mypage />} />
-              <Route
-                path="/map"
-                element={user ? <MapHome /> : <Navigate to="/signin" />}
-              />
-              <Route
-                path="/profile"
-                element={user ? <MapHome /> : <Profile />}
-              />{' '}
-              {/* 사용자 로그인 시 지도 페이지로 이동 */}
-              <Route
-                path="/signup"
-                element={<SignUp onSignUp={handleSignUp} />}
-              />{' '}
-              {/* SignUp 라우트에 onSignUp 핸들러 추가 */}
-              <Route
-                path="/signin"
-                element={
-                  <SignIn
-                    onSignIn={(user) => {
-                      handleSignIn(user);
-                      window.location.href = '/home';
-                    }}
-                  />
-                }
-              />{' '}
-              {/* SignIn 라우트에 onSignIn 핸들러 수정: 로그인 후 /home으로 이동 */}
               <Route path="/terms/:type" element={<Terms />} />{' '}
-              {/* Terms 컴포넌트에 대한 라우트 추가 */}
             </Routes>
           </BrowserRouter>
         </PostProvider>
