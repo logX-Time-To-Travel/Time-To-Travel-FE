@@ -133,10 +133,6 @@ const Mypage = () => {
             {new Date(user.created_at).toLocaleDateString('ko-KR')}
           </p>
         </div>
-        <div className="info-box">
-          <p className="data-option">최근 활동</p>
-          <p className="data-value">30분 전</p>
-        </div>
       </div>
 
       <div className="logout-box">
