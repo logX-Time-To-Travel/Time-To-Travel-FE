@@ -1,15 +1,16 @@
 import './ProfileCard.css';
 
-const ProfileCard = () => {
+const ProfileCard = ({ profileImageUrl, username, introduction }) => {
   return (
     <div className="profile-container">
       <div className="profile-image">
-        <img src="경로" alt="이미지" />
+        <img src={profileImageUrl} alt="이미지" />
       </div>
       <div className="profile-info">
-        <div className="profile-id">사용자</div>
+        <div className="profile-id">{username}</div>
         <div className="profile-intro">
-          한줄소개<after></after>
+          {introduction}
+          <after></after>
         </div>
       </div>
     </div>
