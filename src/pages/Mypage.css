@@ -40,6 +40,7 @@ color: #000000; */
   font-family: var(--Noto-Sans-KR);
   /* position: relative; */
   padding: 35px 0px;
+  padding-top: 50px;
   margin-inline: 0px;
 }
 
