@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar/Navbar';
 import './PostDetail.css';
 import axios from 'axios';
@@ -47,9 +47,9 @@ const PostDetail = () => {
     const postResponse = await axios.get(`http://localhost:8080/posts/${id}`, {
       withCredentials: true,
     });
-
     setMember(userResponse.data);
     setPost(postResponse.data);
+    setIsLiked(postResponse.data.liked);
   };
 
   const setInfo = () => {
@@ -65,6 +65,23 @@ const PostDetail = () => {
   };
 
   const handleLikeClick = () => {
+    if (!isLiked) {
+      axios.post(
+        `http://localhost:8080/likes/${post.id}/${member.memberId}`,
+        null,
+        {
+          withCredentials: true,
+        }
+      );
+    } else {
+      axios.delete(
+        `http://localhost:8080/likes/${post.id}/${member.memberId}`,
+        {
+          withCredentials: true,
+        }
+      );
+    }
+
     setIsLiked(!isLiked);
     setPost((prev) => ({
       ...prev,
