@@ -81,7 +81,13 @@ const Mypage = () => {
           <button
             className="edit-button"
             onClick={() => {
-              navigate('/edituser');
+              navigate('/edituser', {
+                state: {
+                  profileImageUrl: user.profileImageUrl,
+                  username: user.username,
+                  introduction: user.introduction,
+                },
+              });
             }}
           >
             <img src={btnimg} alt="Edit" />

@@ -28,6 +28,7 @@
 .edituser-save {
   cursor: pointer;
   color: blue;
+  font-weight: 400;
   font-size: 14px;
 }
 
@@ -74,7 +75,7 @@
 
 /* 입력 폼 스타일 */
 .edituser-username-container {
-  margin-bottom: 70px;
+  margin-bottom: 50px;
 }
 
 .edituser-content {
@@ -83,6 +84,7 @@
   border-radius: 5px;
   border: 1px solid #eaeaea;
   font-size: 14px;
+  font-weight: 500;
   resize: none;
 }
 
