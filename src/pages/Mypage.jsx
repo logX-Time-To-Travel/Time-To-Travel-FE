@@ -4,9 +4,17 @@ import btnimg from '../assets/Button-Edit.png';
 import Navbar from '../components/Navbar/Navbar';
 
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Mypage = () => {
   const navigate = useNavigate();
+  const handleLogout = () => {
+    axios.post('http://localhost:8080/member/logout', null, {
+      withCredentials: true,
+    });
+    console.log('로그아웃');
+    navigate('/signin');
+  };
   return (
     <div>
       <div className="profile-container">
@@ -73,7 +81,9 @@ const Mypage = () => {
       </div>
 
       <div className="logout-box">
-        <button className="logout-btn">로그아웃</button>
+        <button className="logout-btn" onClick={handleLogout}>
+          로그아웃
+        </button>
       </div>
 
       <div>
