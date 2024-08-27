@@ -3,35 +3,41 @@ import Modal from '../components/UI/Modal';
 import { useState } from 'react';
 import viewIcon from '.././assets/Icon_ View 1.png';
 import heartIcon from '.././assets/heart-after.png';
+import markerIcon from '.././assets/Icon_ Map 1.png';
+
 const Post = ({ post }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleModal = () => {
-    setIsModalOpen((prev) => !prev);
+  const truncateText = (text, maxLength) => {
+    if (post.locations.length < 2 && text.length <= maxLength) {
+      return text;
+    }
+    return text.slice(0, maxLength) + '...';
   };
 
-  const handleEdit = () => {
-    console.log('수정');
-    handleModal();
-  };
-
-  const handleDelete = () => {
-    console.log('삭제');
-    handleModal();
-  };
+  const maxLength = 9; // 최대 8글자
+  const addressText =
+    post.locations.length > 0 ? post.locations[0].address : '위치 정보 없음';
 
   return (
     <div className="post">
       <div className="post-images">
         <div className="post-location">
-          {post.locations && post.locations.length > 0
-            ? post.locations.length > 1
-              ? post.locations[0].address +
-                ' 외 ' +
-                (post.locations.length - 1) +
-                ' 곳'
-              : post.locations[0].address
-            : '위치 정보 없음'}
+          {post.locations.length > 0 ? (
+            post.locations.length > 1 ? (
+              <>
+                <img src={markerIcon} alt="marker" />
+                {post.locations[0].address} 외{' '}
+                {post.locations.length - 1} 곳
+              </>
+            ) : (
+              <>
+                <img src={markerIcon} alt="marker" />
+                {truncateText(addressText, maxLength)}
+              </>
+            )
+          ) : (
+            truncateText(addressText, maxLength)
+          )}
         </div>
       </div>
 
@@ -41,34 +47,15 @@ const Post = ({ post }) => {
         </div>
         <div className="interest-menu">
           <div className="interest">
-            <img src={viewIcon} />
+            <img src={viewIcon} alt="views" />
             <span>1.1만</span>
           </div>
           <div className="interest">
-            <img src={heartIcon} />
+            <img src={heartIcon} alt="likes" />
             <span>312</span>
           </div>
         </div>
-
-        {/* <div className="post-content">
-          {post.content.replace(/<\/?[^>]+(>|$)/g, "")}
-        </div> */}
       </div>
-      <div>
-        {/* <button className="more-button" onClick={handleModal}>
-          <img src="src\assets\more_btn.png"></img>
-        </button> */}
-      </div>
-      {/* <div>
-        {isModalOpen && (
-          <Modal
-            isOpen={isModalOpen}
-            onClick={handleModal}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-          />
-        )}
-      </div> */}
     </div>
   );
 };

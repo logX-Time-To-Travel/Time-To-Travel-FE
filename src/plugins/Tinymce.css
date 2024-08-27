@@ -86,6 +86,7 @@
   align-items: center;
   justify-content: center;
   background-color: transparent;
+  padding: 10px;
 
   color: rgba(255, 170, 0, 0.543);
   border: 2px solid #ff990092;
