@@ -77,7 +77,12 @@ const Mypage = () => {
           introduction={user.introduction}
         />
         <div className="edit-button-container">
-          <button className="edit-button">
+          <button
+            className="edit-button"
+            onClick={() => {
+              console.log('클릭');
+            }}
+          >
             <img src={btnimg} alt="Edit" />
           </button>
         </div>
