@@ -26,8 +26,7 @@ const Post = ({ post }) => {
             post.locations.length > 1 ? (
               <>
                 <img src={markerIcon} alt="marker" />
-                {post.locations[0].address} 외{' '}
-                {post.locations.length - 1} 곳
+                {post.locations[0].address} 외 {post.locations.length - 1} 곳
               </>
             ) : (
               <>
@@ -46,13 +45,16 @@ const Post = ({ post }) => {
           <h3>{post.title}</h3>
         </div>
         <div className="interest-menu">
-          <div className="interest">
+          <div className="views">
             <img src={viewIcon} alt="views" />
             <span>1.1만</span>
           </div>
-          <div className="interest">
+          <div className="hearts">
             <img src={heartIcon} alt="likes" />
             <span>312</span>
+          </div>
+          <div className="time-ago">
+            <span>5초전</span>
           </div>
         </div>
       </div>

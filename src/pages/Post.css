@@ -72,20 +72,42 @@
 .interest-menu {
   display: flex;
   padding: 5px 0px;
+  white-space: nowrap;
 }
 
-.interest {
+.views {
   display: flex;
   align-items: center;
-  margin-right: 7px;
 }
 
-.interest > span {
-  font-size: 11px;
+.views span {
+  font-size: 10px;
+  font-weight: bold;
+  transform: scale(0.75);
+  transform-origin: left;
+}
+
+.hearts{
+  display: flex;
+  align-items: center;
+}
+
+.hearts span {
+
+  color: red;
+  font-size: 10px;
+  transform: scale(0.75);
+  transform-origin: left;
   font-weight: bold;
 }
-.interest > img {
-  margin-right: 2px;
+.views img {
+  width: 17px;
+  height: 17px;
+}
+
+.hearts img {
+  width: 11px;
+  height: 11px;
 }
 
 
@@ -94,6 +116,16 @@ img {
   height: 20px;
   cursor: pointer;
 
+}
+
+.time-ago {
+  width: 100%;
+  display: flex;
+  color: #ffb300;
+  transform: scale(0.75);
+  transform-origin: right;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 @media (max-width: 768px) {
