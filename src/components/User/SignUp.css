@@ -16,7 +16,7 @@
 
 /* 페이지 헤더 */
 .SignUp-title {
-  font-family: "Outfit", sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-weight: 700;
   font-size: 28px;
   line-height: 35px;
@@ -26,7 +26,7 @@
 }
 
 .SignUp-description {
-  font-family: "Outfit", sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 18px;
@@ -69,7 +69,7 @@
 }
 
 .SignUp-agreement .text {
-  font-family: "Outfit", sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 18px;
@@ -103,7 +103,7 @@
 .SignUp-term-item .text {
   display: flex;
   align-items: center;
-  font-family: "Outfit", sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 18px;
@@ -125,34 +125,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* 버튼 스타일 */
-
-/* Back Button */
-.SignUp-back-btn {
-  position: absolute;
-  width: 100%; /* 계속하기 버튼과 동일한 너비 */
-  height: 44px; /* 계속하기 버튼과 동일한 높이 */
-  left: 0px; /* 계속하기 버튼과 동일한 위치 */
-  top: 715px; /* 기존 top 속성에서 약간 위로 당겨 조정 */
-  background: none;
-  border-radius: 12px;
-  font-family: "Outfit", sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 18px;
-  text-align: center;
-  letter-spacing: -0.03em;
-  color: #979797;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.SignUp-back-btn:hover {
-  color: #555555;
 }
 
 /* Continue Button */
@@ -338,7 +310,7 @@
 
 .SignUp-welcome-title {
   margin-top: 60px; /* 필요에 따라 값을 조정 */
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: 700;
   font-size: 28px;
@@ -348,7 +320,7 @@
 }
 
 .SignUp-welcome-message {
-  font-family: "Outfit";
+  font-family: 'Outfit';
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -364,7 +336,7 @@
   box-shadow: 0px 4px 12px rgba(13, 42, 240, 0.4),
     inset 0px 2px 4px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
-  font-family: "Outfit";
+  font-family: 'Outfit';
   font-style: normal;
   font-weight: 700;
   font-size: 14px;

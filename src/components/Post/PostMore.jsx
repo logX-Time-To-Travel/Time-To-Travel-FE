@@ -2,6 +2,7 @@ import './PostMore.css';
 
 const PostMore = ({
   handleLikeClick,
+  handleCommentClick,
   handleScrapClick,
   handleEditClick,
   handleDeleteClick,
@@ -23,7 +24,7 @@ const PostMore = ({
           <img src={isLiked ? heartAfter : heartBefore} alt="Like" />
           {likeCount}
         </div>
-        <div className="post-comments">
+        <div className="post-comments" onClick={handleCommentClick}>
           <img src={commentsIcon} alt="Comments" />
           {commentCount}
         </div>
