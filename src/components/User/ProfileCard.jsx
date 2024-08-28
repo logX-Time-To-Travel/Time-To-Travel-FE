@@ -1,10 +1,11 @@
 import './ProfileCard.css';
 
 const ProfileCard = ({ profileImageUrl, username, introduction }) => {
+  console.log(profileImageUrl);
   return (
     <div className="profile-container">
       <div className="profile-image">
-        <img src={profileImageUrl} alt="이미지" />
+        <img src={`http://localhost:8080${profileImageUrl}`} alt="이미지" />
       </div>
       <div className="profile-info">
         <div className="profile-id">{username}</div>
