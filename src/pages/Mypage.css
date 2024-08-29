@@ -15,7 +15,7 @@
   right: -70px;
   height: 20px;
   cursor: pointer;
-  background: transparent;
+  background-color: transparent;
 }
 
 .edit-button > img {
