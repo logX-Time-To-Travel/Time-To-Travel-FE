@@ -11,7 +11,7 @@ const SignIn = () => {
   const navigate = useNavigate(); // 페이지 이동 훅
   const [email, setEmail] = useState(''); // 이메일 상태
   const [password, setPassword] = useState(''); // 비밀번호 상태
-  const [error, setError] = useState(''); // 비밀번호 오류 메시지 상태
+  const [passwordError, setPasswordError] = useState(''); // 비밀번호 오류 메시지 상태
   const [emailError, setEmailError] = useState(''); // 이메일 오류 메시지 상태 추가
 
   // 폼 제출 핸들러 - 로그인 로직을 구현
@@ -37,11 +37,11 @@ const SignIn = () => {
         if (error.response.status === 404) {
           // 서버에서 이메일이 없는 경우 404 상태 코드를 반환한다고 가정
           setEmailError('해당 이메일로 등록된 계정이 없습니다.');
-          setError(''); // 비밀번호 오류 메시지 초기화
+          setPasswordError(''); // 비밀번호 오류 메시지 초기화
         } else if (error.response.status === 400) {
           // 비밀번호가 틀린 경우
           setEmailError(''); // 이메일 오류 메시지 초기화
-          setError('비밀번호가 알맞지 않습니다');
+          setPasswordError('비밀번호가 알맞지 않습니다');
         } else {
           alert('로그인 요청이 실패했습니다.');
           console.error('Error during login:', error);
@@ -82,12 +82,14 @@ const SignIn = () => {
           <input
             type="password"
             className={`SignIn-input-password ${
-              error ? 'SignIn-input-error' : ''
+              passwordError ? 'SignIn-input-error' : ''
             }`}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {error && <div className="SignIn-error-message">{error}</div>}
+          {passwordError && (
+            <div className="SignIn-error-message">{passwordError}</div>
+          )}
         </div>
         <button type="submit" className="SignIn-button">
           로그인
