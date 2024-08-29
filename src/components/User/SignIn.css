@@ -109,7 +109,7 @@ body {
   position: absolute; /* 절대 위치로 배치 */
   right: 0; /* 오른쪽 여백 설정 */
   top: 50%; /* 입력 필드의 중간 높이에 맞추기 */
-  transform: translateY(-50%); /* 중간 정렬 */
+  transform: translateY(-170%); /* 중간 정렬 */
   white-space: nowrap; /* 줄바꿈 방지 */
   text-align: right; /* 오른쪽 정렬 */
 }
