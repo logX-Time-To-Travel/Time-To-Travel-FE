@@ -6,7 +6,6 @@ import Navbar from '../components/Navbar/Navbar';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import EditUser from '../components/User/EditUser';
 
 const Mypage = () => {
   const [username, setUsername] = useState('');

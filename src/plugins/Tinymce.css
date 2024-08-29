@@ -1,85 +1,216 @@
-.Editor-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: auto;
-    margin: 20px;
+/* 전체 페이지 스타일 */
+.editor-page {
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+  background-color: #ffffff;
+  min-height: 100vh;
 }
 
-.Editor-page {
-    margin-top: 15px;
+/* 에디터 컨테이너 스타일 */
+.editor-container {
+  background-color: #ffffff;
+  padding: 20px;
+  width: 100%;
+  max-width: 800px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.title-container {
-    margin-bottom: 2px;
-    width: 100%;
-    border: none;
+/* 제목 입력 필드 */
+.title-input {
+  display: flex;
+  justify-content: center;
+  margin-inline: 6px;
+  padding: 7px 0;
+  font-size: 30px; /* 제목 텍스트 크기 증가 */
+  font-weight: bold; /* 볼드체 적용 */
+  color: #000000;
+  border: none;
+  border-bottom: 3px solid #e7e7e700; /* 노란색 하단 테두리 */
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
 }
 
-.title-box::placeholder {
-    color:  #FF8A00;
+.title-input::placeholder {
+  font-weight: bold; /* 플레이스홀더에도 볼드체 적용 */
+  color: #d49f008f;
 }
 
-.title-box {
-    width: 100%;
-    height: 70px;
-    padding-inline: 15px;
-    
-    color: #FF8A00;
-    font-size: 22px;
-    font-weight: bold;
-    border: none;
-    border-bottom: 1px solid  #ff8800;
+.title-input:focus {
+  border-color: #e7ad005f;  /* 테두리 포커스 시 진한 노란색 */
 }
 
-.location-container > button {
-    margin-inline: 1px;
-    color: #f18100;
-    background-color:transparent;
-    border: none;
-    /* padding: 10px 9px; */
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 15px;
-    text-align: center;
-    
+/* 위치 선택 문구 */
+.location-count {
+  display: flex;
+  justify-content: flex-start;
+  font-size: 10px;
+  font-weight: 400;
+  color: #3f3f3f;
+  margin-top: 50px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+
+}
+
+.location-count >img {
+  opacity: 0.8;
+  margin-right: 10px;
 }
 
 
-.location-container {
-    width: 100%;
-    position: relative;
-    display: flex;
-    border: 2px solid #ffc078;
+.location-count-number {
+  margin-right:2px;
+  color: #72360bab; /* 포인트 색상으로 노란색 적용 */
+  font-weight: bold;
+}
+
+.location-selection {
+  display:flex;
+  flex-direction: column;
+  background-color: transparent; 
+  border: 2px solid #8c8c8c36; 
+  border-radius: 12px; /* 모서리 둥글게 */
+  padding: 15px;
+  margin-top: 0px;
+}
+
+/* 위치 추가 버튼 */
+.add-location-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  padding: 10px;
+
+  color: rgba(255, 170, 0, 0.543);
+  border: 2px solid #ff990092;
+  border-radius: 30px;
+
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.add-location-button > img {
+  width: 30px;
+  height:30px;
+  margin-right: 3px;
+  opacity: 0.5;
+}
+/* 위치 리스트 */
+.locations-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+/* 각 위치 탭 스타일 */
+.location-item {
+  border-radius: 20px; /* 모서리 둥글게 */
+  padding: 8px 12px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  font-weight: 470;
+  color: #5f4100bf;
+}
+
+.location-item button:hover {
+  color: #ff5733; /* 호버 시 글씨색 변경 */
+}
+
+.location-item:nth-child(1) {
+  background-color: #ffe599; /* 연한 노란색 */
+
+}
+.location-item:nth-child(2) {
+  background-color: #ffd966; /* 진한 노란색 */
+
+}
+
+.location-item:nth-child(3) {
+  background-color: #fac559; /* 연한 주황색 */
+
+}
+
+.location-item:nth-child(4) {
+  background-color: #f9cb9c; /* 연한 주황색 */
+}
+
+.location-item:nth-child(5) {
+  background-color: #fff2cc; /* 매우 연한 노란색 */
+}
+
+.location-item button {
+  background-color: transparent;
+  border: none;
+  color: #45120072;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.location-item button:hover {
+  color: #333333;
+}
+
+.tab-delete-button {
+  display: flex;
+  width: 15px;
+  height: 15px;
+  opacity: 0.5;
+  flex-direction: row;
+}
+/* 제출 버튼 */
+.submit-button {
+  width: 100%;
+  background-color: #faa300; /* 노란색 */
+  color: #ffffff;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 7px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.2s;
+}
+
+.submit-button:hover {
+  background-color: #ff9100; /* 호버 시 진한 노란색 */
+}
+
+/* 툴바 설정 */
+.mce-toolbar {
+  overflow-x: auto; /* 툴바 내용이 넘칠 때 스크롤 가능 */
+}
+
+.mce-toolbar .mce-btn-group {
+  flex-shrink: 0; /* 버튼 그룹이 줄어들지 않도록 설정 */
+}
+
+/* 반응형 디자인 */
+@media (max-width: 600px) {
+  .editor-container {
+    padding: 20px;
+  }
+
+  .title-input {
+    font-size: 20px; /* 반응형일 때 제목 크기 조정 */
+  }
+
+  .add-location-button,
+  .submit-button {
+    font-size: 14px;
     padding: 10px;
-    align-items: center;
-    border-radius: 5px;
-    justify-content: center;
+  }
 }
-
-.location-container:hover {
-    background-color:  #fcc470;
-    border: none;
-}
-
-.location-container > button:hover {
-    color: white;
-}
-
-.save-button-container {
-    display:flex;
-    justify-content: center;
-    flex-direction: column;
-    margin-inline: 15px;
-
-}
-
-.save-button-container .button {
-    width: 100%;
-}
-
-/* .location-container > img {
-    width: 20px;
-
-}  */

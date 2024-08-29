@@ -47,20 +47,24 @@
   margin-bottom: 50px;
 }
 
-.profile-image {
+.edituser-profile-image {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background-color: grey;
+  overflow: hidden; /* 이미지가 컨테이너를 넘지 않도록 */
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 14px;
-  cursor: pointer;
+  background-color: grey;
 }
 
-.profile-change {
+.edituser-profile-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* 이미지가 일정한 비율을 유지하며, 컨테이너를 꽉 채우도록 */
+}
+
+.edituser-profile-change {
   margin-top: 10px;
   font-size: 14px;
   color: #e8ac37;

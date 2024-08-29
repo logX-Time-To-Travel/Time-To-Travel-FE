@@ -37,13 +37,21 @@
 }
 
 .post-location {
-  position: absolute;
-  left: 8px;
-  bottom: 8px;
+  display:flex;
+  margin-inline: 3px;
+  margin-top: 165px;
   color: #ffffff;
   font-weight: bold;
-  padding: 4px 8px;
-  font-size: 12px;
+  font-size: 16px;
+}
+
+.post-location > img {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 20px;
+  height: 20px;
+
 }
 
 .post-title {
@@ -61,11 +69,63 @@
 }
 
 
+.interest-menu {
+  display: flex;
+  padding: 5px 0px;
+  white-space: nowrap;
+}
+
+.views {
+  display: flex;
+  align-items: center;
+}
+
+.views span {
+  font-size: 10px;
+  font-weight: bold;
+  transform: scale(0.75);
+  transform-origin: left;
+}
+
+.hearts{
+  display: flex;
+  align-items: center;
+}
+
+.hearts span {
+
+  color: red;
+  font-size: 10px;
+  transform: scale(0.75);
+  transform-origin: left;
+  font-weight: bold;
+}
+.views img {
+  width: 17px;
+  height: 17px;
+}
+
+.hearts img {
+  width: 11px;
+  height: 11px;
+}
+
+
 img {
   width: 20px;
   height: 20px;
   cursor: pointer;
 
+}
+
+.time-ago {
+  width: 100%;
+  display: flex;
+  color: #ffb300;
+  transform: scale(0.75);
+  transform-origin: right;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 @media (max-width: 768px) {
