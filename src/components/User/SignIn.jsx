@@ -13,6 +13,7 @@ const SignIn = () => {
   const [password, setPassword] = useState(''); // 비밀번호 상태
   const [passwordError, setPasswordError] = useState(''); // 비밀번호 오류 메시지 상태
   const [emailError, setEmailError] = useState(''); // 이메일 오류 메시지 상태 추가
+  const [showPassword, setShowPassword] = useState(false); // 비밀번호 보기 상태
 
   // 폼 제출 핸들러 - 로그인 로직을 구현
   const handleLogin = async (e) => {
@@ -77,16 +78,24 @@ const SignIn = () => {
             <p className="SignIn-email-error-message">{emailError}</p>
           )}
         </div>
-        <div className="SignIn-form-group">
+        <div className="SignIn-form-group" style={{ position: 'relative' }}>
           <label className="SignIn-label">비밀번호</label>
           <input
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             className={`SignIn-input-password ${
               passwordError ? 'SignIn-input-error' : ''
             }`}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            style={{ paddingRight: '40px' }} // 오른쪽에 버튼 공간 확보
           />
+          <button
+            type="button"
+            className="SignUp-eye-btn"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            <i className={showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'}></i>
+          </button>
           {passwordError && (
             <div className="SignIn-error-message">{passwordError}</div>
           )}

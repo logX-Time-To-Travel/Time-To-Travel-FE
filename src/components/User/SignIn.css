@@ -127,6 +127,27 @@ body {
   text-align: right; /* 오른쪽 정렬 */
 }
 
+/* 비밀번호 보기/숨기기 버튼 스타일 */
+.SignUp-eye-btn {
+  position: absolute;
+  right: 10px; /* 오른쪽에 고정된 위치 */
+  top: 50%; /* 상단에서 50% */
+
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1rem; /* 아이콘 크기 조정 */
+  color: #686868; /* 아이콘 색상 */
+  z-index: 2; /* 아이콘이 다른 요소들 위에 오도록 */
+  width: 24px; /* 버튼 크기 고정 */
+  height: 24px; /* 버튼 크기 고정 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* 로그인 버튼 스타일 */
 .SignIn-button {
   width: calc(100% - 68px); /* 전체 너비에서 좌우 여백을 제외한 너비 설정 */
