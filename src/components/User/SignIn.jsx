@@ -32,8 +32,17 @@ const SignIn = () => {
         navigate('/home');
       }
     } catch (error) {
-      if (error.response && error.response.status === 400) {
-        setError('비밀번호가 알맞지 않습니다'); // 오류 메시지 설정
+      if (error.response) {
+        if (error.response.status === 404) {
+          // 서버에서 이메일이 없는 경우 404 상태 코드를 반환한다고 가정
+          setError('해당 이메일로 등록된 계정이 없습니다.');
+        } else if (error.response.status === 400) {
+          // 비밀번호가 틀린 경우
+          setError('비밀번호가 알맞지 않습니다');
+        } else {
+          alert('로그인 요청이 실패했습니다.');
+          console.error('Error during login:', error);
+        }
       } else {
         alert('로그인 요청이 실패했습니다.');
         console.error('Error during login:', error);
