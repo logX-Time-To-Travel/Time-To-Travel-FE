@@ -3,7 +3,7 @@ import axios from 'axios';
 import './SearchTable.css';
 import backImage from '../../assets/Icon_ Back 1.png';
 import markerImage from '../../assets/Icon_ Marker 1.png';
-
+import { useNavigate } from 'react-router-dom';
 const LOCAL_GOOGLE_MAP_URL = 'http://localhost:5173/home';
 const API_URL = 'http://localhost:8080/search';
 
@@ -12,6 +12,8 @@ const SearchTable = () => {
   const [searchHistory, setSearchHistory] = useState([]);
   const [username, setUsername] = useState(''); // username 상태 추가
   const [member, setMember] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMember = async () => {
@@ -99,7 +101,7 @@ const SearchTable = () => {
   return (
     <div className="searchMap-container">
       <div className="header">
-        <button className="back-button" onClick={() => window.history.back()}>
+        <button className="back-button" onClick={() => navigate('/home')}>
           <img src={backImage} alt="뒤로가기" className="back-image" />
         </button>
         <input
