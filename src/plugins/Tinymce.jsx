@@ -1,29 +1,30 @@
-import { useState, useRef, useEffect, useContext } from "react";
-import { Editor } from "@tinymce/tinymce-react";
-import LocationSelector from "../pages/LocationSelector";
-import img from "../assets/Icon_Map1.png";
-import "./Tinymce.css";
-import Button from "../components/UI/Button";
-import PostContext from "./PostContext";
+import { useState, useRef, useEffect, useContext } from 'react';
+import { Editor } from '@tinymce/tinymce-react';
+import LocationModal from '../components/BlogEditor/LocationModal';
+import './Tinymce.css';
+import x from '.././assets/X.png';
+import marker from '.././assets/Icon_Map1.png';
+
+import PostContext from './PostContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function Tinymce() {
   const { addPost } = useContext(PostContext);
-  const editorRef = useRef(null); // 에디터 참조 설정
-  const [title, setTitle] = useState(""); // 제목 상태 설정
-  const [location, setLocation] = useState({ lat: "", lng: "", address: "" }); // 위치 상태 설정
-  const [showMap, setShowMap] = useState(false); // 지도 표시 상태 설정
-  const [memberId, setMemberId] = useState(""); // 멤버 ID 상태 설정
+  const editorRef = useRef(null);
+  const [title, setTitle] = useState('');
+  const [locations, setLocations] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [memberId, setMemberId] = useState('');
+  const navigate = useNavigate();
 
-  // 멤버 세션 정보를 가져오는 비동기 함수
   const fetchMemberSession = async () => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve({ memberId: "1" });
+        resolve({ memberId: '1' });
       }, 1000);
     });
   };
 
-  // 컴포넌트가 마운트될 때 멤버 정보를 가져오는 useEffect 훅
   useEffect(() => {
     const getMemberInfo = async () => {
       const data = await fetchMemberSession();
@@ -35,110 +36,140 @@ export default function Tinymce() {
     getMemberInfo();
   }, []);
 
-  // 새 포스트를 저장하는 함수
   const handleSave = () => {
+    if (locations.length === 0) {
+      alert('최소 한 개의 위치를 추가해주세요.');
+      return;
+    }
+
     const content = editorRef.current.getContent();
     const newPost = {
       id: Date.now(),
       title,
+      createdAt: new Date().toISOString(),
       content,
-      location,
+      locations,
       images: [],
       memberId,
     };
-    addPost(newPost); // addPost 함수 호출
+    addPost(newPost);
     console.log(newPost);
+    navigate('/blog'); // 저장 후 블로그 페이지로 이동
   };
 
-  // 위치가 선택되었을 때 호출되는 함수
   const handleLocationSelect = (lat, lng, address) => {
-    setLocation({ lat, lng, address });
-    setShowMap(false);
-    console.log("위치가 선택됨: ", { lat }, { lng }, { address });
+    const newLocation = { lat, lng, address };
+    setLocations([...locations, newLocation]);
+    setShowModal(false);
   };
 
-  // 더미 이미지 업로드 핸들러
-  const dummyHandleImageUpload = (blobInfo, progress) =>
-    new Promise((resolve, reject) => {
-      setTimeout(() => {
-        try {
-          const dummyUrl = "https://picsum.photos/200/300?grayscale";
-          console.log("Dummy URL:", dummyUrl);
-          resolve(dummyUrl);
-        } catch (error) {
-          reject("Image upload failed: " + error.message);
-        }
-      }, 1000);
-
-      if (progress) {
-        progress(100);
-      }
-    });
+  const handleRemoveLocation = (index) => {
+    const newLocations = locations.filter((_, i) => i !== index);
+    setLocations(newLocations);
+  };
 
   return (
-    <div className="Editor-page">
-      <div className="Editor-container">
-        <div className="title-container">
-          <input
-            type="text"
-            placeholder="제목을 입력하세요"
-            className="title-box"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
+    <div className="editor-page">
+      <div className="editor-container">
+        <input
+          type="text"
+          placeholder="제목을 입력하세요"
+          className="title-input"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+        <span className="location-count">
+          <img src={marker} />
+          <span className="location-count-number">
+            {locations.length + '  '}
+          </span>
+          개의 장소가 선택됨
+        </span>
+        <div className="location-selection">
+          <div className="locations-list">
+            {locations.map((location, index) => (
+              <div key={index} className="location-item">
+                <span>{location.address}</span>
+                <button onClick={() => handleRemoveLocation(index)}>
+                  <img className="tab-delete-button" src={x} />
+                </button>
+              </div>
+            ))}
+          </div>
+          <button
+            className="add-location-button"
+            onClick={() => setShowModal(true)}
+          >
+            + 위치 추가
+          </button>
         </div>
-        <div className="location-container">
-          <img src={img} />
-          <button onClick={() => setShowMap(true)}>위치선택</button>
-        </div>
-
-        {showMap && (
-          <LocationSelector onSelectLocation={handleLocationSelect} />
-        )}
 
         <Editor
-          apiKey={
-            (import.meta.env.VITE_TINYMCE_API_KEY =
-              "b3vov53scsx1m1bf3z67h2tz3nhdk62165pgj7iqwl51clkq")
-          }
-          onInit={(_evt, editor) => (editorRef.current = editor)}
+          apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
+          onInit={(evt, editor) => (editorRef.current = editor)}
           init={{
-            height: 330,
-            width: "100%",
+            height: 400,
             menubar: false,
             plugins: [
-              "advlist",
-              "autolink",
-              "lists",
-              "link",
-              "image",
-              "charmap",
-              "preview",
-              "anchor",
-              "searchreplace",
-              "visualblocks",
-              "code",
-              "fullscreen",
-              "insertdatetime",
-              "media",
-              "table",
-              "code",
-              "help",
-              "wordcount",
+              'advlist',
+              'autolink',
+              'lists',
+              'link',
+              'image',
+              'charmap',
+              'preview',
+              'anchor',
+              'searchreplace',
+              'visualblocks',
+              'code',
+              'fullscreen',
+              'insertdatetime',
+              'media',
+              'table',
+              'help',
+              'wordcount',
             ],
-            toolbar: [
-              "  image blocks bold forecolor undo redo |",
-              " alignleft aligncenter alignright alignjustify | bullist numlist outdent indent ",
-            ],
-            content_style:
-              "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-            images_upload_handler: dummyHandleImageUpload,
+            toolbar:
+              'undo redo | formatselect | bold italic underline forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | more',
+            toolbar_mode: 'sliding',
+            toolbar_sticky: true,
+            content_style: `
+      body { font-family: Arial, sans-serif; font-size: 14px; }
+    `,
+            setup: (editor) => {
+              // 에디터 컨테이너에 포커스 스타일 적용
+              editor.on('focus', () => {
+                editor.getContainer().style.outline = '2px solid #ffab00'; // 포커스 시 스타일 적용
+              });
+              editor.on('blur', () => {
+                editor.getContainer().style.outline = ''; // 포커스 해제 시 스타일 제거
+              });
+
+              editor.ui.registry.addButton('more', {
+                icon: 'more-drawer',
+                tooltip: 'More options',
+                onAction: () => {
+                  const toolbarMore =
+                    editor.ui.registry.getAll().icons.moreDrawer;
+                  toolbarMore.show();
+                },
+              });
+            },
           }}
         />
+
+        <button className="submit-button" onClick={handleSave}>
+          게시물 저장
+        </button>
       </div>
-      <div className="save-button-container">
-        <Button path="/blog" customFunc={handleSave} text="게시물 저장" />
-      </div>
+
+      {showModal && (
+        <LocationModal
+          show={showModal}
+          onClose={() => setShowModal(false)}
+          onSelectLocation={handleLocationSelect}
+        />
+      )}
     </div>
   );
 }

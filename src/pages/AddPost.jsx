@@ -1,7 +1,8 @@
-import Header from "../components/UI/Header.jsx";
-import Tinymce from "../plugins/Tinymce.jsx";
-import Navbar from "../components/Navbar/Navbar.jsx";
-import { useState } from "react";
+import Header from '../components/UI/Header.jsx';
+import Tinymce from '../plugins/Tinymce.jsx';
+import Navbar from '../components/Navbar/Navbar.jsx';
+import { useState } from 'react';
+import "./AddPost.css";
 
 const AddPost = () => {
   const [posts, setPosts] = useState([]);
@@ -11,9 +12,11 @@ const AddPost = () => {
   };
 
   return (
-    <div>
-      <Header homebtn={"<"} text={"글쓰기"} />
-      <Tinymce addPost={addPost} />
+    <div className="add-post-page">
+      <Header homebtn={'<'} text={'글쓰기'} />
+      <div className="editor-wrapper">
+        <Tinymce addPost={addPost} />
+      </div>
       <Navbar />
     </div>
   );
