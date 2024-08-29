@@ -1,12 +1,11 @@
 import './Post.css';
-import Modal from '../components/UI/Modal';
-import { useState } from 'react';
+import useTimeAgo from '../utils/useTimeAgo';
 import viewIcon from '.././assets/Icon_ View 1.png';
 import heartIcon from '.././assets/heart-after.png';
 import markerIcon from '.././assets/Icon_ Map 1.png';
 
 const Post = ({ post }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const timeAgo = useTimeAgo(post.createdAt);
   const truncateText = (text, maxLength) => {
     if (post.locations.length < 2 && text.length <= maxLength) {
       return text;
@@ -54,7 +53,7 @@ const Post = ({ post }) => {
             <span>312</span>
           </div>
           <div className="time-ago">
-            <span>5초전</span>
+            <span>{timeAgo}</span>
           </div>
         </div>
       </div>

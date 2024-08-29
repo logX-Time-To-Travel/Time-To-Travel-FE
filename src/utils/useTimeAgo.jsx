@@ -8,12 +8,19 @@ function useTimeAgo(dateString) {
       const date = new Date(dateString);
       const now = new Date();
 
+      if (isNaN(date.getTime())) {
+        // dateString이 유효한 날짜가 아닌 경우
+        setTimeAgo('잘못된 날짜');
+
+        return;
+      }
+
       const diffInSeconds = Math.floor((now - date) / 1000);
       const diffInMinutes = Math.floor(diffInSeconds / 60);
       const diffInHours = Math.floor(diffInMinutes / 60);
       const diffInDays = Math.floor(diffInHours / 24);
-      const diffInMonths = Math.floor(diffInDays / 30); 
-      const diffInYears = Math.floor(diffInDays / 365); 
+      const diffInMonths = Math.floor(diffInDays / 30);
+      const diffInYears = Math.floor(diffInDays / 365);
 
       if (diffInYears > 0) {
         setTimeAgo(`${diffInYears}년 전`);
@@ -30,14 +37,14 @@ function useTimeAgo(dateString) {
       }
     };
 
- 
     updateTimeAgo();
 
-    const intervalId = setInterval(updateTimeAgo, 60000); 
+    const intervalId = setInterval(updateTimeAgo, 1000
+    );
 
     return () => clearInterval(intervalId);
   }, [dateString]);
-
+  console.log(dateString);
   return timeAgo;
 }
 

@@ -46,6 +46,7 @@ export default function Tinymce() {
     const newPost = {
       id: Date.now(),
       title,
+      createdAt: new Date().toISOString(),
       content,
       locations,
       images: [],
