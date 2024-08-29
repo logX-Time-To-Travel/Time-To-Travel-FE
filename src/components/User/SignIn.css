@@ -91,9 +91,22 @@ body {
   color: #484848; /* 글자 색상 */
   box-sizing: border-box; /* 패딩을 포함한 너비 계산 */
 }
+/* 이메일 오류 메시지 스타일 */
+.SignIn-email-error-message {
+  color: #ee2448; /* 글자 색상을 빨간색으로 설정 */
+  font-weight: 800; /* 글자 굵기 설정 */
+  font-size: 14px; /* 글자 크기 설정 */
+  position: absolute; /* 절대 위치로 배치 */
+  right: 0; /* 오른쪽 여백 설정 */
+  top: 100%; /* 입력 필드 바로 아래에 표시 */
+  transform: translateY(-350%); /* 중간 정렬 */
+  white-space: nowrap; /* 줄바꿈 방지 */
+  text-align: right; /* 오른쪽 정렬 */
+}
 
-/* 오류가 있을 때 비밀번호 입력 필드 스타일 */
-.SignIn-input-error {
+/* 오류가 있을 때 이메일 및 비밀번호 입력 필드 스타일 */
+.SignIn-input-email.SignIn-input-error,
+.SignIn-input-password.SignIn-input-error {
   border-color: #ee2448; /* 테두리 색상을 빨간색으로 변경 */
   background: #ee2448; /* 배경색을 빨간색으로 변경 */
   color: #ffffff; /* 글자 색상을 흰색으로 변경 */
