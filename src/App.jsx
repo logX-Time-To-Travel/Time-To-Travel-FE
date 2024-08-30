@@ -17,6 +17,7 @@ import PostDetail from './pages/PostDetail';
 import './App.css';
 import Comment from './pages/Comment';
 import EditUser from './components/User/EditUser';
+import Interest from './pages/Interest';
 // import Initialization from './Initialization';
 
 const libraries = ['places'];
@@ -50,7 +51,8 @@ function App() {
               <Route path="/search" element={<SearchPage />} />
               <Route path="/mypage" element={<Mypage />} />
               <Route path="/edituser" element={<EditUser />} />
-              <Route path="/terms/:type" element={<Terms />} />
+              <Route path="/terms/:type" element={<Terms />} />{' '}
+              <Route path="/interest" element={<Interest />} />
             </Routes>
           </BrowserRouter>
         </PostProvider>
