@@ -1,0 +1,17 @@
+.interest-heart-container {
+  padding: 15px;
+  margin: 10px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ff5f6d, #ffc371); /* 빨간색 그라데이션 */
+  color: white;
+}
+
+.heart-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.heart-count {
+  font-size: 14px;
+  margin-top: 5px;
+}
