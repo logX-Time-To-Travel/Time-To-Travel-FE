@@ -1,0 +1,17 @@
+.interest-scrap-container {
+  padding: 15px;
+  margin: 10px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f8b400, #ffdd00);
+  color: white;
+}
+
+.scrap-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.scrap-count {
+  font-size: 14px;
+  margin-top: 5px;
+}
