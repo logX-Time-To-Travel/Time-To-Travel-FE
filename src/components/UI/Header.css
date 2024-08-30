@@ -1,53 +1,50 @@
 /* 기본 스타일 */
 .Header {
-
     display: flex;
-    flex-direction: row; 
-    border-bottom : 1px solid #EDEDED;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
-    position: relative; /* 중간 요소를 중앙에 위치시키기 위해 필요 */
-    padding: 20px 0px;
+    border-bottom: 1px solid #EDEDED;
+    padding: 20px 0;
     font-size: 20px;
-    
-    
+    position: relative; /* 필요에 따라 컨텍스트에서 사용할 수 있도록 position relative 유지 */
 }
 
 .homebutton_section > button {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    border-width: 0px;
+    border-width: 0;
     font-weight: bold;
     color: #FAA500;
     cursor: pointer;
     font-size: 15px;
-    font-weight: bold;
     background-color: white;
     margin-inline: 15px;
-
-
 }
 
 .title {
-
-    flex-direction: column;
+    flex-grow: 1;
+    text-align: center;
     font-size: 25px;
     font-weight: bold;
 }
 
-
-
 .homebutton_section {
-    width: 100%;
-    text-align: left; 
+    flex-basis: 20%; /* 좌측 섹션의 너비 설정 */
+    text-align: left;
 }
 
-.title {
-    position: absolute;
-    align-items: center;
-    left: 50%;
-    transform: translateX(-50%);
+.rightbutton_section {
+    flex-basis: 20%; /* 우측 섹션의 너비 설정 */
+    text-align: right;
+}
+
+.rightbutton_section button {
+    color: blue;
+    font-size: 10px;
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
 }
 
 /* 화면 크기가 768px 이하일 때 적용되는 스타일 */
@@ -56,7 +53,6 @@
         font-size: 15px;
     }
 
-
     .homebutton_section {
         font-size: 25px;
     }
@@ -64,18 +60,12 @@
 
 /* 화면 크기가 480px 이하일 때 적용되는 스타일 */
 @media (max-width: 480px) {
-
     .title {
-        position: absolute;
-        align-items: center;
-        left: 50%;
-        transform: translateX(-50%);
+        font-size: 15px;
     }
-    
 
-    .homebutton_section {
-        width: 100%; /* 작은 화면에서는 전체 너비를 차지 */
-        text-align: center; /* 중앙 정렬 */
-        align-items: center;
+    .homebutton_section,
+    .rightbutton_section {
+        font-size: 15px;
     }
 }
