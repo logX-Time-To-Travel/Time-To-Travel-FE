@@ -48,7 +48,8 @@ const Blog = () => {
         <div className="blog-container">
           <Header
             homebtn={' '}
-            text={'내 작성 게시글'}
+            page={'addpost'}
+            titleText={'내 작성 게시글'}
             rightText={isSelectMode ? '완료' : '선택모드'}
             customFunc={toggleSelectMode}
           />
@@ -71,12 +72,9 @@ const Blog = () => {
             </button>
           </div>
           <div className="info-section">
+            <span className="selected-count">선택된 게시글</span>
             <span className="selected-count">
-              선택된 게시글
-            </span>
-            <span className="selected-count">
-            {selectedPosts.length}개
-            (
+              {selectedPosts.length}개 (
               {totalPosts > 0
                 ? ((deletedPosts / totalPosts) * 100).toFixed(2)
                 : 0}
