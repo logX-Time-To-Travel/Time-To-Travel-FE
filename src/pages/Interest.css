@@ -1,0 +1,40 @@
+.interest-container {
+  font-family: var(--Noto-Sans-KR);
+  height: 100vh; /* 전체 화면 높이 */
+  display: flex;
+  flex-direction: column;
+}
+
+.interest-scrollable {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.interest-recommend {
+  padding: 20px;
+}
+
+.interest-post-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.scrap-title,
+.heart-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.scrap-count,
+.heart-count {
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.interest-footer {
+  position: relative;
+  padding-bottom: 66.5px;
+}
