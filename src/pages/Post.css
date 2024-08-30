@@ -1,77 +1,100 @@
-
 .post {
   width: 100%;
-  max-width:300px;
-  min-width:250px;
+  max-width: 300px;
+  min-width: 250px;
   display: flex;
   flex-direction: column;
   border-radius: 20px;
   justify-content: space-between;
   background-color: #ffffff;
-  transition: transform 0.8s ease;
   box-sizing: border-box;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+  position: relative;
+  padding: 10px 0px;
+}
+
+.post.selected {
+  background-color: transparent; /* 선택된 상태에서 배경색 제거 */
+}
+
+.post.selected .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 223, 0, 0.5);
+  pointer-events: none; /* 오버레이가 클릭 이벤트를 차단하지 않도록 설정 */
+  z-index: 2; /* 오버레이가 이미지 위에 오도록 설정 */
+  border-radius: 6px; /* 이미지의 모서리 둥글기와 일치 */
+}
+
+.post.selected .overlay img {
+  width: 80px;
+  height: 80px;
 }
 
 .post:hover {
   transform: translateY(-10px); 
-  border: none;
-
 }
 
 .post-images {
   position: relative;
-  width: 100%; 
-  height: 220px; 
+  width: 100%;
+  height: 220px;
   border-radius: 6px;
   margin-bottom: 5px;
-  overflow: hidden; 
+  overflow: hidden;
   background-color: #c6c5c5;
 }
 
 .post-images img {
-  width: 100%; 
+  width: 100%;
   height: 100%;
-  object-fit: cover; 
+  object-fit: cover;
   display: block;
-
 }
 
 .post-location {
-  display:flex;
-  margin-inline: 3px;
-  margin-top: 165px;
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.post-location > img {
   display: flex;
   align-items: center;
   position: relative;
-  width: 20px;
-  height: 20px;
+  margin: 8px 0 0 8px;
+  margin-top: 175px;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 16px;
+  z-index: 3;
+}
 
+.post-location img {
+  margin-right: 5px;
+  width: 16px;
+  height: 16px;
 }
 
 .post-title {
   font-weight: bold;
-  font-size: 8px;
+  font-size: 14px;
   color: #000000;
   text-align: left;
   display: -webkit-box;
-  -webkit-line-clamp: 3; 
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
   overflow: hidden;
-  text-overflow: ellipsis;
   word-wrap: break-word;
+  padding: 5px 8px;
 }
-
 
 .interest-menu {
   display: flex;
-  padding: 5px 0px;
+  padding: 5px 8px;
   white-space: nowrap;
 }
 
@@ -87,19 +110,20 @@
   transform-origin: left;
 }
 
-.hearts{
+.hearts {
   display: flex;
   align-items: center;
+  margin-left: 10px;
 }
 
 .hearts span {
-
   color: red;
   font-size: 10px;
   transform: scale(0.75);
   transform-origin: left;
   font-weight: bold;
 }
+
 .views img {
   width: 17px;
   height: 17px;
@@ -108,14 +132,6 @@
 .hearts img {
   width: 11px;
   height: 11px;
-}
-
-
-img {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-
 }
 
 .time-ago {

@@ -47,6 +47,7 @@
 /* 위치 선택 문구 */
 .location-count {
   display: flex;
+  align-items: center;
   justify-content: flex-start;
   font-size: 10px;
   font-weight: 400;
@@ -58,6 +59,11 @@
 }
 
 .location-count >img {
+  background-color: transparent;
+  width: 24px;  
+  height: 24px; 
+  display: inline-block;
+  vertical-align: middle;
   opacity: 0.8;
   margin-right: 10px;
 }

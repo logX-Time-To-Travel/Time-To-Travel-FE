@@ -1,42 +1,45 @@
 /* 기본 스타일 */
 .Header {
     display: flex;
+    position: relative;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    border-bottom: 1px solid #EDEDED;
-    padding: 20px 0;
+    padding: 30px 5px;
     font-size: 20px;
-    position: relative; /* 필요에 따라 컨텍스트에서 사용할 수 있도록 position relative 유지 */
+}
+
+.homebutton_section,
+.rightbutton_section {
+    flex-basis: 25%; /* 좌우 섹션의 너비를 25%로 균일하게 설정 */
+}
+
+.title {
+    flex-basis: 50%; /* 타이틀 영역이 중간에 위치하도록 */
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
 }
 
 .homebutton_section > button {
-    display: flex;
-    align-items: center;
     border-width: 0;
     font-weight: bold;
     color: #FAA500;
     cursor: pointer;
     font-size: 15px;
     background-color: white;
-    margin-inline: 15px;
 }
 
-.title {
-    flex-grow: 1;
-    text-align: center;
-    font-size: 25px;
-    font-weight: bold;
+.home-icon {
+    width: 24px;  /* 또는 원하는 크기로 설정 */
+    height: 24px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
-.homebutton_section {
-    flex-basis: 20%; /* 좌측 섹션의 너비 설정 */
-    text-align: left;
-}
-
-.rightbutton_section {
-    flex-basis: 20%; /* 우측 섹션의 너비 설정 */
-    text-align: right;
+.rightbutton_section  {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .rightbutton_section button {

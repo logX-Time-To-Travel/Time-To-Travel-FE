@@ -79,7 +79,7 @@ export default function Tinymce() {
           onChange={(e) => setTitle(e.target.value)}
         />
         <span className="location-count">
-          <img src={marker} />
+          <img className="marker-icon" src={marker} />
           <span className="location-count-number">
             {locations.length + '  '}
           </span>

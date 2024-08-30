@@ -13,7 +13,7 @@ const Header = ({ text, rightText, customFunc }) => {
     <header className="Header">
       <div className="homebutton_section">
         <button onClick={handleClick} className="home-button">
-          <img src={backicon} />
+          <img className = "home-icon" src={backicon} />
         </button>
       </div>
       <div className="title">
