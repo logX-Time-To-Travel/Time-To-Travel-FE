@@ -243,14 +243,13 @@ const SignUp = ({ onSignUp }) => {
   const handleIndividualRequiredTerm = (term, setTerm) => {
     const newState = !term; // 현재 상태의 반대값으로 설정
     setTerm(newState); // 개별 필수 약관 동의 상태 업데이트
-    // 현재 상태 업데이트 후 전체 필수 동의 여부 확인
+    // 모든 필수 약관이 선택되었는지 확인
     const allChecked =
-      (terms1 && terms2 && terms3) ||
-      (newState && terms1 && terms2) ||
-      (newState && terms1 && terms3) ||
-      (newState && terms2 && terms3);
+      (setTerm === setTerms1 ? newState : terms1) &&
+      (setTerm === setTerms2 ? newState : terms2) &&
+      (setTerm === setTerms3 ? newState : terms3);
 
-    setAllRequiredTerms(allChecked);
+    setAllRequiredTerms(allChecked); // 모든 필수 약관이 선택된 경우 전체 동의 상태로 설정
   };
 
   // 개별 선택 약관 동의 핸들러

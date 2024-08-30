@@ -17,20 +17,13 @@ import PostDetail from './pages/PostDetail';
 import './App.css';
 import Comment from './pages/Comment';
 import EditUser from './components/User/EditUser';
+// import Initialization from './Initialization';
 
 const libraries = ['places'];
 
 function App() {
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
-
-  const handleSignUp = (newUser) => {
-    setUser(newUser); // 새로운 사용자 설정
-  };
-
-  const handleSignIn = (user) => {
-    setUser(user); // 사용자 로그인 설정
-  };
 
   const addPost = (newPost) => {
     setPosts((prevPosts) => [newPost, ...prevPosts]);
@@ -57,7 +50,7 @@ function App() {
               <Route path="/search" element={<SearchPage />} />
               <Route path="/mypage" element={<Mypage />} />
               <Route path="/edituser" element={<EditUser />} />
-              <Route path="/terms/:type" element={<Terms />} />{' '}
+              <Route path="/terms/:type" element={<Terms />} />
             </Routes>
           </BrowserRouter>
         </PostProvider>
