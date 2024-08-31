@@ -1,13 +1,55 @@
 import './Blog.css';
-import { useContext, useState } from 'react';
-import PostContext from '../plugins/PostContext';
+import { useEffect, useState } from 'react';
 import Header from '../components/UI/Header';
 import PostList from './PostList';
+import axios from 'axios';
 
 const Blog = () => {
-  const { posts, deletePosts } = useContext(PostContext);
+  // useContext를 한 번만 사용하여 필요한 값을 모두 가져옴
+  const [username, setUsername] = useState('');
+  const [posts, setPosts] = useState([]);
+
   const [isSelectMode, setIsSelectMode] = useState(false);
   const [selectedPosts, setSelectedPosts] = useState([]);
+
+  const fetchUsername = async () => {
+    try {
+      const usernameResponse = await axios.get(
+        'http://localhost:8080/member/session',
+        {
+          withCredentials: true,
+        }
+      );
+      setUsername(usernameResponse.data.username);
+    } catch (error) {
+      console.error('Error fetching member id:', error);
+    }
+  };
+
+  const fetchData = async (username) => {
+    try {
+      const postResponse = await axios.get(
+        `http://localhost:8080/posts/user/${username}`,
+        {
+          withCredentials: true,
+        }
+      );
+      setPosts(postResponse.data);
+    } catch (error) {
+      console.error('Error fetching post data:', error);
+    }
+  };
+
+  useEffect(() => {
+    const loadData = async () => {
+      await fetchUsername();
+      if (username) {
+        fetchData(username);
+      }
+    };
+
+    loadData();
+  }, [username]);
 
   // 전체 게시글 수
   const totalPosts = posts.length;

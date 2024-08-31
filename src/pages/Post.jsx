@@ -2,21 +2,10 @@ import './Post.css';
 import useTimeAgo from '../utils/useTimeAgo';
 import viewIcon from '.././assets/Icon_ View 1.png';
 import heartIcon from '.././assets/heart-after.png';
-import markerIcon from '.././assets/Icon_ Map 1.png';
 import checkIcon from '.././assets/Icon_ Accept 2.png';
 
 const Post = ({ post, isSelectMode, isSelected, onPostSelect }) => {
   const timeAgo = useTimeAgo(post.createdAt);
-  const truncateText = (text, maxLength) => {
-    if (post.locations.length < 2 && text.length <= maxLength) {
-      return text;
-    }
-    return text.slice(0, maxLength) + '...';
-  };
-
-  const maxLength = 9;
-  const addressText =
-    post.locations.length > 0 ? post.locations[0].address : '위치 정보 없음';
 
   return (
     <div
@@ -29,10 +18,6 @@ const Post = ({ post, isSelectMode, isSelected, onPostSelect }) => {
             <img src={checkIcon} alt="check" className="check-icon" />
           </div>
         )}
-        <div className="post-location">
-          <img src={markerIcon} alt="marker" />
-          {truncateText(addressText, maxLength)}
-        </div>
       </div>
 
       <div className="post-container">

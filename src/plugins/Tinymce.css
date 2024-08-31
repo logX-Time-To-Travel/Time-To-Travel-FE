@@ -93,8 +93,8 @@
   padding: 10px;
 
   color: rgba(255, 170, 0, 0.543);
-  border: 5px solid #ff990092;
-  border-radius: 30px;
+  border: 3px solid #ff990092;
+  border-radius: 10px;
 
   font-size: 17px;
   font-weight: bold;
@@ -201,6 +201,21 @@
 .mce-toolbar .mce-btn-group {
   flex-shrink: 0; /* 버튼 그룹이 줄어들지 않도록 설정 */
 }
+
+/* 에디터 내부 이미지 스타일 */
+.editor img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0; /* 위, 아래 여백 추가 */
+}
+
+.editor div {
+  clear: both;
+  margin-bottom: 20px; /* 이미지 아래 추가 여백 */
+  margin-top: 20px; /* 이미지 위 추가 여백 */
+}
+
 
 /* 반응형 디자인 */
 @media (max-width: 600px) {
