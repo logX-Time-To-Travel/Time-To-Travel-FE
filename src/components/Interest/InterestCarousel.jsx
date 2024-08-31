@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const InterestCarousel = ({ posts }) => {
   const navigate = useNavigate();
 
-  const handleClick = (index, item) => {
+  const handleClick = (index) => {
     const postId = posts[index].postId;
     navigate(`/post/${postId}`);
   };

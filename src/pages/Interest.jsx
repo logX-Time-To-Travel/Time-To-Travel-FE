@@ -3,11 +3,17 @@ import Navbar from '../components/Navbar/Navbar';
 import Header from '../components/UI/Header';
 import './Interest.css';
 import InterestCarousel from '../components/Interest/InterestCarousel';
-import InterestScrap from '../components/Interest/InterestScrap';
-import InterestLike from '../components/Interest/InterestLike';
+import { useNavigate } from 'react-router-dom';
 
 const Interest = () => {
   const [recommendPosts, setRecommendPosts] = useState([]);
+  const navigate = useNavigate();
+  const handleClickScrap = () => {
+    navigate('/interest/scarp');
+  };
+  const handleClickLike = () => {
+    navigate('/interest/like');
+  };
 
   useEffect(() => {
     const dummyPosts = [
@@ -64,11 +70,11 @@ const Interest = () => {
           <InterestCarousel posts={recommendPosts} />
         </div>
         <div className="interest-component">
-          <div className="interest-scrap-container">
+          <div className="interest-scrap-container" onClick={handleClickScrap}>
             <div className="scrap-title">내가 별표한 게시글</div>
             <div className="scrap-count">2개</div>
           </div>
-          <div className="interest-heart-container">
+          <div className="interest-heart-container" onClick={handleClickLike}>
             <div className="heart-title">내가 좋아요한 게시글</div>
             <div className="heart-count">0개</div>
           </div>
