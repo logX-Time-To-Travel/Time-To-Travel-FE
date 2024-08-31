@@ -1,0 +1,219 @@
+/* 공통 스타일 */
+.initialization-container {
+  display: flex;
+  width: 1720px;
+}
+
+.page {
+  position: relative;
+  width: 430px;
+  height: 932px;
+  background: #ffc700;
+}
+
+.text {
+  position: absolute;
+  width: 100%;
+  top: 484px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 53px;
+  text-align: center;
+  color: #0d2af0;
+}
+
+.sign-up-button {
+  position: absolute;
+  width: 190px;
+  height: 45px;
+  left: 120px;
+  top: 734px;
+  border: 2px solid #0d2af0;
+  border-radius: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 23px;
+  text-align: center;
+  color: #0d2af0;
+  background: none;
+}
+
+.version {
+  position: absolute;
+  width: 68px;
+  height: 20px;
+  left: 181px;
+  top: 744px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #0d2af0;
+}
+
+/* 1페이지 스타일 */
+.page-1 .title {
+  position: absolute;
+  width: 263px;
+  height: 53px;
+  left: 83px;
+  top: 532px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 53px;
+  text-align: center;
+  color: #0d2af0;
+}
+
+.polygon-outer {
+  position: absolute;
+  width: 158px;
+  height: 158px;
+  left: 136px;
+  top: 332px;
+  border: 15px solid #0d2af0;
+}
+
+.polygon-inner {
+  position: absolute;
+  width: 118px;
+  height: 118px;
+  left: 163px;
+  top: 346px;
+  background: #ff6984;
+}
+
+/* 2페이지 스타일 */
+.page-2 .house-container {
+  position: absolute;
+  top: 209px;
+  left: 164px;
+  width: 173px;
+  height: 145px;
+}
+
+.house-body {
+  background: #0d2af0;
+  width: 173px;
+  height: 145px;
+  position: relative;
+}
+
+.door,
+.windows,
+.chimney,
+.roof {
+  position: absolute;
+}
+
+.door {
+  width: 45px;
+  height: 45px;
+  left: 193px;
+  top: 288px;
+  background: #ffc700;
+  border-radius: 5px;
+}
+
+.windows {
+  width: 38px;
+  height: 50px;
+  left: 251px;
+  top: 299px;
+  background: #ffc700;
+}
+
+.chimney {
+  width: 5px;
+  height: 45px;
+  left: 213px;
+  top: 288px;
+  background: #0d2af0;
+}
+
+.roof {
+  width: 5px;
+  height: 45px;
+  left: 238px;
+  top: 308px;
+  background: #0d2af0;
+  transform: rotate(90deg);
+}
+
+.floor {
+  position: absolute;
+  width: 180px;
+  height: 56px;
+  left: 101px;
+  top: 362px;
+}
+
+/* 3페이지 스타일 */
+.page-3 .feedback-container {
+  position: absolute;
+  width: 100%;
+  top: 200px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.feedback-smile,
+.feedback-love,
+.feedback-heart {
+  width: 109px;
+  height: 108px;
+  background: #0d2af0;
+  position: relative;
+}
+
+.feedback-smile:before {
+  content: '';
+  width: 56px;
+  height: 56px;
+  background: #ffc700;
+  position: absolute;
+  top: 30px;
+  left: 26px;
+}
+
+.feedback-love:before {
+  content: 'LOVE IT';
+  position: absolute;
+  width: 86px;
+  height: 30px;
+  left: 12px;
+  top: 39px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  text-align: center;
+  color: #ffc700;
+}
+
+/* 4페이지 스타일 */
+.page-4 .icons-container {
+  position: absolute;
+  top: 232px;
+  left: 73px;
+  width: 283px;
+  height: 150px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.icon {
+  width: 54px;
+  height: 52px;
+  background: #0d2af0;
+}
+
+.icon.love-it {
+  background: #ff6984;
+  border: 2px solid #ff6984;
+}

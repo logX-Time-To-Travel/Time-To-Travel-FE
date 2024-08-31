@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.css';
 import './Navbar.css';
 
-
 const Navbar = () => {
   return (
     <div className="navigation-bar">
@@ -33,9 +32,9 @@ const Navbar = () => {
         <span>나</span>
       </Link>
       <Link
-        to="/search"
+        to="/interest"
         className={`nav-item ${
-          location.pathname === '/search' ? ' active' : ''
+          location.pathname === '/interest' ? ' active' : ''
         }`}
       >
         <i className="fas fa-star"></i>
