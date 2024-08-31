@@ -1,14 +1,15 @@
 .carousel-slide {
+  font-family: var(--Outfit);
   position: relative;
-  border-radius: 10px;
-  overflow: hidden;
-  border: 2px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
 }
 
 .carousel-image {
   width: 100%;
-  height: 0;
-  padding-bottom: 100%;
+  height: 400px;
   object-fit: cover;
   border-radius: 10px;
 }
@@ -18,20 +19,36 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.3);
+  padding: 20px 20px 40px;
+  background: rgba(0, 0, 0, 0.3); /* 반투명 배경 */
   color: white;
-  padding: 10px;
-  padding-bottom: 30px;
-  box-sizing: border-box;
+  border-radius: 0 0 10px 10px;
 }
 
 .carousel-title {
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 18px;
+  font-weight: 400;
   margin-bottom: 5px;
+  text-align: start;
 }
 
 .carousel-meta {
+  display: flex;
+  font-size: 14px;
+  align-items: center;
+}
+.carousel-profile-image-container {
+  display: flex;
+}
+.carousel-profile-image {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.carousel-profile-info {
+  margin-left: 10px;
+  display: flex;
   font-size: 12px;
-  color: #d3d3d3;
 }

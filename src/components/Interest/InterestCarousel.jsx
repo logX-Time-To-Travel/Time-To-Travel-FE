@@ -5,9 +5,12 @@ import { useNavigate } from 'react-router-dom';
 
 const InterestCarousel = ({ posts }) => {
   const navigate = useNavigate();
-  const handleClick = (id) => {
-    navigate(`/post/${id}`);
+
+  const handleClick = (index, item) => {
+    const postId = posts[index].postId;
+    navigate(`/post/${postId}`);
   };
+
   return (
     <Carousel
       showThumbs={false}
@@ -22,14 +25,24 @@ const InterestCarousel = ({ posts }) => {
       {posts.map((post) => (
         <div key={post.postId} className="carousel-slide">
           <img
-            src={post.imageUrl}
-            alt="Post Image"
+            src={`http://localhost:8080${post.thumbnail}`}
+            alt={post.title}
             className="carousel-image"
           />
           <div className="carousel-overlay">
             <div className="carousel-title">{post.title}</div>
             <div className="carousel-meta">
-              {post.likeCount} likes • {post.viewCount} views
+              <div className="carousel-profile-image-container">
+                <img
+                  src={`http://localhost:8080${post.profileImageUrl}`}
+                  alt={post.username}
+                  className="carousel-profile-image"
+                />
+              </div>
+              <div className="carousel-profile-info">
+                {post.username}님의{' '}
+                {new Date(post.createdAt).toLocaleDateString('ko-KR')} 전 게시글
+              </div>
             </div>
           </div>
         </div>
