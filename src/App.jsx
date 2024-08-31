@@ -17,7 +17,7 @@ import PostDetail from './pages/PostDetail';
 import './App.css';
 import Comment from './pages/Comment';
 import EditUser from './components/User/EditUser';
-// import Initialization from './Initialization';
+import Initialization from './components/User/Initialization';
 
 const libraries = ['places'];
 
@@ -51,6 +51,7 @@ function App() {
               <Route path="/mypage" element={<Mypage />} />
               <Route path="/edituser" element={<EditUser />} />
               <Route path="/terms/:type" element={<Terms />} />
+              <Route path="/Initialization" element={<Initialization />} />
             </Routes>
           </BrowserRouter>
         </PostProvider>

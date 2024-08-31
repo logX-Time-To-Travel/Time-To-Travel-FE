@@ -1,219 +1,141 @@
 /* 공통 스타일 */
-.initialization-container {
-  display: flex;
-  width: 1720px;
+/* 페이지를 포함하는 컨테이너로, 페이지들을 가로로 정렬하고, 전체 너비를 1720px로 설정 */
+.Initialization-container {
+  display: flex; /* 플렉스 박스를 사용하여 자식 요소들을 가로로 정렬 */
+  width: 1720px; /* 컨테이너의 너비를 1720px로 설정 */
 }
 
-.page {
-  position: relative;
-  width: 430px;
-  height: 932px;
-  background: #ffc700;
+/* 각 페이지의 기본 스타일을 정의 */
+.Initialization-page {
+  position: relative; /* 자식 요소의 절대 위치 설정을 위한 상대 위치 */
+  width: 430px; /* 페이지의 너비를 430px로 설정 */
+  height: 932px; /* 페이지의 높이를 932px로 설정 */
+  background: #ffc700; /* 배경색을 노란색(#ffc700)으로 설정 */
 }
 
-.text {
+/* 페이지 내 중앙 텍스트의 스타일 정의 */
+.Initialization-text {
   position: absolute;
-  width: 100%;
-  top: 484px;
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  font-size: 42px;
-  line-height: 53px;
-  text-align: center;
-  color: #0d2af0;
+  width: 100%; /* 텍스트 요소의 너비를 페이지 전체 너비로 설정 */
+  top: 484px; /* 텍스트를 페이지 상단에서 484px 아래에 배치 */
+  font-family: 'Outfit', sans-serif; /* 텍스트의 폰트를 'Outfit'으로 설정 */
+  font-weight: 700; /* 폰트 두께를 굵게 설정 */
+  font-size: 5vw; /* 글씨 크기를 뷰포트 너비의 5%로 설정하여 반응형으로 만듦 */
+  line-height: 1.2; /* 줄 간격을 설정 */
+  text-align: center; /* 텍스트를 중앙 정렬 */
+  color: #0d2af0; /* 텍스트 색상을 파란색(#0d2af0)으로 설정 */
+  white-space: pre-wrap; /* 줄바꿈을 유지하여 3줄로 만들기 */
+  margin: 0;
+  padding: 0;
 }
 
-.sign-up-button {
-  position: absolute;
-  width: 190px;
-  height: 45px;
-  left: 120px;
-  top: 734px;
-  border: 2px solid #0d2af0;
-  border-radius: 12px;
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 23px;
-  text-align: center;
-  color: #0d2af0;
-  background: none;
+/* 회원가입 버튼의 스타일 정의 */
+.Initialization-sign-up-button {
+  position: absolute; /* 부모 요소를 기준으로 절대 위치를 설정 */
+  width: 190px; /* 버튼의 너비를 190px로 설정 */
+  height: 45px; /* 버튼의 높이를 45px로 설정 */
+  left: 120px; /* 버튼을 왼쪽에서 120px 떨어진 위치에 배치 */
+  top: 734px; /* 버튼을 상단에서 734px 떨어진 위치에 배치 */
+  border: 2px solid #0d2af0; /* 파란색(#0d2af0) 테두리를 2px 두께로 설정 */
+  border-radius: 12px; /* 버튼의 모서리를 12px로 둥글게 설정 */
+  font-family: 'Outfit', sans-serif; /* 버튼 텍스트의 폰트를 'Outfit'으로 설정 */
+  font-weight: 700; /* 버튼 텍스트의 폰트 두께를 굵게 설정 */
+  font-size: 18px; /* 버튼 텍스트의 크기를 18px로 설정 */
+  line-height: 23px; /* 버튼 텍스트의 줄 간격을 23px로 설정 */
+  text-align: center; /* 버튼 텍스트를 중앙 정렬 */
+  color: #0d2af0; /* 버튼 텍스트 색상을 파란색(#0d2af0)으로 설정 */
+  background: none; /* 버튼의 배경색을 투명으로 설정 */
 }
 
-.version {
-  position: absolute;
-  width: 68px;
-  height: 20px;
-  left: 181px;
-  top: 744px;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  text-align: center;
-  color: #0d2af0;
+/* 페이지 하단에 표시되는 버전 정보의 스타일 정의 */
+.Initialization-version {
+  position: absolute; /* 부모 요소를 기준으로 절대 위치를 설정 */
+  width: 68px; /* 버전 정보의 너비를 68px로 설정 */
+  height: 20px; /* 버전 정보의 높이를 20px로 설정 */
+  left: 181px; /* 버전 정보를 왼쪽에서 181px 떨어진 위치에 배치 */
+  top: 744px; /* 버전 정보를 상단에서 744px 떨어진 위치에 배치 */
+  font-family: 'Noto Sans KR', sans-serif; /* 텍스트의 폰트를 'Noto Sans KR'으로 설정 */
+  font-weight: 400; /* 텍스트의 폰트 두께를 보통으로 설정 */
+  font-size: 14px; /* 텍스트의 크기를 14px로 설정 */
+  line-height: 20px; /* 줄 간격을 20px로 설정 */
+  text-align: center; /* 텍스트를 중앙 정렬 */
+  color: #0d2af0; /* 텍스트 색상을 파란색(#0d2af0)으로 설정 */
 }
 
 /* 1페이지 스타일 */
-.page-1 .title {
-  position: absolute;
-  width: 263px;
-  height: 53px;
-  left: 83px;
-  top: 532px;
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  font-size: 42px;
-  line-height: 53px;
-  text-align: center;
-  color: #0d2af0;
+/* 첫 번째 페이지의 제목 텍스트 스타일 정의 */
+.Initialization-page-1 .Initialization-title {
+  position: absolute; /* 부모 요소를 기준으로 절대 위치를 설정 */
+  width: 263px; /* 제목 텍스트의 너비를 263px로 설정 */
+  height: 53px; /* 제목 텍스트의 높이를 53px로 설정 */
+  left: 83px; /* 제목 텍스트를 왼쪽에서 83px 떨어진 위치에 배치 */
+  top: 532px; /* 제목 텍스트를 상단에서 532px 떨어진 위치에 배치 */
+  font-family: 'Outfit', sans-serif; /* 제목 텍스트의 폰트를 'Outfit'으로 설정 */
+  font-weight: 700; /* 제목 텍스트의 폰트 두께를 굵게 설정 */
+  font-size: 42px; /* 제목 텍스트의 크기를 42px로 설정 */
+  line-height: 53px; /* 제목 텍스트의 줄 간격을 53px로 설정 */
+  text-align: center; /* 제목 텍스트를 중앙 정렬 */
+  color: #0d2af0; /* 제목 텍스트 색상을 파란색(#0d2af0)으로 설정 */
 }
 
-.polygon-outer {
+/* 첫 번째 페이지의 외곽 다각형 스타일 정의 */
+.Initialization-polygon-outer {
   position: absolute;
   width: 158px;
   height: 158px;
   left: 136px;
   top: 332px;
-  border: 15px solid #0d2af0;
+  border: none; /* 테두리 제거, 이미지로 대체되므로 불필요 */
+  background-size: cover; /* 이미지를 요소 크기에 맞게 조정 */
+  background-position: center; /* 이미지를 중앙에 위치시킴 */
 }
 
-.polygon-inner {
-  position: absolute;
-  width: 118px;
-  height: 118px;
-  left: 163px;
-  top: 346px;
-  background: #ff6984;
-}
-
+/* 첫 번째 페이지의 내부 다각형 스타일 정의 (필요 없을 경우 제거 가능) */
 /* 2페이지 스타일 */
-.page-2 .house-container {
+/* 두 번째 페이지에서 집 모양 요소를 감싸는 컨테이너 스타일 정의 */
+.Initialization-page-2 .Initialization-house-container {
   position: absolute;
   top: 209px;
   left: 164px;
   width: 173px;
   height: 145px;
-}
-
-.house-body {
-  background: #0d2af0;
-  width: 173px;
-  height: 145px;
-  position: relative;
-}
-
-.door,
-.windows,
-.chimney,
-.roof {
-  position: absolute;
-}
-
-.door {
-  width: 45px;
-  height: 45px;
-  left: 193px;
-  top: 288px;
-  background: #ffc700;
-  border-radius: 5px;
-}
-
-.windows {
-  width: 38px;
-  height: 50px;
-  left: 251px;
-  top: 299px;
-  background: #ffc700;
-}
-
-.chimney {
-  width: 5px;
-  height: 45px;
-  left: 213px;
-  top: 288px;
-  background: #0d2af0;
-}
-
-.roof {
-  width: 5px;
-  height: 45px;
-  left: 238px;
-  top: 308px;
-  background: #0d2af0;
-  transform: rotate(90deg);
-}
-
-.floor {
-  position: absolute;
-  width: 180px;
-  height: 56px;
-  left: 101px;
-  top: 362px;
+  background-image: url('../../assets/Initialization_home.png'); /* 집 모양 이미지를 배경으로 설정 */
+  background-size: cover; /* 이미지를 요소 크기에 맞게 조정 */
+  background-position: center; /* 이미지를 중앙에 위치시킴 */
 }
 
 /* 3페이지 스타일 */
-.page-3 .feedback-container {
+/* 3페이지 스타일 */
+/* 기존 피드백 버튼 스타일 제거하고 이미지 사용 */
+.Initialization-page-3 .Initialization-message-icon {
   position: absolute;
-  width: 100%;
-  top: 200px;
-  display: flex;
-  justify-content: space-around;
-}
-
-.feedback-smile,
-.feedback-love,
-.feedback-heart {
-  width: 109px;
-  height: 108px;
-  background: #0d2af0;
-  position: relative;
-}
-
-.feedback-smile:before {
-  content: '';
-  width: 56px;
-  height: 56px;
-  background: #ffc700;
-  position: absolute;
-  top: 30px;
-  left: 26px;
-}
-
-.feedback-love:before {
-  content: 'LOVE IT';
-  position: absolute;
-  width: 86px;
-  height: 30px;
-  left: 12px;
-  top: 39px;
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 30px;
-  text-align: center;
-  color: #ffc700;
+  width: 109px; /* 이미지 크기를 버튼 크기와 맞춤 */
+  height: 108px; /* 이미지 크기를 버튼 크기와 맞춤 */
+  top: 200px; /* 적절한 위치로 설정 */
+  left: calc(50% - 54.5px); /* 중앙에 배치 */
+  background-size: cover; /* 이미지를 요소 크기에 맞게 조정 */
+  background-position: center; /* 이미지를 중앙에 위치시킴 */
+  background-repeat: no-repeat; /* 배경 이미지 반복 제거 */
 }
 
 /* 4페이지 스타일 */
-.page-4 .icons-container {
-  position: absolute;
-  top: 232px;
-  left: 73px;
-  width: 283px;
-  height: 150px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+/* 네 번째 페이지에서 아이콘들을 감싸는 컨테이너 스타일 정의 */
+.Initialization-page-4 .Initialization-icons-container {
+  position: absolute; /* 부모 요소를 기준으로 절대 위치를 설정 */
+  top: 232px; /* 컨테이너를 상단에서 232px 떨어진 위치에 배치 */
+  left: 73px; /* 컨테이너를 왼쪽에서 73px 떨어진 위치에 배치 */
+  width: 283px; /* 컨테이너의 너비를 283px로 설정 */
+  height: 150px; /* 컨테이너의 높이를 150px로 설정 */
+  display: flex; /* 플렉스 박스를 사용하여 자식 요소들을 정렬 */
+  flex-wrap: wrap; /* 자식 요소들을 줄 바꿈하여 정렬 */
+  justify-content: space-between; /* 자식 요소들 사이에 동일한 간격을 배치 */
 }
 
-.icon {
-  width: 54px;
-  height: 52px;
-  background: #0d2af0;
-}
-
-.icon.love-it {
-  background: #ff6984;
-  border: 2px solid #ff6984;
+/* 각 아이콘의 기본 스타일 정의 */
+.Initialization-icon {
+  width: 54px; /* 아이콘의 너비를 54px로 설정 */
+  height: 52px; /* 아이콘의 높이를 52px로 설정 */
+  background-size: cover; /* 이미지를 요소 크기에 맞게 조정 */
+  background-position: center; /* 이미지를 중앙에 위치시킴 */
+  background-repeat: no-repeat; /* 배경 이미지 반복 제거 */
 }
