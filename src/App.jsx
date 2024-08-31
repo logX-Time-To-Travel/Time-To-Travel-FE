@@ -18,6 +18,8 @@ import './App.css';
 import Comment from './pages/Comment';
 import EditUser from './components/User/EditUser';
 import Interest from './pages/Interest';
+import InterestLike from './components/Interest/InterestLike';
+import InterestScrap from './components/Interest/InterestScrap';
 // import Initialization from './Initialization';
 
 const libraries = ['places'];
@@ -53,6 +55,8 @@ function App() {
               <Route path="/edituser" element={<EditUser />} />
               <Route path="/terms/:type" element={<Terms />} />{' '}
               <Route path="/interest" element={<Interest />} />
+              <Route path="/interest/like" element={<InterestLike />} />
+              <Route path="/interest/scrap" element={<InterestScrap />} />
             </Routes>
           </BrowserRouter>
         </PostProvider>
