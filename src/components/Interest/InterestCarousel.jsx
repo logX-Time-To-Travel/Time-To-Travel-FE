@@ -2,6 +2,7 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './InterestCarousel.css';
 import { useNavigate } from 'react-router-dom';
+import getTimeAgo from '../../utils/useTimeAgo';
 
 const InterestCarousel = ({ posts }) => {
   const navigate = useNavigate();
@@ -40,8 +41,7 @@ const InterestCarousel = ({ posts }) => {
                 />
               </div>
               <div className="carousel-profile-info">
-                {post.username}님의{' '}
-                {new Date(post.createdAt).toLocaleDateString('ko-KR')} 전 게시글
+                {post.username}님의 {getTimeAgo(post.createdAt)} 게시글
               </div>
             </div>
           </div>
