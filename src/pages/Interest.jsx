@@ -64,8 +64,14 @@ const Interest = () => {
           <InterestCarousel posts={recommendPosts} />
         </div>
         <div className="interest-component">
-          <InterestScrap />
-          <InterestLike />
+          <div className="interest-scrap-container">
+            <div className="scrap-title">내가 별표한 게시글</div>
+            <div className="scrap-count">2개</div>
+          </div>
+          <div className="interest-heart-container">
+            <div className="heart-title">내가 좋아요한 게시글</div>
+            <div className="heart-count">0개</div>
+          </div>
         </div>
       </div>
       <div className="interest-footer">
