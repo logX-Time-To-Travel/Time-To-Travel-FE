@@ -13,7 +13,7 @@ const AddPost = () => {
 
   return (
     <div className="add-post-page">
-      <Header homebtn={'<'} text={'글쓰기'} />
+      <Header page = {"home"} titleText={'글쓰기'} />
       <div className="editor-wrapper">
         <Tinymce addPost={addPost} />
       </div>

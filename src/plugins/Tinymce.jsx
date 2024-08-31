@@ -4,17 +4,17 @@ import LocationModal from '../components/BlogEditor/LocationModal';
 import './Tinymce.css';
 import x from '.././assets/X.png';
 import marker from '.././assets/Icon_Map1.png';
-
 import PostContext from './PostContext';
 import { useNavigate } from 'react-router-dom';
 
 export default function Tinymce() {
-  const { addPost } = useContext(PostContext);
+  const { addPost, uploadImage } = useContext(PostContext);
   const editorRef = useRef(null);
   const [title, setTitle] = useState('');
   const [locations, setLocations] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [memberId, setMemberId] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
   const navigate = useNavigate();
 
   const fetchMemberSession = async () => {
@@ -27,34 +27,43 @@ export default function Tinymce() {
 
   useEffect(() => {
     const getMemberInfo = async () => {
-      const data = await fetchMemberSession();
-      if (data) {
-        setMemberId(data.memberId);
+      try {
+        const data = await fetchMemberSession();
+        if (data) {
+          setMemberId(data.memberId);
+        }
+      } catch (error) {
+        console.error('Error fetching member session:', error);
       }
     };
 
     getMemberInfo();
   }, []);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (locations.length === 0) {
       alert('최소 한 개의 위치를 추가해주세요.');
       return;
     }
 
-    const content = editorRef.current.getContent();
-    const newPost = {
-      id: Date.now(),
-      title,
-      createdAt: new Date().toISOString(),
-      content,
-      locations,
-      images: [],
-      memberId,
-    };
-    addPost(newPost);
-    console.log(newPost);
-    navigate('/blog'); // 저장 후 블로그 페이지로 이동
+    try {
+      const content = editorRef.current.getContent();
+      const newPost = {
+        id: Date.now(),
+        title,
+        createdAt: new Date().toISOString(),
+        content,
+        locations,
+        images: [],
+        memberId,
+      };
+
+      const result = await addPost(newPost);
+      navigate('/blog');
+    } catch (error) {
+      console.error('Error saving post:', error);
+      alert('포스트를 저장하는데 문제가 발생했습니다.');
+    }
   };
 
   const handleLocationSelect = (lat, lng, address) => {
@@ -68,6 +77,18 @@ export default function Tinymce() {
     setLocations(newLocations);
   };
 
+  const handleImageUpload = async (file) => {
+    // file을 인자로 받음
+    try {
+      const url = await uploadImage(file); // 이미지를 서버에 업로드
+      setImageUrl(url); // 반환된 이미지 URL 저장
+      return url; // URL 반환
+    } catch (error) {
+      console.error('Failed to upload image:', error);
+      throw error; // 에러를 다시 던짐
+    }
+  };
+
   return (
     <div className="editor-page">
       <div className="editor-container">
@@ -79,7 +100,7 @@ export default function Tinymce() {
           onChange={(e) => setTitle(e.target.value)}
         />
         <span className="location-count">
-          <img className="marker-icon" src={marker} />
+          <img className="marker-icon" src={marker} alt="marker" />
           <span className="location-count-number">
             {locations.length + '  '}
           </span>
@@ -91,7 +112,7 @@ export default function Tinymce() {
               <div key={index} className="location-item">
                 <span>{location.address}</span>
                 <button onClick={() => handleRemoveLocation(index)}>
-                  <img className="tab-delete-button" src={x} />
+                  <img className="tab-delete-button" src={x} alt="delete" />
                 </button>
               </div>
             ))}
@@ -130,29 +151,34 @@ export default function Tinymce() {
               'wordcount',
             ],
             toolbar:
-              'undo redo | formatselect | bold italic underline forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | more',
+              'undo redo | image | formatselect | bold italic underline forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | more',
             toolbar_mode: 'sliding',
-            toolbar_sticky: true,
+
+            images_upload_handler: (blobInfo) => {
+              return new Promise((resolve, reject) => {
+                const file = blobInfo.blob();
+
+                handleImageUpload(file)
+                  .then((imageUrl) => {
+                    // 단순 URL로 이미지 태그 생성
+                    resolve(`http://localhost:8080${imageUrl}`);
+                  })
+                  .catch((error) => {
+                    console.error('Image upload failed:', error);
+                    reject('Image upload failed');
+                  });
+              });
+            },
+
             content_style: `
       body { font-family: Arial, sans-serif; font-size: 14px; }
     `,
             setup: (editor) => {
-              // 에디터 컨테이너에 포커스 스타일 적용
               editor.on('focus', () => {
-                editor.getContainer().style.outline = '2px solid #ffab00'; // 포커스 시 스타일 적용
+                editor.getContainer().style.outline = '2px solid #ffab00';
               });
               editor.on('blur', () => {
-                editor.getContainer().style.outline = ''; // 포커스 해제 시 스타일 제거
-              });
-
-              editor.ui.registry.addButton('more', {
-                icon: 'more-drawer',
-                tooltip: 'More options',
-                onAction: () => {
-                  const toolbarMore =
-                    editor.ui.registry.getAll().icons.moreDrawer;
-                  toolbarMore.show();
-                },
+                editor.getContainer().style.outline = '';
               });
             },
           }}
