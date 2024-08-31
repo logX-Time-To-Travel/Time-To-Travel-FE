@@ -2,7 +2,7 @@
 .editor-page {
   display: flex;
   justify-content: center;
-  padding: 1px;
+  padding: 1px 0px;
   background-color: #ffffff;
   min-height: 100vh;
 }
@@ -93,7 +93,7 @@
   padding: 10px;
 
   color: rgba(255, 170, 0, 0.543);
-  border: 2px solid #ff990092;
+  border: 5px solid #ff990092;
   border-radius: 30px;
 
   font-size: 17px;
