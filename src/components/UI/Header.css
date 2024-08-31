@@ -1,53 +1,53 @@
 /* 기본 스타일 */
 .Header {
-
     display: flex;
-    flex-direction: row; 
-    border-bottom : 1px solid #EDEDED;
-    align-items: center;
-    width: 100%;
-    position: relative; /* 중간 요소를 중앙에 위치시키기 위해 필요 */
-    padding: 20px 0px;
-    font-size: 20px;
-    
-    
-}
-
-.homebutton_section > button {
-    display: flex;
+    position: relative;
     justify-content: space-between;
     align-items: center;
-    border-width: 0px;
-    font-weight: bold;
-    color: #FAA500;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: bold;
-    background-color: white;
-    margin-inline: 15px;
+    width: 100%;
+    padding: 30px 5px;
+    font-size: 20px;
+}
 
-
+.homebutton_section,
+.rightbutton_section {
+    flex-basis: 25%; /* 좌우 섹션의 너비를 25%로 균일하게 설정 */
 }
 
 .title {
-
-    flex-direction: column;
+    flex-basis: 50%; /* 타이틀 영역이 중간에 위치하도록 */
+    text-align: center;
     font-size: 25px;
     font-weight: bold;
 }
 
-
-
-.homebutton_section {
-    width: 100%;
-    text-align: left; 
+.homebutton_section > button {
+    border-width: 0;
+    font-weight: bold;
+    color: #FAA500;
+    cursor: pointer;
+    font-size: 15px;
+    background-color: white;
 }
 
-.title {
-    position: absolute;
-    align-items: center;
-    left: 50%;
-    transform: translateX(-50%);
+.home-icon {
+    width: 24px;  /* 또는 원하는 크기로 설정 */
+    height: 24px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.rightbutton_section  {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.rightbutton_section button {
+    color: blue;
+    font-size: 10px;
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
 }
 
 /* 화면 크기가 768px 이하일 때 적용되는 스타일 */
@@ -56,7 +56,6 @@
         font-size: 15px;
     }
 
-
     .homebutton_section {
         font-size: 25px;
     }
@@ -64,18 +63,12 @@
 
 /* 화면 크기가 480px 이하일 때 적용되는 스타일 */
 @media (max-width: 480px) {
-
     .title {
-        position: absolute;
-        align-items: center;
-        left: 50%;
-        transform: translateX(-50%);
+        font-size: 15px;
     }
-    
 
-    .homebutton_section {
-        width: 100%; /* 작은 화면에서는 전체 너비를 차지 */
-        text-align: center; /* 중앙 정렬 */
-        align-items: center;
+    .homebutton_section,
+    .rightbutton_section {
+        font-size: 15px;
     }
 }

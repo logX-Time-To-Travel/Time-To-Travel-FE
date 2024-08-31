@@ -1,71 +1,97 @@
-import { useState, useRef, useEffect, useContext } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import LocationModal from '../components/BlogEditor/LocationModal';
 import './Tinymce.css';
 import x from '.././assets/X.png';
 import marker from '.././assets/Icon_Map1.png';
-
 import PostContext from './PostContext';
 import { useNavigate } from 'react-router-dom';
+import imageCompression from 'browser-image-compression';
 
 export default function Tinymce() {
-  const { addPost } = useContext(PostContext);
+  const { addPost, uploadImage } = useContext(PostContext);
   const editorRef = useRef(null);
   const [title, setTitle] = useState('');
   const [locations, setLocations] = useState([]);
+  const [images, setImages] = useState([]); // 이미지 배열 추가
+  const [thumbnail, setThumbnail] = useState(''); // 썸네일 상태 추가
   const [showModal, setShowModal] = useState(false);
   const [memberId, setMemberId] = useState('');
   const navigate = useNavigate();
 
-  const fetchMemberSession = async () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({ memberId: '1' });
-      }, 1000);
-    });
-  };
-
   useEffect(() => {
-    const getMemberInfo = async () => {
-      const data = await fetchMemberSession();
-      if (data) {
-        setMemberId(data.memberId);
-      }
+    const fetchMemberSession = async () => {
+      const data = await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({ memberId: 1 });
+        }, 1000);
+      });
+      setMemberId(data.memberId);
     };
 
-    getMemberInfo();
+    fetchMemberSession().catch(console.error);
   }, []);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (locations.length === 0) {
       alert('최소 한 개의 위치를 추가해주세요.');
       return;
     }
 
-    const content = editorRef.current.getContent();
-    const newPost = {
-      id: Date.now(),
-      title,
-      createdAt: new Date().toISOString(),
-      content,
-      locations,
-      images: [],
-      memberId,
-    };
-    addPost(newPost);
-    console.log(newPost);
-    navigate('/blog'); // 저장 후 블로그 페이지로 이동
+    try {
+      const content = editorRef.current.getContent();
+      const validLocations = locations.filter(
+        (location) => location.latitude && location.longitude && location.name
+      );
+
+      const newPost = {
+        title,
+        content,
+        locations: validLocations,
+        memberId,
+        thumbnail: thumbnail || images[0] || 'images/default.png', // 첫 번째 이미지가 썸네일로 설정되도록
+      };
+
+      await addPost(newPost);
+      navigate('/blog');
+    } catch (error) {
+      console.error('Error saving post:', error);
+      alert('포스트를 저장하는데 문제가 발생했습니다.');
+    }
   };
 
-  const handleLocationSelect = (lat, lng, address) => {
-    const newLocation = { lat, lng, address };
-    setLocations([...locations, newLocation]);
+  const handleLocationSelect = (latitude, longitude, name) => {
+    setLocations([...locations, { latitude, longitude, name }]);
     setShowModal(false);
   };
 
   const handleRemoveLocation = (index) => {
-    const newLocations = locations.filter((_, i) => i !== index);
-    setLocations(newLocations);
+    setLocations(locations.filter((_, i) => i !== index));
+  };
+
+  const handleImageUpload = async (file) => {
+    try {
+      // 이미지 압축 설정
+      const options = {
+        maxSizeMB: 0.5, // 500KB로 압축
+        maxWidthOrHeight: 1024, // 최대 너비 또는 높이 1024px
+        useWebWorker: true,
+      };
+
+      // 이미지 압축 수행
+      const compressedFile = await imageCompression(file, options);
+      const imageUrl = await uploadImage(compressedFile);
+
+      // 첫 번째 이미지일 때만 썸네일로 설정
+      if (!thumbnail) {
+        setThumbnail(imageUrl); // 썸네일 설정
+      }
+
+      return imageUrl;
+    } catch (error) {
+      console.error('Failed to upload image:', error);
+      throw error;
+    }
   };
 
   return (
@@ -79,9 +105,9 @@ export default function Tinymce() {
           onChange={(e) => setTitle(e.target.value)}
         />
         <span className="location-count">
-          <img src={marker} />
+          <img className="marker-icon" src={marker} alt="marker" />
           <span className="location-count-number">
-            {locations.length + '  '}
+            {locations.length + ' '}
           </span>
           개의 장소가 선택됨
         </span>
@@ -89,9 +115,9 @@ export default function Tinymce() {
           <div className="locations-list">
             {locations.map((location, index) => (
               <div key={index} className="location-item">
-                <span>{location.address}</span>
+                <span>{location.name}</span>
                 <button onClick={() => handleRemoveLocation(index)}>
-                  <img className="tab-delete-button" src={x} />
+                  <img className="tab-delete-button" src={x} alt="delete" />
                 </button>
               </div>
             ))}
@@ -130,29 +156,33 @@ export default function Tinymce() {
               'wordcount',
             ],
             toolbar:
-              'undo redo | formatselect | bold italic underline forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | more',
+              'undo redo | image | formatselect | bold italic underline forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | more',
             toolbar_mode: 'sliding',
-            toolbar_sticky: true,
+
+            images_upload_handler: (blobInfo) => {
+              return new Promise((resolve, reject) => {
+                const file = blobInfo.blob();
+
+                handleImageUpload(file)
+                  .then((imageUrl) => {
+                    resolve(`http://localhost:8080${imageUrl}`);
+                  })
+                  .catch((error) => {
+                    console.error('Image upload failed:', error);
+                    reject('Image upload failed');
+                  });
+              });
+            },
+
             content_style: `
-      body { font-family: Arial, sans-serif; font-size: 14px; }
-    `,
+              body { font-family: Arial, sans-serif; font-size: 14px; }
+            `,
             setup: (editor) => {
-              // 에디터 컨테이너에 포커스 스타일 적용
               editor.on('focus', () => {
-                editor.getContainer().style.outline = '2px solid #ffab00'; // 포커스 시 스타일 적용
+                editor.getContainer().style.outline = '2px solid #ffab00';
               });
               editor.on('blur', () => {
-                editor.getContainer().style.outline = ''; // 포커스 해제 시 스타일 제거
-              });
-
-              editor.ui.registry.addButton('more', {
-                icon: 'more-drawer',
-                tooltip: 'More options',
-                onAction: () => {
-                  const toolbarMore =
-                    editor.ui.registry.getAll().icons.moreDrawer;
-                  toolbarMore.show();
-                },
+                editor.getContainer().style.outline = '';
               });
             },
           }}

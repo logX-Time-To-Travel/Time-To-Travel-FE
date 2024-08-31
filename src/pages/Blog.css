@@ -5,24 +5,8 @@
   padding: 2rem;
 }
 
-Header {
-  margin-bottom: 30px;
-}
 
-.new-post-button {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
 
-.new-post-button button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
 
 .posts {
   display: flex;
@@ -30,19 +14,76 @@ Header {
   gap: 10px;
 }
 
+
+
+.content-container {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  border-top: 1px solid #dee2e6;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.select-all-btn, .delete-btn {
+  padding: 13px 10px; /* 여백을 넉넉하게 주어 버튼을 더 큼직하게 */
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  background-color: #fff;
+  font-weight: bold;
+  font-size: 10px;
+  width: 100px;
+
+  cursor: pointer;
+}
+
+
+.select-all-btn {
+  background-color: #e0e0e0;
+}
+
+.delete-btn {
+  color: red;
+  border-color: red;
+  background-color: #fff; 
+}
+
+.info-section {
+  text-align: right;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+}
+
+.selected-count {
+  margin-right: 5px;
+  font-size: 10px;
+}
+
+.delete-ratio {
+  font-size: 14px;
+  color: #000;
+}
+
 /* 반응형 스타일 */
 @media (max-width: 600px) {
   .blog-container {
     padding: 1rem; /* 작은 화면에서 패딩 줄이기 */
-  }
-
-  .profile img {
-    width: 80px; /* 프로필 이미지 크기 줄이기 */
-    height: 80px;
-  }
-
-  .profile h2 {
-    font-size: 20px; /* 글자 크기 줄이기 */
   }
 
   .new-post-button button {
