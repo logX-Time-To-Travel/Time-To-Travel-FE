@@ -3,16 +3,6 @@
   color: #ee2448;
 }
 
-/* HTML과 BODY에 배경색을 적용하여 화면 전체를 덮도록 설정 */
-html,
-body {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background-color: #fafafa; /* 배경색을 연한 회색으로 설정 */
-}
-
 /* 전체 레이아웃 및 배경 */
 .SignIn-container {
   height: 100vh; /* 화면의 100% 높이 설정 */
