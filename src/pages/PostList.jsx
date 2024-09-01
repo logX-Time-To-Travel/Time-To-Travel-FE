@@ -6,10 +6,10 @@ const PostList = ({ posts, isSelectMode, selectedPosts, onPostSelect }) => {
     <div className="post-list">
       {posts.map((post) => (
         <Post
-          key={post.id}
+          key={post.postId} // postId로 변경
           post={post}
           isSelectMode={isSelectMode}
-          isSelected={selectedPosts.includes(post.id)}
+          isSelected={selectedPosts.includes(post.postId)} // postId로 변경
           onPostSelect={onPostSelect}
         />
       ))}
