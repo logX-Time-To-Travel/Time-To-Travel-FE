@@ -50,33 +50,54 @@
 /* 필수 약관 전체 동의 */
 .SignUp-agreement {
   width: 100%; /* 너비를 100%로 설정하여 반응형으로 변경 */
-  height: 40px;
+  height: auto;
   background: #ffffff;
+  color: #000000a2;
+  font-weight: bold;
   box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.03);
   border-radius: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 12px;
+  padding: 0 15px;
   margin-bottom: 10px;
   cursor: pointer;
 }
 
-.SignUp-agreement.active {
-  background: #ffffff;
+/* 디폴트 */
+.SignUp-agreement.text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  background-color: transparent;
+}
+
+.SignUp-agreement .icon {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  margin-right: 17px;
+  flex-direction: row;
+  font-family: 'Outfit', sans-serif;
+  background-color: transparent;
+  font-size: 25px;
+  line-height: 1px;
+}
+
+/* 활성화 */
+.SignUp-agreement.active.icon {
+  background-color: transparent; /* 배경색을 투명하게 설정 */
   color: #0d2af0;
+  width: 10px;
+  height: 10px;
   box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.03);
 }
 
-.SignUp-agreement .text {
+/* 활성화된 상태에서의 텍스트 스타일 */
+.SignUp-agreement.active.text {
   font-family: 'Outfit', sans-serif;
-  font-weight: 500;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 18px;
-  color: #000000;
-}
-
-.SignUp-agreement.active .text {
   color: #0d2af0;
 }
 
@@ -94,10 +115,18 @@
   margin-bottom: 8px; /* 아래 간격 줄이기 */
   cursor: pointer;
 }
+/* 
+( > )표시 부분 */
+.icon > img {
+  width: 15px;
+  height: 15px;
+}
 
 .SignUp-term-item.active .text,
 .SignUp-term-item.active .icon {
   color: #0d2af0;
+  width: 12px;
+  height: 12px;
 }
 
 .SignUp-term-item .text {
@@ -125,6 +154,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.SignUp-term-item > img {
+  width: 10px;
+  height: 10px;
+}
+.SignUp-back-btn > img {
+  width: 15px;
+  height: 15px;
 }
 
 /* Continue Button */
