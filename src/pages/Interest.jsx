@@ -6,9 +6,11 @@ import InterestCarousel from '../components/Interest/InterestCarousel';
 import { useNavigate } from 'react-router-dom';
 import InterestStar from '../assets/interestStar.png';
 import InterestHeart from '../assets/interestHeart.png';
+import axios from 'axios';
 
 const Interest = () => {
   const [recommendPosts, setRecommendPosts] = useState([]);
+  const [username, setUsername] = useState('');
   const navigate = useNavigate();
 
   const handleClickScrap = () => {
@@ -19,51 +21,38 @@ const Interest = () => {
     navigate('/interest/like');
   };
 
+  const fetchUsername = async () => {
+    try {
+      const usernameResponse = await axios.get(
+        'http://localhost:8080/member/session',
+        {
+          withCredentials: true,
+        }
+      );
+      setUsername(usernameResponse.data.username);
+    } catch (error) {
+      console.error('Error fetching username:', error);
+    }
+  };
+
+  const fetchData = async () => {
+    const postResponse = await axios.get(
+      `http://localhost:8080/interest/${username}`,
+      { withCredentials: true }
+    );
+    setRecommendPosts(postResponse.data);
+  };
+
   useEffect(() => {
-    const dummyPosts = [
-      {
-        postId: 1111,
-        title: '투썸플레이스에서 본 풍경',
-        profileImageUrl: '/images/default.png',
-        username: 'user1',
-        thumbnail: '/images/20240828001158_IMG_4577.jpeg',
-        createdAt: new Date(),
-      },
-      {
-        postId: 2222,
-        title: '서래마을 카페에서의 하루',
-        profileImageUrl: '/images/profile2.jpg',
-        username: 'user2',
-        thumbnail: '/images/post2.jpg',
-        createdAt: new Date(),
-      },
-      {
-        postId: 3333,
-        title: '커피 한 잔의 여유',
-        profileImageUrl: '/images/profile3.jpg',
-        username: 'user3',
-        thumbnail: '/images/post3.jpg',
-        createdAt: new Date(),
-      },
-      {
-        postId: 4444,
-        title: '코인노래방 탐방기',
-        profileImageUrl: '/images/profile4.jpg',
-        username: 'user4',
-        thumbnail: '/images/post4.jpg',
-        createdAt: new Date(),
-      },
-      {
-        postId: 5555,
-        title: '아차산 등산 후기',
-        profileImageUrl: '/images/profile5.jpg',
-        username: 'user5',
-        thumbnail: '/images/post5.jpg',
-        createdAt: new Date(),
-      },
-    ];
-    setRecommendPosts(dummyPosts);
-  }, []);
+    const loadData = async () => {
+      await fetchUsername();
+      if (username) {
+        fetchData(username);
+      }
+    };
+
+    loadData();
+  }, [username]);
 
   return (
     <div className="interest-container">
