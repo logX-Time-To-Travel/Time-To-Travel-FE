@@ -8,6 +8,9 @@ const Post = ({ post, isSelectMode, isSelected, onPostSelect }) => {
   console.log('Post object:', post); // post 객체 로그 출력
   const timeAgo = useTimeAgo(post.createdAt);
 
+  // 백엔드에서 전달된 상대 경로를 절대 경로로 변환
+  const fullImageUrl = `http://localhost:8080${post.imageUrl}`;
+
   return (
     <div
       className={`post ${isSelected ? 'selected' : ''}`} // 선택된 상태에 따라 CSS 클래스 적용
@@ -22,6 +25,8 @@ const Post = ({ post, isSelectMode, isSelected, onPostSelect }) => {
             <img src={checkIcon} alt="check" className="check-icon" />
           </div>
         )}
+        {/* 절대 경로로 변환된 imageUrl 사용 */}
+        <img src={fullImageUrl} alt="post image" className="thumbnail-image" />
       </div>
 
       <div className="post-container">

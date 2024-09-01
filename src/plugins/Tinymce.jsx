@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useContext } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import LocationModal from '../components/BlogEditor/LocationModal';
 import './Tinymce.css';
