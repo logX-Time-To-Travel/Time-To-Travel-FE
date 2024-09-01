@@ -25,6 +25,7 @@
 
 .scrap-title,
 .heart-title {
+  padding: 15px;
   font-size: 18px;
   font-weight: bold;
 }
@@ -41,37 +42,27 @@
 }
 
 .interest-scrap-container {
-  padding: 15px;
-  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #f8b400, #ffdd00);
-  color: white;
-}
-
-.scrap-title {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.scrap-count {
-  font-size: 14px;
-  margin-top: 5px;
+  background: linear-gradient(180deg, #ffc700, #f1a717);
+  color: black;
 }
 
 .interest-heart-container {
-  padding: 15px;
-  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
   border-radius: 10px;
-  background: linear-gradient(135deg, #ff5f6d, #ffc371); /* 빨간색 그라데이션 */
+  background: linear-gradient(180deg, #ee2121, #ff6984); /* 빨간색 그라데이션 */
   color: white;
 }
 
-.heart-title {
-  font-size: 18px;
-  font-weight: bold;
+.icon-container {
+  display: flex;
+  align-items: center;
 }
 
-.heart-count {
-  font-size: 14px;
-  margin-top: 5px;
+.interest-icon {
 }
