@@ -37,14 +37,20 @@
   font-size: 14px;
   align-items: center;
 }
+
 .carousel-profile-image-container {
-  display: flex;
-}
-.carousel-profile-image {
   display: flex;
   width: 30px;
   height: 30px;
   border-radius: 50%;
+  overflow: hidden; /* 원형 영역을 넘어가는 부분 숨김 */
+}
+
+.carousel-profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center; /* 이미지 중앙에 맞추기 */
 }
 
 .carousel-profile-info {
