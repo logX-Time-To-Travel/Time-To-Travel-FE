@@ -3,7 +3,7 @@ import './Comment.css';
 import BackIcon from '../assets/Icon_ Back 1.png';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import getTimeAgo from '../utils/useTimeAgo';
+import getTimeAgo from '../utils/getTimeAgo';
 
 const Comment = () => {
   const { id } = useParams();
