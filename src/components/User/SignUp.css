@@ -8,7 +8,7 @@
 .SignUp-container {
   min-height: 100vh; /* 최소 높이를 화면 높이로 설정 */
   margin: auto;
-  padding: 2rem;
+  padding: 2rem 1.5rem; /* 위아래는 2rem, 좌우는 1.5rem으로 설정 */
   background: #fafafa;
   position: relative;
   box-sizing: border-box; /* 패딩이 포함된 크기로 계산 */
@@ -18,29 +18,26 @@
 /* 페이지 헤더 */
 .SignUp-title {
   font-family: 'Outfit', sans-serif;
-  font-weight: 700;
+  font-weight: 800;
   font-size: 28px;
   line-height: 35px;
   color: #000000;
-  margin-left: 34px;
-  margin-top: 137px;
+
+  margin-top: 70px;
 }
 
 .SignUp-description {
   font-family: 'Outfit', sans-serif;
   font-weight: 500;
   font-size: 14px;
-  line-height: 18px;
+  line-height: 100px;
   color: #484848;
-  margin-left: 34px;
-  margin-top: 20px;
 }
 
 /* 약관 동의 섹션 */
 .SignUp-terms-container {
   display: flex;
   flex-direction: column;
-  padding: 0;
   gap: 5px;
   position: relative; /* absolute -> relative로 변경 */
   width: 100%; /* 너비를 100%로 설정하여 화면에 맞추기 */
@@ -55,19 +52,25 @@
   color: #000000a2;
   font-weight: bold;
   box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.03);
-  border-radius: 12px;
+  border-radius: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 15px;
+  padding: 0 5px;
+  margin-top: 15px;
   margin-bottom: 10px;
   cursor: pointer;
+}
+
+/* Active 상태에서의 스타일 추가 */
+.SignUp-agreement.active {
+  color: #0d2af0; /* 파란색으로 변경 */
 }
 
 /* 디폴트 */
 .SignUp-agreement.text {
   font-family: 'Outfit', sans-serif;
-  font-size: 14px;
+  font-size: 10px;
   line-height: 18px;
   background-color: transparent;
 }
@@ -96,7 +99,7 @@
 /* 활성화된 상태에서의 텍스트 스타일 */
 .SignUp-agreement.active.text {
   font-family: 'Outfit', sans-serif;
-  font-size: 15px;
+  font-size: 10px;
   line-height: 18px;
   color: #0d2af0;
 }
@@ -106,6 +109,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  line-height: 1.5;  /* line-height를 적절히 조정해서 세로로 튀는 문제 해결 */
   width: 100%; /* 너비를 100%로 설정하여 반응형으로 변경 */
   height: 30px; /* 높이 줄이기 */
   border-radius: 12px;
@@ -137,6 +141,9 @@
   font-size: 14px;
   line-height: 18px;
   color: #979797;
+  padding: 5px 0;  /* 위아래 패딩 추가 */
+  height: auto;    /* height를 auto로 설정 */
+  white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 설정 */
 }
 
 .SignUp-term-item .required {

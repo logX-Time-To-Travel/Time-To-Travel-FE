@@ -222,43 +222,94 @@ const SignUp = ({ onSignUp }) => {
     navigate('/signin'); // 로그인 화면으로 이동
   };
 
-  // 모든 필수 약관 동의 핸들러
+  // 전체 동의 버튼을 눌렀을 때 클래스 추가/제거 로직
   const handleAllRequiredTerms = () => {
-    const newState = !allRequiredTerms; // 현재 상태의 반대값으로 설정
-    setAllRequiredTerms(newState); // 모든 필수 약관 동의 상태 업데이트
-    setTerms1(newState); // 이용약관 동의 상태 업데이트
-    setTerms2(newState); // 개인정보 처리방침 동의 상태 업데이트
-    setTerms3(newState); // 윤리 지침 동의 상태 업데이트
+    const newState = !allRequiredTerms;
+    setAllRequiredTerms(newState);
+    setTerms1(newState);
+    setTerms2(newState);
+    setTerms3(newState);
+
+    // 전체 약관 동의하기 버튼 색상 변경
+    const requiredTermsElement = document.querySelector('.SignUp-agreement');
+    if (newState) {
+      requiredTermsElement.classList.add('active');
+    } else {
+      requiredTermsElement.classList.remove('active');
+    }
   };
 
-  // 모든 선택 약관 동의 핸들러
+  // 선택 약관 전체 동의
   const handleAllOptionalTerms = () => {
-    const newState = !allOptionalTerms; // 현재 상태의 반대값으로 설정
-    setAllOptionalTerms(newState); // 모든 선택 약관 동의 상태 업데이트
-    setTerms4(newState); // 마케팅 정보 동의 상태 업데이트
-    setTerms5(newState); // 버그 전송 동의 상태 업데이트
+    const newState = !allOptionalTerms;
+    setAllOptionalTerms(newState);
+    setTerms4(newState);
+    setTerms5(newState);
+
+    // 선택 약관 동의하기 버튼 색상 변경
+    const optionalTermsElement = document.querySelector('.SignUp-agreement');
+    if (newState) {
+      optionalTermsElement.classList.add('active');
+    } else {
+      optionalTermsElement.classList.remove('active');
+    }
   };
 
   // 개별 필수 약관 동의 핸들러
   const handleIndividualRequiredTerm = (term, setTerm) => {
-    const newState = !term; // 현재 상태의 반대값으로 설정
-    setTerm(newState); // 개별 필수 약관 동의 상태 업데이트
-    // 모든 필수 약관이 선택되었는지 확인
+    const newState = !term;
+    setTerm(newState);
+
+    const termElement = document.querySelector(
+      `.SignUp-term-item.${
+        setTerm === setTerms1
+          ? 'terms1'
+          : setTerm === setTerms2
+          ? 'terms2'
+          : 'terms3'
+      }`
+    );
+    if (newState) {
+      termElement.classList.add('active');
+    } else {
+      termElement.classList.remove('active');
+    }
+
     const allChecked =
       (setTerm === setTerms1 ? newState : terms1) &&
       (setTerm === setTerms2 ? newState : terms2) &&
       (setTerm === setTerms3 ? newState : terms3);
 
-    setAllRequiredTerms(allChecked); // 모든 필수 약관이 선택된 경우 전체 동의 상태로 설정
+    setAllRequiredTerms(allChecked);
+
+    // 필수 약관이 모두 체크되면 전체 동의도 활성화
+    const requiredTermsElement = document.querySelector(
+      '.SignUp-agreement.required'
+    );
+    if (allChecked) {
+      requiredTermsElement.classList.add('active');
+    } else {
+      requiredTermsElement.classList.remove('active');
+    }
   };
 
   // 개별 선택 약관 동의 핸들러
   const handleIndividualOptionalTerm = (term, setTerm) => {
-    const newState = !term; // 현재 상태의 반대값으로 설정
-    setTerm(newState); // 개별 선택 약관 동의 상태 업데이트
-    // 현재 상태 업데이트 후 전체 선택 동의 여부 확인
+    const newState = !term;
+    setTerm(newState);
+
+    const termElement = document.querySelector(
+      `.SignUp-term-item.${setTerm === setTerms4 ? 'terms4' : 'terms5'}`
+    );
+    if (newState) {
+      termElement.classList.add('active');
+    } else {
+      termElement.classList.remove('active');
+    }
+
     const allChecked =
-      (terms4 && terms5) || (newState && terms4) || (newState && terms5);
+      (setTerm === setTerms4 ? newState : terms4) &&
+      (setTerm === setTerms5 ? newState : terms5);
 
     setAllOptionalTerms(allChecked);
   };
@@ -290,19 +341,15 @@ const SignUp = ({ onSignUp }) => {
 
           {/* 이용약관 동의 */}
           <div
-            className={`SignUp-term-item ${terms1 ? 'active' : ''}`}
+            className={`SignUp-term-item ${
+              terms1 ? 'active terms1' : 'terms1'
+            }`}
             onClick={() => handleIndividualRequiredTerm(terms1, setTerms1)}
           >
             <span className="text">
               ✔ 이용약관 <span className="required">*</span>
             </span>
-            <span
-              className="icon"
-              onClick={(e) => {
-                e.stopPropagation();
-                navigate('/terms/terms1');
-              }}
-            >
+            <span className="icon" onClick={(e) => e.stopPropagation()}>
               <img src={BackIconRight} />
             </span>
           </div>
