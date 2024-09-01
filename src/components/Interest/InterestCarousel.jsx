@@ -2,7 +2,7 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './InterestCarousel.css';
 import { useNavigate } from 'react-router-dom';
-import getTimeAgo from '../../utils/useTimeAgo';
+import getTimeAgo from '../../utils/getTimeAgo';
 
 const InterestCarousel = ({ posts }) => {
   const navigate = useNavigate();

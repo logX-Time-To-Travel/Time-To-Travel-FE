@@ -48,6 +48,11 @@ body {
   color: #555555; /* 마우스를 올렸을 때 글자 색상 변경 */
 }
 
+.SignIn-back-button > img {
+  width: 16px;
+  height: 16px;
+} 
+
 /* 로그인 위에 위치한 노란색 줄 스타일 */
 .SignIn-title-bar {
   position: relative; /* 절대 위치를 상대 위치로 변경 */

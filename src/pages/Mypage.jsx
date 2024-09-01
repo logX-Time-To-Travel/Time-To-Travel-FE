@@ -70,86 +70,88 @@ const Mypage = () => {
 
   return (
     <div>
-      <div className="profile-container">
-        <ProfileCard
-          profileImageUrl={user.profileImageUrl}
-          username={user.username}
-          introduction={user.introduction}
-        />
-        <div className="edit-button-container">
-          <button
-            className="edit-button"
-            onClick={() => {
-              navigate('/edituser', {
-                state: {
-                  profileImageUrl: user.profileImageUrl,
-                  username: user.username,
-                  introduction: user.introduction,
-                },
-              });
-            }}
-          >
-            <img src={btnimg} alt="Edit" />
-          </button>
+      <div className = "editor-wrapper">
+        <div className="profile-container">
+          <ProfileCard
+            profileImageUrl={user.profileImageUrl}
+            username={user.username}
+            introduction={user.introduction}
+          />
+          <div className="edit-button-container">
+            <button
+              className="edit-button"
+              onClick={() => {
+                navigate('/edituser', {
+                  state: {
+                    profileImageUrl: user.profileImageUrl,
+                    username: user.username,
+                    introduction: user.introduction,
+                  },
+                });
+              }}
+            >
+              <img src={btnimg} alt="Edit" />
+            </button>
+          </div>
         </div>
-      </div>
 
-      <div className="info-container">
-        <div className="info-box">
-          <div className="data-set">
-            <p className="data-option">작성 게시글</p>
+        <div className="info-container">
+          <div className="info-box">
+            <div className="data-set">
+              <p className="data-option">작성 게시글</p>
+              <p className="data-value">{user.totalViewCount}</p>
+            </div>
+            <button
+              className="detail-btn"
+              onClick={() => {
+                navigate('/blog');
+              }}
+            >
+              보기
+            </button>
+          </div>
+
+          <div className="info-box">
+            <div className="data-set">
+              <p className="data-option">작성 댓글</p>
+              <p className="data-value">{user.totalLikeCount}</p>
+            </div>
+
+            <button
+              className="detail-btn"
+              onClick={() => {
+                navigate('/blog');
+              }}
+            >
+              보기
+            </button>
+          </div>
+
+          <div className="info-box">
+            <p className="data-option">조회수 합계</p>
             <p className="data-value">{user.totalViewCount}</p>
           </div>
-          <button
-            className="detail-btn"
-            onClick={() => {
-              navigate('/blog');
-            }}
-          >
-            보기
-          </button>
-        </div>
 
-        <div className="info-box">
-          <div className="data-set">
-            <p className="data-option">작성 댓글</p>
+          <div className="info-box">
+            <p className="data-option">받은 좋아요 수 합계</p>
             <p className="data-value">{user.totalLikeCount}</p>
           </div>
+        </div>
 
-          <button
-            className="detail-btn"
-            onClick={() => {
-              navigate('/blog');
-            }}
-          >
-            보기
+        <div className="user-state-container">
+          <div className="info-box">
+            <p className="data-option">가입일</p>
+            <p className="data-value">
+              {new Date(user.created_at).toLocaleDateString('ko-KR')}
+            </p>
+          </div>
+        </div>
+
+        <div className="logout-box">
+          <button className="logout-btn" onClick={handleLogout}>
+            로그아웃
           </button>
         </div>
-
-        <div className="info-box">
-          <p className="data-option">조회수 합계</p>
-          <p className="data-value">{user.totalViewCount}</p>
-        </div>
-
-        <div className="info-box">
-          <p className="data-option">받은 좋아요 수 합계</p>
-          <p className="data-value">{user.totalLikeCount}</p>
-        </div>
-      </div>
-
-      <div className="user-state-container">
-        <div className="info-box">
-          <p className="data-option">가입일</p>
-          <p className="data-value">
-            {new Date(user.created_at).toLocaleDateString('ko-KR')}
-          </p>
-        </div>
-      </div>
-
-      <div className="logout-box">
-        <button className="logout-btn" onClick={handleLogout}>
-          로그아웃
-        </button>
       </div>
 
       <div>
