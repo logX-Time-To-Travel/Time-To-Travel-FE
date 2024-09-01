@@ -9,7 +9,7 @@ const Interest = () => {
   const [recommendPosts, setRecommendPosts] = useState([]);
   const navigate = useNavigate();
   const handleClickScrap = () => {
-    navigate('/interest/scarp');
+    navigate('/interest/scrap');
   };
   const handleClickLike = () => {
     navigate('/interest/like');
@@ -64,7 +64,7 @@ const Interest = () => {
   return (
     <div className="interest-container">
       <div className="interest-scrollable">
-        <Header text={'관심사'} />
+        <Header page={'home'} titleText={'관심사'} />
         <div className="interest-recommend">
           <div className="interest-post-title">내 최근 활동 맞춤 게시글</div>
           <InterestCarousel posts={recommendPosts} />
