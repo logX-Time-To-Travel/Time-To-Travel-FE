@@ -1,6 +1,5 @@
 /* 공통 스타일 */
-/* 페이지를 포함하는 컨테이너로, 페이지들을 가로로 정렬하고, 전체 너비를 1720px로 설정 */
-.Initialization-container {
+.initialization-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -141,11 +140,13 @@
   justify-content: space-between; /* 자식 요소들 사이에 동일한 간격을 배치 */
 }
 
-/* 각 아이콘의 기본 스타일 정의 */
-.Initialization-icon {
-  width: 54px; /* 아이콘의 너비를 54px로 설정 */
-  height: 52px; /* 아이콘의 높이를 52px로 설정 */
-  background-size: cover; /* 이미지를 요소 크기에 맞게 조정 */
-  background-position: center; /* 이미지를 중앙에 위치시킴 */
-  background-repeat: no-repeat; /* 배경 이미지 반복 제거 */
+.icon {
+  width: 54px;
+  height: 52px;
+  background: #0d2af0;
+}
+
+.icon.love-it {
+  background: #ff6984;
+  border: 2px solid #ff6984;
 }

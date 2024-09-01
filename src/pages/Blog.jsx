@@ -1,17 +1,17 @@
 import './Blog.css';
-import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState, useContext } from 'react';
 import Header from '../components/UI/Header';
 import PostList from './PostList';
-import axios from 'axios';
+import PostContext from '../plugins/PostContext';
 
 const Blog = () => {
-  // useContext를 한 번만 사용하여 필요한 값을 모두 가져옴
+  const { posts, setPosts, deletePostsInContext } = useContext(PostContext);
   const [username, setUsername] = useState('');
-  const [posts, setPosts] = useState([]);
-
   const [isSelectMode, setIsSelectMode] = useState(false);
   const [selectedPosts, setSelectedPosts] = useState([]);
 
+  // 유저 이름 가져오기
   const fetchUsername = async () => {
     try {
       const usernameResponse = await axios.get(
@@ -26,6 +26,7 @@ const Blog = () => {
     }
   };
 
+  // 유저 이름에 해당하는 포스트 가져오기
   const fetchData = async (username) => {
     try {
       const postResponse = await axios.get(
@@ -34,6 +35,7 @@ const Blog = () => {
           withCredentials: true,
         }
       );
+      console.log('Fetched posts:', postResponse.data); // 포스트가 잘 불러와지는지 확인
       setPosts(postResponse.data);
     } catch (error) {
       console.error('Error fetching post data:', error);
@@ -51,36 +53,78 @@ const Blog = () => {
     loadData();
   }, [username]);
 
-  // 전체 게시글 수
-  const totalPosts = posts.length;
-
-  // 삭제된 게시글 수 (선택된 게시글 수로 가정)
-  const deletedPosts = selectedPosts.length;
-
-  const toggleSelectMode = () => {
-    setIsSelectMode(!isSelectMode);
-    setSelectedPosts([]); // 선택 모드 종료 시 선택된 게시글 초기화
-  };
-
+  // 게시글 선택 핸들러 수정된 부분
   const handlePostSelect = (postId) => {
+    if (!postId) {
+      console.warn('Invalid postId:', postId); // postId가 undefined일 경우 경고
+      return;
+    }
+
+    console.log('Selected postId:', postId); // 선택된 postId 로그 확인
+
     if (selectedPosts.includes(postId)) {
       setSelectedPosts(selectedPosts.filter((id) => id !== postId));
     } else {
       setSelectedPosts([...selectedPosts, postId]);
     }
+
+    console.log('Updated selectedPosts:', selectedPosts); // 선택된 ID 목록 로그 확인
   };
 
-  const handleDelete = () => {
-    deletePosts(selectedPosts);
-    setSelectedPosts([]); // 선택 목록 초기화
-    setIsSelectMode(false); // 선택 모드 종료
-  };
-
+  // 전체 선택/해제 핸들러
   const handleSelectAll = () => {
-    if (selectedPosts.length === totalPosts) {
+    if (selectedPosts.length === posts.length) {
       setSelectedPosts([]); // 모든 선택 해제
     } else {
-      setSelectedPosts(posts.map((post) => post.id)); // 모든 게시글 선택
+      const allPostIds = posts.map((post) => post.postId); // postId로 변경
+      setSelectedPosts(allPostIds); // 모든 게시글 ID를 선택
+      console.log('All Post IDs selected:', allPostIds); // 디버깅용 로그 추가
+    }
+  };
+
+  const handleDelete = async () => {
+    const validPostIds = selectedPosts.filter(
+      (id) => id !== undefined && id !== null
+    );
+
+    if (validPostIds.length === 0) {
+      console.log('No valid post IDs to delete.');
+      return;
+    }
+
+    try {
+      let response;
+      if (validPostIds.length === 1) {
+        // 단일 삭제 요청
+        response = await axios.delete(
+          `http://localhost:8080/posts/${validPostIds[0]}`,
+          {
+            withCredentials: true,
+          }
+        );
+      } else {
+        // 다중 삭제 요청 - 배열을 명확하게 전달
+        response = await axios({
+          method: 'delete',
+          url: `http://localhost:8080/posts/delete`,
+          data: validPostIds, // 배열로 직접 전달, { postId: validPostIds }가 아님
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        });
+      }
+
+      // 상태 업데이트
+      setPosts((prevPosts) =>
+        prevPosts.filter((post) => !validPostIds.includes(post.postId))
+      );
+    } catch (error) {
+      console.error('Error deleting posts:', error);
+      if (error.response) {
+        console.error('Response data:', error.response.data);
+        console.error('Response status:', error.response.status);
+      }
     }
   };
 
@@ -93,7 +137,10 @@ const Blog = () => {
             page={'addpost'}
             titleText={'내 작성 게시글'}
             rightText={isSelectMode ? '완료' : '선택모드'}
-            customFunc={toggleSelectMode}
+            customFunc={() => {
+              setIsSelectMode(!isSelectMode);
+              setSelectedPosts([]); // 선택 모드 전환 시 선택된 게시글 초기화
+            }}
           />
           <PostList
             posts={posts}
@@ -107,7 +154,9 @@ const Blog = () => {
         <div className="footer-container">
           <div className="action-buttons">
             <button className="select-all-btn" onClick={handleSelectAll}>
-              {selectedPosts.length === totalPosts ? '선택 해제' : '전체 선택'}
+              {selectedPosts.length === posts.length
+                ? '선택 해제'
+                : '전체 선택'}
             </button>
             <button className="delete-btn" onClick={handleDelete}>
               삭제
@@ -117,8 +166,8 @@ const Blog = () => {
             <span className="selected-count">선택된 게시글</span>
             <span className="selected-count">
               {selectedPosts.length}개 (
-              {totalPosts > 0
-                ? ((deletedPosts / totalPosts) * 100).toFixed(2)
+              {posts.length > 0
+                ? ((selectedPosts.length / posts.length) * 100).toFixed(2)
                 : 0}
               %)
             </span>

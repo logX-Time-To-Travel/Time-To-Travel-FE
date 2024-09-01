@@ -5,11 +5,9 @@ const PostContext = createContext();
 
 export const PostProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
-  const [imageUrl, setImageUrl] = useState('');
 
-  // 새로운 포스트를 추가하는 함수
   const addPost = async (newPost) => {
-    console.log(newPost); // 서버에 전달되는 데이터 확인
+    console.log(newPost);
     try {
       await axios.post('http://localhost:8080/posts/add', newPost, {
         withCredentials: true,
@@ -20,12 +18,15 @@ export const PostProvider = ({ children }) => {
     }
   };
 
-  // 유저의 포스트를 불러오는 함수
   const fetchPostsByUser = async (username) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/post/user/${username}`
+        `http://localhost:8080/posts/user/${username}`,
+        {
+          withCredentials: true,
+        }
       );
+      console.log('Fetched posts:', response.data);
       setPosts(response.data);
     } catch (error) {
       console.error('Failed to fetch posts:', error);
@@ -33,7 +34,6 @@ export const PostProvider = ({ children }) => {
     }
   };
 
-  // 이미지 업로드 함수
   const uploadImage = async (imageFile) => {
     const formData = new FormData();
     formData.append('file', imageFile);
@@ -56,24 +56,69 @@ export const PostProvider = ({ children }) => {
     }
   };
 
-  // 삭제 함수 (추가 필요 시)
-  const deletePosts = async (postIds) => {
+  // 삭제 함수 (단일 및 다중 삭제 지원)
+  const deletePostsInContext = async (postIds) => {
     try {
-      await axios.delete(`http://localhost:8080/post/delete`, {
-        data: { postIds },
-      });
-      setPosts((prevPosts) =>
-        prevPosts.filter((post) => !postIds.includes(post.id))
+      // 유효한 postIds만 남겨둠
+      const validPostIds = postIds.filter(
+        (id) => id !== undefined && id !== null
+      );
+      console.log('Valid Post IDs:', validPostIds); // 확인용 콘솔 출력
+
+      if (validPostIds.length === 0) {
+        console.log('No valid post IDs to delete.');
+        return;
+      }
+
+      let response;
+      if (validPostIds.length === 1) {
+        response = await axios.delete(
+          `http://localhost:8080/posts/${validPostIds[0]}`, // 단일 삭제 엔드포인트
+          {
+            withCredentials: true,
+          }
+        );
+      } else {
+        // 이미 존재하지 않는 postId를 걸러내기 위한 추가 검증 로직
+        const existingPostIds = validPostIds.filter((id) => {
+          return posts.some((post) => post.postId === id);
+        });
+
+        if (existingPostIds.length === 0) {
+          console.log('No valid existing post IDs to delete.');
+          return;
+        }
+
+        response = await axios({
+          method: 'delete',
+          url: `http://localhost:8080/posts/delete`, // 다중 삭제 엔드포인트
+          data: { postId: existingPostIds }, // JSON 형식으로 postId 전달
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        });
+      }
+
+      setPosts(
+        (prevPosts) =>
+          prevPosts.filter((post) => !validPostIds.includes(post.postId)) // postId로 비교하여 삭제된 게시물 필터링
       );
     } catch (error) {
-      console.error('Failed to delete posts:', error);
-      throw error;
+      console.error('Error deleting posts:', error);
     }
   };
 
   return (
     <PostContext.Provider
-      value={{ posts, addPost, uploadImage, fetchPostsByUser, deletePosts }}
+      value={{
+        posts,
+        setPosts,
+        addPost,
+        uploadImage,
+        fetchPostsByUser,
+        deletePostsInContext,
+      }}
     >
       {children}
     </PostContext.Provider>
