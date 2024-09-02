@@ -95,8 +95,8 @@ const Mypage = () => {
           </div>
         </div>
 
-        <div className="info-container">
-          <div className="info-box">
+        <div className="mypage-info-container">
+          <div className="mypage-info-box">
             <div className="data-set">
               <p className="data-option">작성 게시글</p>
               <p className="data-value">{user.totalPostCount}</p>
@@ -111,26 +111,26 @@ const Mypage = () => {
             </button>
           </div>
 
-          <div className="info-box">
+          <div className="mypage-info-box">
             <div className="data-set">
               <p className="data-option">작성 댓글</p>
               <p className="data-value">{user.totalCommentCount}</p>
             </div>
           </div>
 
-          <div className="info-box">
+          <div className="mypage-info-box">
             <p className="data-option">조회수 합계</p>
             <p className="data-value">{user.totalViewCount}</p>
           </div>
 
-          <div className="info-box">
+          <div className="mypage-info-box">
             <p className="data-option">받은 좋아요 수 합계</p>
             <p className="data-value">{user.totalLikeCount}</p>
           </div>
         </div>
 
         <div className="user-state-container">
-          <div className="info-box">
+          <div className="mypage-info-box">
             <p className="data-option">가입일</p>
             <p className="data-value">
               {() => {

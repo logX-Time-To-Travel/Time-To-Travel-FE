@@ -9,10 +9,7 @@ const ProfileCard = ({ profileImageUrl, username, introduction }) => {
       </div>
       <div className="profile-info">
         <div className="profile-id">{username}</div>
-        <div className="profile-intro">
-          {introduction}
-          <after></after>
-        </div>
+        <div className="profilecard-profile-intro">{introduction}</div>
       </div>
     </div>
   );
@@ -32,7 +29,7 @@ const ProfileCard = ({ profileImageUrl, username, introduction }) => {
 
   // ProfileCard.propTypes = {
   //   email: PropTypes.string.isRequired,
-  //   nickname: PropTypes.string.isRequired,
+  //   nickname: PropTypes.string.isRequired,ㅈ
 };
 
 export default ProfileCard;
