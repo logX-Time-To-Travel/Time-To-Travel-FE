@@ -1,10 +1,10 @@
 /* 공통 스타일 */
-.initialization-container {
+.Initialization-container {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: calc(100vh - 0px); /* 필요 시, 특정 요소의 높이만큼 빼줍니다. */
+  height: 100vh;
   background: #ffc700;
   margin: 0;
   padding: 0;
@@ -13,131 +13,126 @@
 
 /* 페이지 기본 스타일 */
 .Initialization-page {
-  position: relative;
-  width: 100%; /* 페이지의 너비를 컨테이너에 맞춤 */
-  height: 100%; /* 페이지의 높이를 컨테이너에 맞춤 */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 /* 페이지 내 중앙 텍스트의 스타일 정의 */
+/* 페이지 내 중앙 텍스트의 스타일 정의 */
 .Initialization-text {
-  position: absolute;
-  width: 100%; /* 텍스트 요소의 너비를 페이지 전체 너비로 설정 */
-  top: 484px; /* 텍스트를 페이지 상단에서 484px 아래에 배치 */
-  font-family: 'Outfit', sans-serif; /* 텍스트의 폰트를 'Outfit'으로 설정 */
-  font-weight: 700; /* 폰트 두께를 굵게 설정 */
-  font-size: 5vw; /* 글씨 크기를 뷰포트 너비의 5%로 설정하여 반응형으로 만듦 */
-  line-height: 1.2; /* 줄 간격을 설정 */
-  text-align: center; /* 텍스트를 중앙 정렬 */
-  color: #0d2af0; /* 텍스트 색상을 파란색(#0d2af0)으로 설정 */
-  white-space: pre-wrap; /* 줄바꿈을 유지하여 3줄로 만들기 */
+  width: 100%;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 2.5vw; /* 글씨 크기를 절반으로 줄임 */
+  line-height: 1.2;
+  text-align: center;
+  color: #0d2af0;
+  white-space: pre-wrap;
   margin: 0;
   padding: 0;
-}
-
-/* 회원가입 버튼의 스타일 정의 */
-.Initialization-sign-up-button {
-  position: absolute; /* 부모 요소를 기준으로 절대 위치를 설정 */
-  width: 190px; /* 버튼의 너비를 190px로 설정 */
-  height: 45px; /* 버튼의 높이를 45px로 설정 */
-  left: 120px; /* 버튼을 왼쪽에서 120px 떨어진 위치에 배치 */
-  top: 734px; /* 버튼을 상단에서 734px 떨어진 위치에 배치 */
-  border: 2px solid #0d2af0; /* 파란색(#0d2af0) 테두리를 2px 두께로 설정 */
-  border-radius: 12px; /* 버튼의 모서리를 12px로 둥글게 설정 */
-  font-family: 'Outfit', sans-serif; /* 버튼 텍스트의 폰트를 'Outfit'으로 설정 */
-  font-weight: 700; /* 버튼 텍스트의 폰트 두께를 굵게 설정 */
-  font-size: 18px; /* 버튼 텍스트의 크기를 18px로 설정 */
-  line-height: 23px; /* 버튼 텍스트의 줄 간격을 23px로 설정 */
-  text-align: center; /* 버튼 텍스트를 중앙 정렬 */
-  color: #0d2af0; /* 버튼 텍스트 색상을 파란색(#0d2af0)으로 설정 */
-  background: none; /* 버튼의 배경색을 투명으로 설정 */
-}
-
-/* 페이지 하단에 표시되는 버전 정보의 스타일 정의 */
-.Initialization-version {
-  position: absolute; /* 부모 요소를 기준으로 절대 위치를 설정 */
-  width: 68px; /* 버전 정보의 너비를 68px로 설정 */
-  height: 20px; /* 버전 정보의 높이를 20px로 설정 */
-  left: 181px; /* 버전 정보를 왼쪽에서 181px 떨어진 위치에 배치 */
-  top: 744px; /* 버전 정보를 상단에서 744px 떨어진 위치에 배치 */
-  font-family: 'Noto Sans KR', sans-serif; /* 텍스트의 폰트를 'Noto Sans KR'으로 설정 */
-  font-weight: 400; /* 텍스트의 폰트 두께를 보통으로 설정 */
-  font-size: 14px; /* 텍스트의 크기를 14px로 설정 */
-  line-height: 20px; /* 줄 간격을 20px로 설정 */
-  text-align: center; /* 텍스트를 중앙 정렬 */
-  color: #0d2af0; /* 텍스트 색상을 파란색(#0d2af0)으로 설정 */
+  position: absolute;
+  top: 70%; /* 텍스트를 아랫쪽으로 내림 */
+  transform: translateY(-50%); /* 중간 기준으로 이동하도록 조정 */
 }
 
 /* 1페이지 스타일 */
-/* 첫 번째 페이지의 제목 텍스트 스타일 정의 */
 .Initialization-page-1 .Initialization-title {
-  position: absolute; /* 부모 요소를 기준으로 절대 위치를 설정 */
-  width: 263px; /* 제목 텍스트의 너비를 263px로 설정 */
-  height: 53px; /* 제목 텍스트의 높이를 53px로 설정 */
-  left: 83px; /* 제목 텍스트를 왼쪽에서 83px 떨어진 위치에 배치 */
-  top: 532px; /* 제목 텍스트를 상단에서 532px 떨어진 위치에 배치 */
-  font-family: 'Outfit', sans-serif; /* 제목 텍스트의 폰트를 'Outfit'으로 설정 */
-  font-weight: 700; /* 제목 텍스트의 폰트 두께를 굵게 설정 */
-  font-size: 42px; /* 제목 텍스트의 크기를 42px로 설정 */
-  line-height: 53px; /* 제목 텍스트의 줄 간격을 53px로 설정 */
-  text-align: center; /* 제목 텍스트를 중앙 정렬 */
-  color: #0d2af0; /* 제목 텍스트 색상을 파란색(#0d2af0)으로 설정 */
+  position: absolute;
+  width: 80%;
+  max-width: 263px;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 60%; /* 원래 60%에서 65%로 수정하여 아래로 더 내림 */
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 53px;
+  text-align: center;
+  color: #0d2af0;
+  z-index: 2;
 }
 
-/* 첫 번째 페이지의 외곽 다각형 스타일 정의 */
 .Initialization-polygon-outer {
   position: absolute;
-  width: 158px;
-  height: 158px;
-  left: 136px;
-  top: 332px;
-  border: none; /* 테두리 제거, 이미지로 대체되므로 불필요 */
-  background-size: cover; /* 이미지를 요소 크기에 맞게 조정 */
-  background-position: center; /* 이미지를 중앙에 위치시킴 */
+  width: 30vw;
+  max-width: 158px;
+  height: 30vw;
+  max-height: 158px;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 35% !important; /* !important를 추가하여 우선순위를 높임 */
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
 }
 
-/* 첫 번째 페이지의 내부 다각형 스타일 정의 (필요 없을 경우 제거 가능) */
 /* 2페이지 스타일 */
-/* 두 번째 페이지에서 집 모양 요소를 감싸는 컨테이너 스타일 정의 */
 .Initialization-page-2 .Initialization-house-container {
   position: absolute;
-  top: 209px;
-  left: 164px;
-  width: 173px;
-  height: 145px;
-  background-image: url('../../assets/Initialization_home.png'); /* 집 모양 이미지를 배경으로 설정 */
-  background-size: cover; /* 이미지를 요소 크기에 맞게 조정 */
-  background-position: center; /* 이미지를 중앙에 위치시킴 */
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40vw; /* 다른 페이지와 동일한 크기로 설정 */
+  max-width: 250px; /* 최대 크기 조정 */
+  height: 40vw; /* 비율을 유지한 높이 설정 */
+  max-height: 250px; /* 최대 높이 조정 */
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.Initialization-page-2 .Initialization-text {
+  top: 70%; /* 사진 크기가 커졌으므로 텍스트 위치 조정 */
 }
 
 /* 3페이지 스타일 */
-/* 3페이지 스타일 */
-/* 기존 피드백 버튼 스타일 제거하고 이미지 사용 */
 .Initialization-page-3 .Initialization-message-icon {
   position: absolute;
-  width: 109px; /* 이미지 크기를 버튼 크기와 맞춤 */
-  height: 108px; /* 이미지 크기를 버튼 크기와 맞춤 */
-  top: 200px; /* 적절한 위치로 설정 */
-  left: calc(50% - 54.5px); /* 중앙에 배치 */
-  background-size: cover; /* 이미지를 요소 크기에 맞게 조정 */
-  background-position: center; /* 이미지를 중앙에 위치시킴 */
-  background-repeat: no-repeat; /* 배경 이미지 반복 제거 */
+  top: 10%; /* 사진을 더 크게 보이게 하도록 위로 올림 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40vw; /* 사진 크기를 더 크게 설정 */
+  max-width: 250px; /* 최대 크기 조정 */
+  height: 40vw; /* 사진의 높이도 비례해서 설정 */
+  max-height: 250px; /* 최대 높이 조정 */
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.Initialization-page-3 .Initialization-text {
+  top: 70%; /* 사진 크기가 커졌으므로 텍스트 위치 조정 */
 }
 
 /* 4페이지 스타일 */
-/* 네 번째 페이지에서 아이콘들을 감싸는 컨테이너 스타일 정의 */
 .Initialization-page-4 .Initialization-icons-container {
-  position: absolute; /* 부모 요소를 기준으로 절대 위치를 설정 */
-  top: 232px; /* 컨테이너를 상단에서 232px 떨어진 위치에 배치 */
-  left: 73px; /* 컨테이너를 왼쪽에서 73px 떨어진 위치에 배치 */
-  width: 283px; /* 컨테이너의 너비를 283px로 설정 */
-  height: 150px; /* 컨테이너의 높이를 150px로 설정 */
-  display: flex; /* 플렉스 박스를 사용하여 자식 요소들을 정렬 */
-  flex-wrap: wrap; /* 자식 요소들을 줄 바꿈하여 정렬 */
-  justify-content: space-between; /* 자식 요소들 사이에 동일한 간격을 배치 */
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40vw; /* 동일한 크기로 설정 */
+  max-width: 250px; /* 최대 크기 조정 */
+  height: 40vw; /* 비율을 유지한 높이 설정 */
+  max-height: 250px; /* 최대 높이 조정 */
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  z-index: 1;
+}
+
+.Initialization-page-4 .Initialization-text {
+  top: 70%; /* 사진 크기가 커졌으므로 텍스트 위치 조정 */
 }
 
 .icon {
@@ -149,4 +144,134 @@
 .icon.love-it {
   background: #ff6984;
   border: 2px solid #ff6984;
+}
+
+/* 회원가입 버튼의 스타일 정의 */
+.Initialization-sign-up-button {
+  position: absolute;
+  width: 190px;
+  height: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 80%;
+  border: 2px solid #0d2af0;
+  border-radius: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 23px;
+  text-align: center;
+  color: #0d2af0;
+  background: none;
+  z-index: 2;
+}
+
+/* "이미 계정이 있습니다. 로그인" 텍스트 스타일 */
+.Initialization-sign-in {
+  position: absolute;
+  width: 100%; /* 너비를 100%로 설정해 컨테이너 안에 텍스트가 들어가도록 조정 */
+  max-width: 200px; /* 최대 너비를 설정해 너무 길어지지 않도록 제한 */
+  height: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(80% + 45px + 16px);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  letter-spacing: -0.03em;
+  color: #0d2af0;
+  z-index: 2;
+  white-space: nowrap; /* 줄바꿈 방지 */
+  overflow: visible; /* 오버플로우가 발생해도 숨기지 않음 */
+  text-overflow: clip; /* 오버플로우가 발생해도 텍스트가 잘리지 않음 */
+}
+
+/* 페이지 하단에 표시되는 버전 정보의 스타일 정의 */
+.Initialization-version {
+  position: absolute;
+  width: 100px;
+  height: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 90%;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #0d2af0;
+  z-index: 2;
+}
+
+/* 반응형 디자인을 고려한 폰트 크기 및 위치 조정 */
+@media screen and (max-width: 768px) {
+  .Initialization-page-1 .Initialization-title,
+  .Initialization-page-2 .Initialization-text,
+  .Initialization-page-3 .Initialization-text,
+  .Initialization-page-4 .Initialization-text {
+    font-size: 8vw;
+  }
+
+  .Initialization-polygon-outer,
+  .Initialization-page-2 .Initialization-house-container,
+  .Initialization-page-3 .Initialization-message-icon {
+    top: 10%;
+    width: 70vw; /* 작은 화면에서도 사진을 크게 보이게 조정 */
+    height: 70vw;
+  }
+
+  .Initialization-page-4 .Initialization-icons-container {
+    top: 10%;
+    width: 70vw; /* 작은 화면에서도 사진을 크게 보이게 조정 */
+    max-width: none; /* 최대 크기 제한 해제 */
+  }
+
+  .Initialization-sign-up-button {
+    top: 85%; /* 사진 크기에 맞춰 버튼 위치 조정 */
+  }
+
+  .Initialization-sign-in {
+    top: calc(85% + 45px + 16px);
+  }
+
+  .Initialization-version {
+    top: 95%; /* 텍스트 위치 조정 */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .Initialization-page-1 .Initialization-title,
+  .Initialization-page-2 .Initialization-text,
+  .Initialization-page-3 .Initialization-text,
+  .Initialization-page-4 .Initialization-text {
+    font-size: 10vw;
+  }
+
+  .Initialization-polygon-outer,
+  .Initialization-page-2 .Initialization-house-container,
+  .Initialization-page-3 .Initialization-message-icon {
+    top: 10%;
+    width: 90vw; /* 매우 작은 화면에서도 사진을 크게 보이게 조정 */
+    height: 90vw;
+  }
+
+  .Initialization-page-4 .Initialization-icons-container {
+    top: 10%;
+    width: 90vw; /* 매우 작은 화면에서도 사진을 크게 보이게 조정 */
+    max-width: none; /* 최대 크기 제한 해제 */
+  }
+
+  .Initialization-sign-up-button {
+    top: 85%; /* 사진 크기에 맞춰 버튼 위치 조정 */
+  }
+
+  .Initialization-sign-in {
+    top: calc(85% + 45px + 16px);
+  }
+
+  .Initialization-version {
+    top: 95%; /* 텍스트 위치 조정 */
+  }
 }
