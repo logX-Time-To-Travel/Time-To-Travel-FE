@@ -1,0 +1,68 @@
+.interest-container {
+  font-family: var(--Noto-Sans-KR);
+  height: 100vh; /* 전체 화면 높이 */
+  display: flex;
+  flex-direction: column;
+}
+
+.interest-scrollable {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-bottom: 100px;
+}
+
+.interest-recommend {
+  padding: 20px;
+}
+
+.interest-post-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.scrap-title,
+.heart-title {
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.scrap-count,
+.heart-count {
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.interest-footer {
+  position: relative;
+  padding-bottom: 66.5px;
+}
+
+.interest-scrap-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #ffc700, #f1a717);
+  color: black;
+}
+
+.interest-heart-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #ee2121, #ff6984); /* 빨간색 그라데이션 */
+  color: white;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+}
+
+.interest-icon {
+}

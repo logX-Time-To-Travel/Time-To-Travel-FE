@@ -1,58 +1,52 @@
-.profile-container {
+.mypage-container {
   font-family: var(--Noto-Sans-KR);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* 스크롤 문제가 있는 경우 이 속성이 도움될 수 있음 */
+}
+
+.mypage-editor-wrapper {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-bottom: 60px;
+}
+
+.mypage-profile-container {
   padding: 35px 0px;
   padding-top: 50px;
   margin-inline: 0px;
 }
 
-.edit-button-container {
-  position: absolute;
-}
-
-.edit-button {
-  position: absolute;
-  top: -85px;
-  right: -70px;
-  height: 20px;
-  cursor: pointer;
-  background: transparent;
-}
-
-.edit-button > img {
-  position: absolute;
-  width: 75px;
-  height: 75px;
-}
-
-.info-container {
+.mypage-info-container {
+  position: relative;
   margin-inline: 50px;
   border: 1px solid rgb(179, 176, 176);
   padding: 15px;
-
   border-radius: 15px;
   font-size: 12px;
   font-weight: bold;
   line-height: 1.6;
 }
 
-.info-box {
+.mypage-info-box {
   display: flex;
   justify-content: space-between;
   margin-inline: 11px;
 }
 
-.data-set {
+.mypage-data-set {
   display: flex;
   justify-content: space-between;
 }
 
-.data-value {
+.mypage-data-value {
   position: absolute;
   margin-right: 0px;
   margin-left: 110px;
 }
 
-.detail-btn {
+.mypage-detail-btn {
   background-color: white;
   border: none;
   color: rgb(244, 204, 1);
@@ -60,12 +54,12 @@
   background: transparent;
 }
 
-.logout-box {
+.mypage-logout-box {
   padding: 30px 0px;
   margin-inline: 50px;
 }
 
-.logout-btn {
+.mypage-logout-btn {
   font-size: 10px;
   font-weight: bold;
   color: red;
@@ -77,19 +71,23 @@
   box-shadow: 1px 1px 6px rgb(241, 180, 180);
 }
 
-.user-state-container {
-  display: fixed;
-  margin-inline: 60px;
+.mypage-user-state-container {
+  margin-inline: 40px;
   border: none;
   font-weight: bold;
   margin-top: 15px;
   padding: 15px 0px;
 }
 
-.user-state-container .data-value {
+.mypage-user-state-container .mypage-data-value {
   position: relative;
   display: flex;
   float: right;
   margin-right: 1px;
   line-height: 1.6;
+}
+
+.mypage-footer {
+  position: relative;
+  padding-bottom: 60px;
 }

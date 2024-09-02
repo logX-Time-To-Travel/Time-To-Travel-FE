@@ -1,0 +1,60 @@
+.carousel-slide {
+  font-family: var(--Outfit);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.carousel-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 20px 40px;
+  background: rgba(0, 0, 0, 0.3); /* 반투명 배경 */
+  color: white;
+  border-radius: 0 0 10px 10px;
+}
+
+.carousel-title {
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 5px;
+  text-align: start;
+}
+
+.carousel-meta {
+  display: flex;
+  font-size: 14px;
+  align-items: center;
+}
+
+.carousel-profile-image-container {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden; /* 원형 영역을 넘어가는 부분 숨김 */
+}
+
+.carousel-profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center; /* 이미지 중앙에 맞추기 */
+}
+
+.carousel-profile-info {
+  margin-left: 10px;
+  display: flex;
+  font-size: 12px;
+}

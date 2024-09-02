@@ -2,7 +2,7 @@
 .editor-page {
   display: flex;
   justify-content: center;
-  padding: 15px;
+  padding: 1px 0px;
   background-color: #ffffff;
   min-height: 100vh;
 }
@@ -10,27 +10,28 @@
 /* 에디터 컨테이너 스타일 */
 .editor-container {
   background-color: #ffffff;
-  padding: 20px;
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+
 }
 
 /* 제목 입력 필드 */
 .title-input {
   display: flex;
+  height: 60px;
   justify-content: center;
-  margin-inline: 6px;
-  padding: 7px 0;
-  font-size: 30px; /* 제목 텍스트 크기 증가 */
+  margin-inline: 10px;
+  padding: 15px 0px;
+  font-size: 50px; /* 제목 텍스트 크기 증가 */
   font-weight: bold; /* 볼드체 적용 */
   color: #000000;
   border: none;
   border-bottom: 3px solid #e7e7e700; /* 노란색 하단 테두리 */
   outline: none;
+  margin-top: 30px;
   transition: border-color 0.2s;
   box-sizing: border-box;
 }
@@ -47,17 +48,23 @@
 /* 위치 선택 문구 */
 .location-count {
   display: flex;
+  align-items: center;
   justify-content: flex-start;
   font-size: 10px;
   font-weight: 400;
   color: #3f3f3f;
   margin-top: 50px;
   margin-bottom: 10px;
-  margin-left: 10px;
+  margin-left: 5px;
 
 }
 
 .location-count >img {
+  background-color: transparent;
+  width: 24px;  
+  height: 24px; 
+  display: inline-block;
+  vertical-align: middle;
   opacity: 0.8;
   margin-right: 10px;
 }
@@ -73,10 +80,7 @@
   display:flex;
   flex-direction: column;
   background-color: transparent; 
-  border: 2px solid #8c8c8c36; 
-  border-radius: 12px; /* 모서리 둥글게 */
-  padding: 15px;
-  margin-top: 0px;
+  padding: 15px 0px;
 }
 
 /* 위치 추가 버튼 */
@@ -89,8 +93,8 @@
   padding: 10px;
 
   color: rgba(255, 170, 0, 0.543);
-  border: 2px solid #ff990092;
-  border-radius: 30px;
+  border: 3px solid #ff990092;
+  border-radius: 10px;
 
   font-size: 17px;
   font-weight: bold;
@@ -197,6 +201,21 @@
 .mce-toolbar .mce-btn-group {
   flex-shrink: 0; /* 버튼 그룹이 줄어들지 않도록 설정 */
 }
+
+/* 에디터 내부 이미지 스타일 */
+.editor img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0; /* 위, 아래 여백 추가 */
+}
+
+.editor div {
+  clear: both;
+  margin-bottom: 20px; /* 이미지 아래 추가 여백 */
+  margin-top: 20px; /* 이미지 위 추가 여백 */
+}
+
 
 /* 반응형 디자인 */
 @media (max-width: 600px) {

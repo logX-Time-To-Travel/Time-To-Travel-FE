@@ -12,13 +12,4 @@
     padding-bottom: 100px; /* 네비게이션 바의 높이만큼 패딩 추가 */
   }
   
-  /* 네비게이션 바 고정 */
-  .Navbar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: white;
-    z-index: 1000;
-  }
-  
+ 
