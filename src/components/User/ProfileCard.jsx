@@ -1,18 +1,34 @@
 import './ProfileCard.css';
+import btnimg from '../../assets/Button-Edit.png';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileCard = ({ profileImageUrl, username, introduction }) => {
-  console.log(profileImageUrl);
+  const navigate = useNavigate();
+  const handleClickEditButton = () => {
+    navigate('/edituser', {
+      state: {
+        profileImageUrl: profileImageUrl,
+        username: username,
+        introduction: introduction,
+      },
+    });
+  };
   return (
     <div className="profile-container">
       <div className="profile-image">
         <img src={`http://localhost:8080${profileImageUrl}`} alt="이미지" />
       </div>
+      <div
+        className="editpage-edit-button-container"
+        onClick={handleClickEditButton}
+      >
+        <div className="editpage-edit-button">
+          <img src={btnimg} alt="Edit" />
+        </div>
+      </div>
       <div className="profile-info">
         <div className="profile-id">{username}</div>
-        <div className="profile-intro">
-          {introduction}
-          <after></after>
-        </div>
+        <div className="profilecard-profile-intro">{introduction}</div>
       </div>
     </div>
   );
@@ -32,7 +48,7 @@ const ProfileCard = ({ profileImageUrl, username, introduction }) => {
 
   // ProfileCard.propTypes = {
   //   email: PropTypes.string.isRequired,
-  //   nickname: PropTypes.string.isRequired,
+  //   nickname: PropTypes.string.isRequired,ㅈ
 };
 
 export default ProfileCard;

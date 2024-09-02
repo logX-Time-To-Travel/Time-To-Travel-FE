@@ -2,7 +2,7 @@
 .profile-container {
   display: flex;
   align-items: center;
-  padding: 50px 0px;
+  padding-top: 50px;
   justify-content: center;
   flex-direction: column;
 }
@@ -11,7 +11,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 50px;
 }
 
 .profile-image img {
@@ -23,6 +22,24 @@
   align-items: center;
   justify-content: center;
   background-color: grey;
+}
+
+.editpage-edit-button-container {
+  position: relative;
+}
+
+.editpage-edit-button {
+  position: absolute;
+  top: -50px;
+  right: -95px;
+  height: 20px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.editpage-edit-button > img {
+  width: 75px;
+  height: 75px;
 }
 
 /* 프로필 상세 정보 스타일 */
@@ -39,26 +56,23 @@
 }
 
 /* 프로필 소개 스타일 */
-.profile-intro {
-  padding: 10px;
+.profilecard-profile-intro {
+  position: relative;
   font-size: 12px;
-  border-radius: 5px;
-  background: #fafafa;
+  line-height: 1.5;
+  background-color: #f0f0f0;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
 }
 
-.profile-intro:after {
-  border-top: 10px solid transparent;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid #fafafa;
+.profilecard-profile-intro::before {
   content: '';
   position: absolute;
-
-  display: flex;
-  justify-content: center;
-  /* top: 230px;
-  left: 350px;
-  flex-direction: column; */
-  /* top: 250px;
-  left: 353px; */
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 15px 15px 15px;
+  border-style: solid;
+  border-color: transparent transparent #f0f0f0 transparent;
 }
