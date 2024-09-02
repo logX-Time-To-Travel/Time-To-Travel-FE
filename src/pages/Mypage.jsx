@@ -1,6 +1,5 @@
 import ProfileCard from '../components/User/ProfileCard';
 import './Mypage.css';
-import btnimg from '../assets/Button-Edit.png';
 import Navbar from '../components/Navbar/Navbar';
 
 import { useNavigate } from 'react-router-dom';
@@ -69,40 +68,24 @@ const Mypage = () => {
   }, [username]);
 
   return (
-    <div>
-      <div className="editor-wrapper">
-        <div className="profile-container">
+    <div className="mypage-container">
+      <div className="mypage-editor-wrapper">
+        <div className="mypage-profile-container">
           <ProfileCard
             profileImageUrl={user.profileImageUrl}
             username={user.username}
             introduction={user.introduction}
           />
-          <div className="edit-button-container">
-            <button
-              className="edit-button"
-              onClick={() => {
-                navigate('/edituser', {
-                  state: {
-                    profileImageUrl: user.profileImageUrl,
-                    username: user.username,
-                    introduction: user.introduction,
-                  },
-                });
-              }}
-            >
-              <img src={btnimg} alt="Edit" />
-            </button>
-          </div>
         </div>
 
         <div className="mypage-info-container">
           <div className="mypage-info-box">
-            <div className="data-set">
-              <p className="data-option">작성 게시글</p>
-              <p className="data-value">{user.totalPostCount}</p>
+            <div className="mypage-data-set">
+              <p className="mypage-data-option">작성 게시글</p>
+              <p className="mypage-data-value">{user.totalPostCount}</p>
             </div>
             <button
-              className="detail-btn"
+              className="mypage-detail-btn"
               onClick={() => {
                 navigate('/blog');
               }}
@@ -112,27 +95,27 @@ const Mypage = () => {
           </div>
 
           <div className="mypage-info-box">
-            <div className="data-set">
-              <p className="data-option">작성 댓글</p>
-              <p className="data-value">{user.totalCommentCount}</p>
+            <div className="mypage-data-set">
+              <p className="mypage-data-option">작성 댓글</p>
+              <p className="mypage-data-value">{user.totalCommentCount}</p>
             </div>
           </div>
 
           <div className="mypage-info-box">
-            <p className="data-option">조회수 합계</p>
-            <p className="data-value">{user.totalViewCount}</p>
+            <p className="mypage-data-option">조회수 합계</p>
+            <p className="mypage-data-value">{user.totalViewCount}</p>
           </div>
 
           <div className="mypage-info-box">
-            <p className="data-option">받은 좋아요 수 합계</p>
-            <p className="data-value">{user.totalLikeCount}</p>
+            <p className="mypage-data-option">받은 좋아요 수 합계</p>
+            <p className="mypage-data-value">{user.totalLikeCount}</p>
           </div>
         </div>
 
-        <div className="user-state-container">
+        <div className="mypage-user-state-container">
           <div className="mypage-info-box">
-            <p className="data-option">가입일</p>
-            <p className="data-value">
+            <p className="mypage-data-option">가입일</p>
+            <p className="mypage-data-value">
               {() => {
                 const date = new Date(user.createdAt);
                 return `${date.getFullYear()}년 ${
@@ -143,14 +126,14 @@ const Mypage = () => {
           </div>
         </div>
 
-        <div className="logout-box">
-          <button className="logout-btn" onClick={handleLogout}>
+        <div className="mypage-logout-box">
+          <button className="mypage-logout-btn" onClick={handleLogout}>
             로그아웃
           </button>
         </div>
       </div>
 
-      <div>
+      <div className="mypage-footer">
         <Navbar />
       </div>
     </div>

@@ -25,6 +25,24 @@
   background-color: grey;
 }
 
+.editpage-edit-button-container {
+  position: absolute;
+}
+
+.editpage-edit-button {
+  position: absolute;
+  top: -85px;
+  right: -90px;
+  height: 20px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.editpage-edit-button > img {
+  width: 75px;
+  height: 75px;
+}
+
 /* 프로필 상세 정보 스타일 */
 .profile-info {
   padding: 20px 0px;
