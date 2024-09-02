@@ -17,6 +17,15 @@ const Mypage = () => {
     totalLikeCount: 0,
     totalViewCount: 0,
   });
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // 월은 0부터 시작하므로 1을 더해야 합니다.
+    const day = date.getDate();
+
+    return `${year}년 ${month}월 ${day}일`;
+  };
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -115,14 +124,7 @@ const Mypage = () => {
         <div className="mypage-user-state-container">
           <div className="mypage-info-box">
             <p className="mypage-data-option">가입일</p>
-            <p className="mypage-data-value">
-              {() => {
-                const date = new Date(user.createdAt);
-                return `${date.getFullYear()}년 ${
-                  date.getMonth() + 1
-                }월 ${date.getDate()}일`;
-              }}
-            </p>
+            <p className="mypage-data-value">{formatDate(user.createdAt)}</p>
           </div>
         </div>
 
