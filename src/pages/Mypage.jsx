@@ -70,7 +70,7 @@ const Mypage = () => {
 
   return (
     <div>
-      <div className = "editor-wrapper">
+      <div className="editor-wrapper">
         <div className="profile-container">
           <ProfileCard
             profileImageUrl={user.profileImageUrl}
@@ -99,7 +99,7 @@ const Mypage = () => {
           <div className="info-box">
             <div className="data-set">
               <p className="data-option">작성 게시글</p>
-              <p className="data-value">{user.totalViewCount}</p>
+              <p className="data-value">{user.totalPostCount}</p>
             </div>
             <button
               className="detail-btn"
@@ -114,17 +114,8 @@ const Mypage = () => {
           <div className="info-box">
             <div className="data-set">
               <p className="data-option">작성 댓글</p>
-              <p className="data-value">{user.totalLikeCount}</p>
+              <p className="data-value">{user.totalCommentCount}</p>
             </div>
-
-            <button
-              className="detail-btn"
-              onClick={() => {
-                navigate('/blog');
-              }}
-            >
-              보기
-            </button>
           </div>
 
           <div className="info-box">
@@ -142,7 +133,12 @@ const Mypage = () => {
           <div className="info-box">
             <p className="data-option">가입일</p>
             <p className="data-value">
-              {new Date(user.created_at).toLocaleDateString('ko-KR')}
+              {() => {
+                const date = new Date(user.createdAt);
+                return `${date.getFullYear()}년 ${
+                  date.getMonth() + 1
+                }월 ${date.getDate()}일`;
+              }}
             </p>
           </div>
         </div>
