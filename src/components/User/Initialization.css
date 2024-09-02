@@ -75,14 +75,14 @@
 /* 2페이지 스타일 */
 .Initialization-page-2 .Initialization-house-container {
   position: absolute;
-  top: 10%;
+  top: 20% !important;
   left: 50%;
   transform: translateX(-50%);
-  width: 40vw; /* 다른 페이지와 동일한 크기로 설정 */
-  max-width: 250px; /* 최대 크기 조정 */
-  height: 40vw; /* 비율을 유지한 높이 설정 */
-  max-height: 250px; /* 최대 높이 조정 */
-  background-size: contain;
+  width: 60vw !important;
+  max-width: 250px !important;
+  height: 60vw !important;
+  max-height: 250px !important;
+  background-size: cover; /* 이미지가 잘리지 않도록 설정 */
   background-position: center;
   background-repeat: no-repeat;
   z-index: 1;
@@ -95,13 +95,13 @@
 /* 3페이지 스타일 */
 .Initialization-page-3 .Initialization-message-icon {
   position: absolute;
-  top: 10%; /* 사진을 더 크게 보이게 하도록 위로 올림 */
+  top: 20% !important; /* 기존 10%에서 20%로 내려 사진이 아래로 이동 */
   left: 50%;
   transform: translateX(-50%);
-  width: 40vw; /* 사진 크기를 더 크게 설정 */
-  max-width: 250px; /* 최대 크기 조정 */
-  height: 40vw; /* 사진의 높이도 비례해서 설정 */
-  max-height: 250px; /* 최대 높이 조정 */
+  width: 40vw !important; /* 기존 40vw에서 50vw로 크기를 키움 */
+  max-width: 250px !important; /* 최대 크기 조정 */
+  height: 40vw !important; /* 높이도 동일하게 비율 유지 */
+  max-height: 250px !important; /* 최대 높이 조정 */
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -115,35 +115,30 @@
 /* 4페이지 스타일 */
 .Initialization-page-4 .Initialization-icons-container {
   position: absolute;
-  top: 10%;
+  top: 20%; /* 다른 페이지와 동일한 위치로 설정 */
   left: 50%;
-  transform: translateX(-50%);
-  width: 40vw; /* 동일한 크기로 설정 */
+  transform: translateX(-50%) translateY(20%);
+  width: 60vw; /* 2, 3페이지와 동일한 크기로 설정 */
   max-width: 250px; /* 최대 크기 조정 */
-  height: 40vw; /* 비율을 유지한 높이 설정 */
+  height: 60vw; /* 높이도 동일하게 비율 유지 */
   max-height: 250px; /* 최대 높이 조정 */
-  background-size: contain;
+  background-size: contain; /* 이미지가 잘리지 않도록 설정 */
   background-position: center;
   background-repeat: no-repeat;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
   z-index: 1;
 }
 
+/* 4페이지 아이콘의 스타일 */
+.Initialization-page-4 .icon {
+  width: 100%; /* 아이콘 크기를 컨테이너에 맞춤 */
+  height: 100%; /* 높이도 컨테이너에 맞춤 */
+  background-size: contain; /* 아이콘이 잘리지 않도록 설정 */
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .Initialization-page-4 .Initialization-text {
-  top: 70%; /* 사진 크기가 커졌으므로 텍스트 위치 조정 */
-}
-
-.icon {
-  width: 54px;
-  height: 52px;
-  background: #0d2af0;
-}
-
-.icon.love-it {
-  background: #ff6984;
-  border: 2px solid #ff6984;
+  top: 70%; /* 다른 페이지와 동일한 위치로 설정 */
 }
 
 /* 회원가입 버튼의 스타일 정의 */

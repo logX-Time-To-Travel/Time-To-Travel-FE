@@ -171,7 +171,14 @@ const PostDetail = () => {
             <div className="post-detail-info">
               <span className="post-detail-username">{post.username}</span>
               <strong> | </strong>
-              <span className="post-detail-date">{post.createdAt}</span>
+              <span className="post-detail-date">
+                {(() => {
+                  const date = new Date(post.createdAt);
+                  return `${date.getFullYear()}년 ${
+                    date.getMonth() + 1
+                  }월 ${date.getDate()}일`;
+                })()}
+              </span>
             </div>
             <div className="post-detail-type">{locationText}</div>
           </div>

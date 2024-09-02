@@ -3,8 +3,10 @@ import useTimeAgo from '../utils/getTimeAgo';
 import viewIcon from '.././assets/Icon_ View 1.png';
 import heartIcon from '.././assets/heart-after.png';
 import checkIcon from '.././assets/Icon_ Accept 2.png';
+import { useNavigate } from 'react-router-dom';
 
 const Post = ({ post, isSelectMode, isSelected, onPostSelect }) => {
+  const navigate = useNavigate();
   console.log('Post object:', post); // post 객체 로그 출력
   const timeAgo = useTimeAgo(post.createdAt);
 
@@ -15,7 +17,7 @@ const Post = ({ post, isSelectMode, isSelected, onPostSelect }) => {
     <div
       className={`post ${isSelected ? 'selected' : ''}`} // 선택된 상태에 따라 CSS 클래스 적용
       onClick={() => {
-        console.log('Clicked postId:', post.postId); // 클릭된 postId 로그 확인
+        navigate(`/post/${post.postId}`);
         if (isSelectMode) onPostSelect(post.postId); // postId를 전달
       }}
     >

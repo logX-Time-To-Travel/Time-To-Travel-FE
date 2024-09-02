@@ -49,7 +49,7 @@ export default function Tinymce() {
         content,
         locations: validLocations,
         memberId,
-        thumbnail: thumbnail || images[0] || 'images/default.png', // 첫 번째 이미지가 썸네일로 설정되도록
+        thumbnail: thumbnail || images[0] || '/images/no_image.png', // 첫 번째 이미지가 썸네일로 설정되도록
       };
 
       await addPost(newPost);

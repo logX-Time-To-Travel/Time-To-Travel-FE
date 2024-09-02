@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import PostList from '../../pages/PostList';
 import Header from '../UI/Header';
-import './InterestLike.css';
+import './InterestLike.css'; // InterestScrap.css를 InterestLike.css로 변경
 import axios from 'axios';
 
 const InterestLike = () => {
@@ -48,10 +48,15 @@ const InterestLike = () => {
   }, [memberId]);
 
   return (
-    <div className="interest-like-container">
-      <Header text={'내가 좋아요 누른 페이지'} />
-      <div className="interest-like-posts">
-        <PostList posts={posts} />
+    <div className="like-container">
+      <Header titleText={'내가 좋아요 누른 게시글'} page={'interest'} />
+      <div className="like-posts">
+        <PostList
+          posts={posts}
+          isSelectMode={false}
+          selectedPosts={[]} // 빈 배열로 변경
+          onPostSelect={() => {}} // 선택 모드가 아니므로 빈 함수 전달
+        />
       </div>
     </div>
   );
