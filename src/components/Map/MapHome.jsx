@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
 import './MapHome.css';
 
 const MapHome = () => {
@@ -13,14 +14,12 @@ const MapHome = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // URL에서 검색어 추출
     const params = new URLSearchParams(location.search);
     const query = params.get('query');
     if (query) {
       setSearchQuery(query);
     }
 
-    // 구글 맵 API 스크립트 로드
     const script = document.createElement('script');
     script.src = `https://maps.googleapis.com/maps/api/js?key=${
       import.meta.env.VITE_GOOGLEMAP_API_KEY
@@ -34,7 +33,6 @@ const MapHome = () => {
 
     window.addEventListener('resize', handleResize);
 
-    // 지도 초기화
     const initMap = () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -53,54 +51,80 @@ const MapHome = () => {
               fullscreenControl: false,
             }
           );
+
           setMap(map);
 
-          const marker = new window.google.maps.Marker({
-            position: { lat: latitude, lng: longitude },
-            map,
-            title: '내 위치',
-          });
-          setMarkers((prevMarkers) => [...prevMarkers, marker]);
-
-          // URL에 query 파라미터가 있을 때 검색 실행
           if (query) {
             handleSearch(query, map);
           }
 
-          // JSON 파일에서 좌표 불러오기
-          fetch('/src/components/Map/addtemp.json') // 절대 경로로 수정
+          // 데이터 요청
+          axios
+            .get('/location/posts', {
+              params: {
+                northEastLat: latitude + 0.1, // 예시로 좌표 범위 설정
+                northEastLng: longitude + 0.1,
+                southWestLat: latitude - 0.1,
+                southWestLng: longitude - 0.1,
+              },
+            })
             .then((response) => {
-              if (!response.ok) {
-                throw new Error('Network response was not ok');
+              const contentType = response.headers['content-type'];
+
+              if (contentType && contentType.includes('application/json')) {
+                const data = response.data;
+
+                if (Array.isArray(data)) {
+                  data.forEach((coord) => {
+                    const marker = new window.google.maps.Marker({
+                      position: {
+                        lat: coord.latitude,
+                        lng: coord.longitude,
+                      },
+                      map,
+                      title: coord.name,
+                    });
+                    setMarkers((prevMarkers) => [...prevMarkers, marker]);
+
+                    marker.addListener('click', () => {
+                      navigate('/showblogs');
+                    });
+                  });
+                } else {
+                  console.error('데이터가 배열이 아닙니다:', data);
+                }
+              } else {
+                console.error('응답이 JSON이 아닙니다:', response.data);
+                console.error('상태 코드:', response.status);
+                console.error('요청한 URL:', response.config.url);
               }
-              return response.json();
             })
-            .then((data) => {
-              data.forEach((coord) => {
-                console.log(
-                  'Adding marker at:',
-                  coord.northEastLat,
-                  coord.northEastLng
-                ); // 좌표 출력
-                const marker = new window.google.maps.Marker({
-                  position: {
-                    lat: coord.northEastLat,
-                    lng: coord.northEastLng,
-                  },
-                  map,
-                  title: '마커 위치',
-                });
-                setMarkers((prevMarkers) => [...prevMarkers, marker]);
-              });
-            })
-            .catch((error) => console.error('Error loading JSON:', error));
+
+            .catch((error) => {
+              if (error.response) {
+                // 요청이 이루어졌고, 서버가 상태 코드로 응답했지만 요청이 실패한 경우
+                console.error('응답 데이터:', error.response.data);
+                console.error('응답 상태:', error.response.status);
+                console.error('요청 URL:', error.response.config.url);
+              } else if (error.request) {
+                // 요청이 이루어졌으나 응답이 오지 않은 경우
+                console.error(
+                  '요청이 이루어졌으나 응답이 없습니다:',
+                  error.request
+                );
+              } else {
+                // 오류를 발생시킨 요청 설정
+                console.error('오류 발생:', error.message);
+              }
+            });
         },
         (error) => {
           console.error('Error getting current position:', error);
+          const defaultLatLng = { lat: 37.5665, lng: 126.978 };
           const map = new window.google.maps.Map(
             document.getElementById('map'),
             {
-              center: { lat: 37.5665, lng: 126.978 },
+              center: defaultLatLng,
               zoom: 13,
               zoomControl: false,
               mapTypeControl: false,
@@ -151,7 +175,6 @@ const MapHome = () => {
     const value = e.target.value;
     setSearchQuery(value);
 
-    // 검색어에 따라 연관 검색어 가져오기
     if (value) {
       const service = new window.google.maps.places.AutocompleteService();
       service.getPlacePredictions({ input: value }, (predictions, status) => {

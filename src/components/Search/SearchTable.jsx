@@ -125,7 +125,7 @@ const SearchTable = () => {
                   alt="검색기록"
                   className="marker-image"
                 />
-                {item} {/* item이 문자열이어야 합니다 */}
+                {item}
                 <button
                   className="Sdelete-button"
                   onClick={(e) => {
