@@ -27,7 +27,7 @@
   width: 100%;
   font-family: var(--Noto-Sans-KR), var(--Outfit);
   font-weight: 700;
-  font-size: 2.5vw; /* 글씨 크기를 절반으로 줄임 */
+  font-size: 2vw; /* 글씨 크기를 절반으로 줄임 */
   line-height: 1.2;
   text-align: center;
   color: #0d2af0;
