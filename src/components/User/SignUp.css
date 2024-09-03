@@ -17,7 +17,7 @@
 
 /* 페이지 헤더 */
 .SignUp-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   font-weight: 700;
   font-size: 28px;
   line-height: 35px;
@@ -27,7 +27,7 @@
 }
 
 .SignUp-description {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   font-weight: 500;
   font-size: 14px;
   line-height: 18px;
@@ -49,6 +49,7 @@
 
 /* 필수 약관 전체 동의 */
 .SignUp-agreement {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   width: 100%; /* 너비를 100%로 설정하여 반응형으로 변경 */
   height: auto;
   background: #ffffff;
@@ -66,20 +67,19 @@
 
 /* 디폴트 */
 .SignUp-agreement.text {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   font-size: 14px;
   line-height: 18px;
   background-color: transparent;
 }
 
 .SignUp-agreement .icon {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   display: flex;
   align-items: center;
   justify-content: right;
   margin-right: 17px;
   flex-direction: row;
-  font-family: 'Outfit', sans-serif;
-  background-color: transparent;
   font-size: 25px;
   line-height: 1px;
 }
@@ -95,7 +95,7 @@
 
 /* 활성화된 상태에서의 텍스트 스타일 */
 .SignUp-agreement.active.text {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   font-size: 15px;
   line-height: 18px;
   color: #0d2af0;
@@ -103,6 +103,7 @@
 
 /* 약관 세부 항목 */
 .SignUp-term-item {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -115,8 +116,8 @@
   margin-bottom: 8px; /* 아래 간격 줄이기 */
   cursor: pointer;
 }
-/* 
-( > )표시 부분 */
+
+/* ( > )표시 부분 */
 .icon > img {
   width: 15px;
   height: 15px;
@@ -124,15 +125,16 @@
 
 .SignUp-term-item.active .text,
 .SignUp-term-item.active .icon {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   color: #0d2af0;
   width: 12px;
   height: 12px;
 }
 
 .SignUp-term-item .text {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   display: flex;
   align-items: center;
-  font-family: 'Outfit', sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 18px;
@@ -140,12 +142,14 @@
 }
 
 .SignUp-term-item .required {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   color: #ee2448;
   font-weight: 700;
   margin-left: 5px;
 }
 
 .SignUp-term-item .icon {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   font-size: 1.5rem;
   color: #979797;
   background: none;
@@ -160,6 +164,7 @@
   width: 10px;
   height: 10px;
 }
+
 .SignUp-back-btn > img {
   width: 15px;
   height: 15px;
@@ -167,6 +172,7 @@
 
 /* Continue Button */
 .SignUp-continue-btn {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   width: 100%; /* 버튼이 화면 너비에 맞게 확장되도록 설정 */
   padding: 1rem;
   border: none;
@@ -183,12 +189,14 @@
 }
 
 .SignUp-continue-btn.enabled {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   background-color: #0d2af0; /* 강조된 상태 */
   color: #ffc700; /* 텍스트 색상 */
   box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.03);
 }
 
 .SignUp-continue-btn.disabled {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   background-color: #d4d4d4; /* 비활성화 상태 */
   box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.03);
 }
@@ -204,6 +212,7 @@
 }
 
 .SignUp-profile-pic {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   width: 120px;
   height: 120px;
   background-color: #f0f0f0;
@@ -216,6 +225,7 @@
 }
 
 .SignUp-profile-pic-overlay {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -226,6 +236,7 @@
 }
 
 .SignUp-profile-pic-overlay i {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   color: #ffffff; /* 아이콘의 색상 */
   font-size: 24px; /* 아이콘의 크기 */
   z-index: 1; /* 아이콘의 z-index를 낮게 설정하여 이미지 아래에 위치하게 설정 */
@@ -243,17 +254,20 @@
 }
 
 .SignUp-form-group {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   margin-bottom: 1rem;
   position: relative;
 }
 
 .SignUp-form-group label {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   display: block;
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
 
 .SignUp-form-group input {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   width: 100%;
   padding: 0.5rem;
   padding-right: 2.5rem;
@@ -263,10 +277,10 @@
 
 /* 비밀번호 필드의 아이콘 버튼 */
 .SignUp-eye-btn {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   position: absolute;
   right: 10px; /* 오른쪽에 고정된 위치 */
   top: 50%; /* 상단에서 50% */
-
   cursor: pointer;
   background: none;
   border: none;
@@ -290,12 +304,14 @@
 
 /* 아이콘 자체에 대한 스타일 */
 .SignUp-eye-btn i {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   font-size: 18px; /* 아이콘 크기 조정 */
   color: #686868; /* 아이콘 색상 */
   margin-top: 4px; /* 아이콘을 아래로 미세 이동 */
 }
 
 .SignUp-error-message {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   color: red;
   font-size: 0.875rem;
   position: absolute; /* 위치를 절대적으로 설정 */
@@ -307,6 +323,7 @@
 }
 
 .SignUp-success-message {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   color: blue;
   font-size: 0.875rem;
   position: absolute; /* 위치를 절대적으로 설정 */
@@ -318,11 +335,13 @@
 }
 
 .nickname-input-container {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   display: flex;
   align-items: center;
 }
 
 .nickname-check-button {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   margin-left: 10px;
   padding: 5px 10px;
   background-color: #007bff;
@@ -333,11 +352,13 @@
 }
 
 .nickname-check-button:hover {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   background-color: #0056b3;
 }
 
 /* 완료 메시지 화면 스타일 */
 .SignUp-complete-container {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -347,9 +368,8 @@
 }
 
 .SignUp-welcome-title {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   margin-top: 60px; /* 필요에 따라 값을 조정 */
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 700;
   font-size: 28px;
   line-height: 41px;
@@ -358,8 +378,7 @@
 }
 
 .SignUp-welcome-message {
-  font-family: 'Outfit';
-  font-style: normal;
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   font-weight: 500;
   font-size: 14px;
   line-height: 18px;
@@ -368,14 +387,13 @@
 }
 
 .SignUp-complete-btn {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   width: 370px;
   height: 44px;
   background: #0d2af0;
   box-shadow: 0px 4px 12px rgba(13, 42, 240, 0.4),
     inset 0px 2px 4px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
-  font-family: 'Outfit';
-  font-style: normal;
   font-weight: 700;
   font-size: 14px;
   color: #ffc700;

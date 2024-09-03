@@ -23,10 +23,9 @@
 }
 
 /* 페이지 내 중앙 텍스트의 스타일 정의 */
-/* 페이지 내 중앙 텍스트의 스타일 정의 */
 .Initialization-text {
   width: 100%;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   font-weight: 700;
   font-size: 2.5vw; /* 글씨 크기를 절반으로 줄임 */
   line-height: 1.2;
@@ -48,7 +47,7 @@
   left: 50%;
   transform: translateX(-50%);
   top: 60%; /* 원래 60%에서 65%로 수정하여 아래로 더 내림 */
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   font-weight: 700;
   font-size: 42px;
   line-height: 53px;
@@ -151,7 +150,7 @@
   top: 80%;
   border: 2px solid #0d2af0;
   border-radius: 12px;
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   font-weight: 700;
   font-size: 18px;
   line-height: 23px;
@@ -170,7 +169,7 @@
   left: 50%;
   transform: translateX(-50%);
   top: calc(80% + 45px + 16px);
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   font-weight: 700;
   font-size: 14px;
   line-height: 18px;
@@ -191,7 +190,7 @@
   left: 50%;
   transform: translateX(-50%);
   top: 90%;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;

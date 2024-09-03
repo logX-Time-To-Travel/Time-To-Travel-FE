@@ -57,7 +57,7 @@ function App() {
               <Route path="/interest" element={<Interest />} />
               <Route path="/interest/like" element={<InterestLike />} />
               <Route path="/interest/scrap" element={<InterestScrap />} />
-              <Route path="/Initialization" element={<Initialization />} />
+              <Route path="/initialization" element={<Initialization />} />
             </Routes>
           </BrowserRouter>
         </PostProvider>
