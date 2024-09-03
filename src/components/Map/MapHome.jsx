@@ -20,12 +20,24 @@ const MapHome = () => {
       setSearchQuery(query);
     }
 
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${
-      import.meta.env.VITE_GOOGLEMAP_API_KEY
-    }&libraries=places`;
-    script.async = true;
-    document.body.appendChild(script);
+    const existingScript = document.getElementById('googleMapsScript');
+
+    if (!existingScript) {
+      // 구글 맵 API 스크립트 로드
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${
+        import.meta.env.VITE_GOOGLEMAP_API_KEY
+      }&libraries=places`;
+      script.async = true;
+      script.id = 'googleMapsScript';
+      document.body.appendChild(script);
+
+      script.onload = () => {
+        initMap(query);
+      };
+    } else {
+      initMap(query);
+    }
 
     const handleResize = () => {
       setIsMobileView(window.innerWidth <= 1024);
@@ -33,122 +45,75 @@ const MapHome = () => {
 
     window.addEventListener('resize', handleResize);
 
-    const initMap = () => {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setCurrentPosition({ lat: latitude, lng: longitude });
-
-          const map = new window.google.maps.Map(
-            document.getElementById('map'),
-            {
-              center: { lat: latitude, lng: longitude },
-              zoom: 13,
-              zoomControl: false,
-              mapTypeControl: false,
-              scaleControl: false,
-              streetViewControl: false,
-              fullscreenControl: false,
-            }
-          );
-
-          setMap(map);
-
-          if (query) {
-            handleSearch(query, map);
-          }
-
-          // 데이터 요청
-          axios
-            .get('/location/posts', {
-              params: {
-                northEastLat: latitude + 0.1, // 예시로 좌표 범위 설정
-                northEastLng: longitude + 0.1,
-                southWestLat: latitude - 0.1,
-                southWestLng: longitude - 0.1,
-              },
-            })
-            .then((response) => {
-              const contentType = response.headers['content-type'];
-
-              if (contentType && contentType.includes('application/json')) {
-                const data = response.data;
-
-                if (Array.isArray(data)) {
-                  data.forEach((coord) => {
-                    const marker = new window.google.maps.Marker({
-                      position: {
-                        lat: coord.latitude,
-                        lng: coord.longitude,
-                      },
-                      map,
-                      title: coord.name,
-                    });
-                    setMarkers((prevMarkers) => [...prevMarkers, marker]);
-
-                    marker.addListener('click', () => {
-                      navigate('/showblogs');
-                    });
-                  });
-                } else {
-                  console.error('데이터가 배열이 아닙니다:', data);
-                }
-              } else {
-                console.error('응답이 JSON이 아닙니다:', response.data);
-                console.error('상태 코드:', response.status);
-                console.error('요청한 URL:', response.config.url);
-              }
-            })
-
-            .catch((error) => {
-              if (error.response) {
-                // 요청이 이루어졌고, 서버가 상태 코드로 응답했지만 요청이 실패한 경우
-                console.error('응답 데이터:', error.response.data);
-                console.error('응답 상태:', error.response.status);
-                console.error('요청 URL:', error.response.config.url);
-              } else if (error.request) {
-                // 요청이 이루어졌으나 응답이 오지 않은 경우
-                console.error(
-                  '요청이 이루어졌으나 응답이 없습니다:',
-                  error.request
-                );
-              } else {
-                // 오류를 발생시킨 요청 설정
-                console.error('오류 발생:', error.message);
-              }
-            });
-        },
-        (error) => {
-          console.error('Error getting current position:', error);
-          const defaultLatLng = { lat: 37.5665, lng: 126.978 };
-          const map = new window.google.maps.Map(
-            document.getElementById('map'),
-            {
-              center: defaultLatLng,
-              zoom: 13,
-              zoomControl: false,
-              mapTypeControl: false,
-              scaleControl: false,
-              streetViewControl: false,
-              fullscreenControl: false,
-            }
-          );
-          setMap(map);
-
-          if (query) {
-            handleSearch(query, map);
-          }
-        }
-      );
-    };
-
-    script.onload = initMap;
-
     return () => {
-      document.body.removeChild(script);
       window.removeEventListener('resize', handleResize);
     };
   }, [location.search]);
+
+  const initMap = (query) => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setCurrentPosition({ lat: latitude, lng: longitude });
+
+        const map = new window.google.maps.Map(document.getElementById('map'), {
+          center: { lat: latitude, lng: longitude },
+          zoom: 13,
+          zoomControl: false,
+          mapTypeControl: false,
+          scaleControl: false,
+          streetViewControl: false,
+          fullscreenControl: false,
+        });
+        setMap(map);
+
+        const marker = new window.google.maps.Marker({
+          position: { lat: latitude, lng: longitude },
+          map,
+          title: '내 위치',
+        });
+        setMarkers((prevMarkers) => [...prevMarkers, marker]);
+
+        if (query) {
+          handleSearch(query, map);
+        }
+
+        fetch('/src/components/Map/addtemp.json')
+          .then((response) => response.json())
+          .then((data) => {
+            data.forEach((coord) => {
+              const marker = new window.google.maps.Marker({
+                position: {
+                  lat: coord.northEastLat,
+                  lng: coord.northEastLng,
+                },
+                map,
+                title: '마커 위치',
+              });
+              setMarkers((prevMarkers) => [...prevMarkers, marker]);
+            });
+          })
+          .catch((error) => console.error('Error loading JSON:', error));
+      },
+      (error) => {
+        console.error('Error getting current position:', error);
+        const map = new window.google.maps.Map(document.getElementById('map'), {
+          center: { lat: 37.5665, lng: 126.978 },
+          zoom: 13,
+          zoomControl: false,
+          mapTypeControl: false,
+          scaleControl: false,
+          streetViewControl: false,
+          fullscreenControl: false,
+        });
+        setMap(map);
+
+        if (query) {
+          handleSearch(query, map);
+        }
+      }
+    );
+  };
 
   const handleSearch = (searchQuery, mapInstance) => {
     if (searchQuery) {
