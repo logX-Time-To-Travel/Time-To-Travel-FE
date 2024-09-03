@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import PostList from '../../pages/PostList';
 import './MapHome.css';
 
 const MapHome = () => {
@@ -10,6 +11,7 @@ const MapHome = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 1024);
+  const [selectedLocation, setSelectedLocation] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -92,7 +94,6 @@ const MapHome = () => {
           }
         );
 
-        // 지도가 완전히 로드된 후에 실행될 로직
         window.google.maps.event.addListenerOnce(mapInstance, 'idle', () => {
           setMap(mapInstance);
 
@@ -154,18 +155,12 @@ const MapHome = () => {
               lat: location.latitude,
               lng: location.longitude,
             },
-            map: map, // 직접 map 객체에 마커를 추가
+            map: map,
             title: location.name || '마커 위치',
           });
 
-          // 마커 클릭 이벤트 추가
           marker.addListener('click', () => {
-            const infoWindow = new window.google.maps.InfoWindow({
-              content: `<div><h3>${location.name || '위치 정보 없음'}</h3><p>${
-                location.description || ''
-              }</p></div>`,
-            });
-            infoWindow.open(map, marker);
+            setSelectedLocation(location);
           });
 
           return marker;
@@ -203,12 +198,12 @@ const MapHome = () => {
 
   useEffect(() => {
     if (map) {
-      const boundsChangedListener = map.addListener('bounds_changed', () =>
+      const idleListener = map.addListener('idle', () =>
         handleBoundsChanged(map)
       );
 
       return () => {
-        window.google.maps.event.removeListener(boundsChangedListener);
+        window.google.maps.event.removeListener(idleListener);
       };
     }
   }, [map, handleBoundsChanged]);
@@ -283,6 +278,10 @@ const MapHome = () => {
     navigate('/search');
   };
 
+  const handleClosePosts = () => {
+    setSelectedLocation(null);
+  };
+
   return (
     <div className="map-container">
       <div id="map"></div>
@@ -330,6 +329,21 @@ const MapHome = () => {
           onClick={handleCurrentLocation}
         ></button>
       </div>
+
+      {selectedLocation && (
+        <div className="home-post-list-container">
+          <div className="home-post-list-header">
+            <h3>{selectedLocation.name}</h3>
+            <button onClick={handleClosePosts}>X</button>
+          </div>
+          <PostList
+            posts={selectedLocation.posts}
+            isSelectMode={false}
+            selectedPosts={[]}
+            onPostSelect={() => {}}
+          />
+        </div>
+      )}
     </div>
   );
 };
