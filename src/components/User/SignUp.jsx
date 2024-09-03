@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'; // useNavigate (페이지 이동
 import PropTypes from 'prop-types'; // PropTypes (타입 검사) 사용
 import BackIcon from '../../assets/Icon_ Back 1.png';
 import BackIconRight from '../../assets/Icon_ Back reverse.png';
+import AgreeIcon from '../../assets/agree.png';
+import AgreeIconActive from '../../assets/Icon_ Accept 2.png';
 import { AuthContext } from './AuthContext';
 import axios from 'axios';
 
@@ -285,7 +287,10 @@ const SignUp = ({ onSignUp }) => {
             onClick={handleAllRequiredTerms}
           >
             <span className="text">필수 약관 전체 동의하기</span>
-            <span className="icon">✔</span>
+            <img
+              className="Big-Agree"
+              src={`${allRequiredTerms ? AgreeIconActive : AgreeIcon}`}
+            />
           </div>
 
           {/* 이용약관 동의 */}
@@ -294,7 +299,11 @@ const SignUp = ({ onSignUp }) => {
             onClick={() => handleIndividualRequiredTerm(terms1, setTerms1)}
           >
             <span className="text">
-              ✔ 이용약관 <span className="required">*</span>
+              <img
+                className="Small-Agree"
+                src={`${terms1 ? AgreeIconActive : AgreeIcon}`}
+              />{' '}
+              이용약관 <span className="required">*</span>
             </span>
             <span
               className="icon"
@@ -313,7 +322,11 @@ const SignUp = ({ onSignUp }) => {
             onClick={() => handleIndividualRequiredTerm(terms2, setTerms2)}
           >
             <span className="text">
-              ✔ 개인정보 처리방침 <span className="required">*</span>
+              <img
+                className="Small-Agree"
+                src={`${terms2 ? AgreeIconActive : AgreeIcon}`}
+              />{' '}
+              개인정보 처리방침 <span className="required">*</span>
             </span>
             <span
               className="icon"
@@ -332,8 +345,11 @@ const SignUp = ({ onSignUp }) => {
             onClick={() => handleIndividualRequiredTerm(terms3, setTerms3)}
           >
             <span className="text">
-              ✔ 게시물 및 댓글 작성 윤리 지침{' '}
-              <span className="required">*</span>
+              <img
+                className="Small-Agree"
+                src={`${terms3 ? AgreeIconActive : AgreeIcon}`}
+              />
+              게시물 및 댓글 작성 윤리 지침 <span className="required">*</span>
             </span>
             <span
               className="icon"
@@ -352,7 +368,10 @@ const SignUp = ({ onSignUp }) => {
             onClick={handleAllOptionalTerms}
           >
             <span className="text">선택 약관 전체 동의하기</span>
-            <span className="icon">✔</span>
+            <img
+              className="Big-Agree"
+              src={`${allOptionalTerms ? AgreeIconActive : AgreeIcon}`}
+            />
           </div>
 
           {/* 마케팅 정보 수신 동의 */}
@@ -360,7 +379,13 @@ const SignUp = ({ onSignUp }) => {
             className={`SignUp-term-item ${terms4 ? 'active' : ''}`}
             onClick={() => handleIndividualOptionalTerm(terms4, setTerms4)}
           >
-            <span className="text">✔ 마케팅 정보 수신 동의 [선택]</span>
+            <span className="text">
+              <img
+                className="Small-Agree"
+                src={`${terms4 ? AgreeIconActive : AgreeIcon}`}
+              />{' '}
+              마케팅 정보 수신 동의 [선택]
+            </span>
             <span
               className="icon"
               onClick={(e) => {
@@ -377,7 +402,13 @@ const SignUp = ({ onSignUp }) => {
             className={`SignUp-term-item ${terms5 ? 'active' : ''}`}
             onClick={() => handleIndividualOptionalTerm(terms5, setTerms5)}
           >
-            <span className="text">✔ 버그 자동 전송 [선택]</span>
+            <span className="text">
+              <img
+                className="Small-Agree"
+                src={`${terms5 ? AgreeIconActive : AgreeIcon}`}
+              />{' '}
+              버그 자동 전송 [선택]
+            </span>
             <span
               className="icon"
               onClick={(e) => {
