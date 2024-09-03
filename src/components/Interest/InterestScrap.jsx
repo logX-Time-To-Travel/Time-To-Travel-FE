@@ -48,10 +48,15 @@ const InterestScrap = () => {
   }, [memberId]);
 
   return (
-    <div className="interest-scrap-container">
-      <Header text={'내가 별표한 페이지'} />
-      <div className="interest-scrap-posts">
-        <PostList posts={posts} />
+    <div className="scrap-container">
+      <Header titleText={'내가 별표한 게시글'} page={'interest'} />
+      <div className="scrap-posts">
+        <PostList
+          posts={posts}
+          isSelectMode={false}
+          selectedPosts={[]} // 빈 배열로 변경
+          onPostSelect={() => {}} // 선택 모드가 아니므로 빈 함수 전달
+        />
       </div>
     </div>
   );

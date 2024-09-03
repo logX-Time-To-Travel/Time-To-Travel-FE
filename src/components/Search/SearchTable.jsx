@@ -3,11 +3,13 @@ import axios from 'axios';
 import './SearchTable.css';
 import backImage from '../../assets/Icon_ Back 1.png';
 import markerImage from '../../assets/Icon_ Marker 1.png';
+import { useNavigate } from 'react-router-dom';
 
 const LOCAL_GOOGLE_MAP_URL = 'http://localhost:5173/home';
 const API_URL = 'http://localhost:8080/search';
 
 const SearchTable = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [searchHistory, setSearchHistory] = useState([]);
   const [username, setUsername] = useState(''); // username 상태 추가
@@ -99,9 +101,9 @@ const SearchTable = () => {
   return (
     <div className="searchMap-container">
       <div className="header">
-        <button className="back-button" onClick={() => window.history.back()}>
-          <img src={backImage} alt="뒤로가기" className="back-image" />
-        </button>
+        <div className="serach-back-button" onClick={() => navigate('/home')}>
+          <img src={backImage} alt="뒤로가기" className="search-back-image" />
+        </div>
         <input
           type="text"
           className="searchMap-input"
@@ -110,7 +112,7 @@ const SearchTable = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
         />
-        <button className="searchMap-button" onClick={handleSearch} />
+        <div className="searchMap-button" onClick={handleSearch} />
       </div>
       <div className="history-container">
         <h3>검색 기록</h3>
@@ -121,7 +123,7 @@ const SearchTable = () => {
                 <img
                   src={markerImage}
                   alt="검색기록"
-                  className="marker-image"
+                  className="search-marker-image"
                 />
                 {item} {/* item이 문자열이어야 합니다 */}
                 <button
