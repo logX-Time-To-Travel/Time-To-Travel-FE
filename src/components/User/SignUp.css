@@ -165,6 +165,8 @@
 .SignUp-term-item .icon img {
   width: 15px; /* 적당한 크기로 변경 */
   height: 15px; /* 적당한 크기로 변경 */
+  display: flex;
+  margin-left: 15px;
 }
 
 /*체크 아이콘*/
