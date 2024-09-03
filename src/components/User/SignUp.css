@@ -131,7 +131,7 @@
 /* Continue Button */
 .SignUp-continue-btn {
   width: 100%; /* 버튼이 화면 너비에 맞게 확장되도록 설정 */
-  padding: 1rem;
+  padding: 12px 0px;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
