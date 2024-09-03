@@ -15,8 +15,6 @@ const SearchTable = () => {
   const [username, setUsername] = useState(''); // username 상태 추가
   const [member, setMember] = useState(null);
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     const fetchMember = async () => {
       try {

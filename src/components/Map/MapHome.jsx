@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './MapHome.css';
@@ -13,6 +13,29 @@ const MapHome = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const myStyles = [
+    {
+      featureType: 'poi', // Point of Interest
+      elementType: 'labels', // Hide labels (text) for POIs
+      stylers: [{ visibility: 'off' }],
+    },
+    {
+      featureType: 'poi.business', // Hide business points of interest
+      elementType: 'all', // Apply to all elements
+      stylers: [{ visibility: 'off' }],
+    },
+    {
+      featureType: 'poi.park', // Hide park POIs
+      elementType: 'all', // Apply to all elements
+      stylers: [{ visibility: 'off' }],
+    },
+    {
+      featureType: 'transit', // Hide transit stations (bus, rail, etc.)
+      elementType: 'labels.icon', // Hide transit icons
+      stylers: [{ visibility: 'off' }],
+    },
+  ];
+
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const query = params.get('query');
@@ -23,7 +46,6 @@ const MapHome = () => {
     const existingScript = document.getElementById('googleMapsScript');
 
     if (!existingScript) {
-      // 구글 맵 API 스크립트 로드
       const script = document.createElement('script');
       script.src = `https://maps.googleapis.com/maps/api/js?key=${
         import.meta.env.VITE_GOOGLEMAP_API_KEY
@@ -50,70 +72,146 @@ const MapHome = () => {
     };
   }, [location.search]);
 
-  const initMap = (query) => {
+  const initMap = async (query) => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
         setCurrentPosition({ lat: latitude, lng: longitude });
 
-        const map = new window.google.maps.Map(document.getElementById('map'), {
-          center: { lat: latitude, lng: longitude },
-          zoom: 13,
-          zoomControl: false,
-          mapTypeControl: false,
-          scaleControl: false,
-          streetViewControl: false,
-          fullscreenControl: false,
+        const mapInstance = new window.google.maps.Map(
+          document.getElementById('map'),
+          {
+            center: { lat: latitude, lng: longitude },
+            zoom: 13,
+            styles: myStyles,
+            zoomControl: false,
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            fullscreenControl: false,
+          }
+        );
+
+        // 지도가 완전히 로드된 후에 실행될 로직
+        window.google.maps.event.addListenerOnce(mapInstance, 'idle', () => {
+          setMap(mapInstance);
+
+          if (query) {
+            handleSearch(query, mapInstance);
+          }
+
+          // 초기 마커 로드
+          handleBoundsChanged(mapInstance);
         });
-        setMap(map);
-
-        const marker = new window.google.maps.Marker({
-          position: { lat: latitude, lng: longitude },
-          map,
-          title: '내 위치',
-        });
-        setMarkers((prevMarkers) => [...prevMarkers, marker]);
-
-        if (query) {
-          handleSearch(query, map);
-        }
-
-        fetch('/src/components/Map/addtemp.json')
-          .then((response) => response.json())
-          .then((data) => {
-            data.forEach((coord) => {
-              const marker = new window.google.maps.Marker({
-                position: {
-                  lat: coord.northEastLat,
-                  lng: coord.northEastLng,
-                },
-                map,
-                title: '마커 위치',
-              });
-              setMarkers((prevMarkers) => [...prevMarkers, marker]);
-            });
-          })
-          .catch((error) => console.error('Error loading JSON:', error));
       },
       (error) => {
         console.error('Error getting current position:', error);
-        const map = new window.google.maps.Map(document.getElementById('map'), {
-          center: { lat: 37.5665, lng: 126.978 },
-          zoom: 13,
-          zoomControl: false,
-          mapTypeControl: false,
-          scaleControl: false,
-          streetViewControl: false,
-          fullscreenControl: false,
-        });
-        setMap(map);
+        const mapInstance = new window.google.maps.Map(
+          document.getElementById('map'),
+          {
+            center: { lat: 37.5665, lng: 126.978 },
+            zoom: 13,
+            zoomControl: false,
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            fullscreenControl: false,
+          }
+        );
 
-        if (query) {
-          handleSearch(query, map);
-        }
+        window.google.maps.event.addListenerOnce(mapInstance, 'idle', () => {
+          setMap(mapInstance);
+
+          if (query) {
+            handleSearch(query, mapInstance);
+          }
+
+          // 초기 마커 로드
+          handleBoundsChanged(mapInstance);
+        });
       }
     );
   };
+
+  const fetchMarkers = useCallback(
+    async (locationRangeDTO) => {
+      try {
+        const response = await axios.post(
+          'http://localhost:8080/locations/posts',
+          locationRangeDTO
+        );
+        const locations = response.data;
+
+        console.log('Received locations:', locations);
+
+        // 기존 마커 제거
+        markers.forEach((marker) => marker.setMap(null));
+
+        // 새로운 마커 생성 및 지도에 추가
+        const newMarkers = locations.map((location) => {
+          const marker = new window.google.maps.Marker({
+            position: {
+              lat: location.latitude,
+              lng: location.longitude,
+            },
+            map: map, // 직접 map 객체에 마커를 추가
+            title: location.name || '마커 위치',
+          });
+
+          // 마커 클릭 이벤트 추가
+          marker.addListener('click', () => {
+            const infoWindow = new window.google.maps.InfoWindow({
+              content: `<div><h3>${location.name || '위치 정보 없음'}</h3><p>${
+                location.description || ''
+              }</p></div>`,
+            });
+            infoWindow.open(map, marker);
+          });
+
+          return marker;
+        });
+
+        setMarkers(newMarkers);
+      } catch (error) {
+        console.error('Error fetching markers:', error);
+      }
+    },
+    [map, markers]
+  );
+
+  const handleBoundsChanged = useCallback(
+    (mapInstance) => {
+      if (mapInstance) {
+        const bounds = mapInstance.getBounds();
+        if (bounds) {
+          const northEast = bounds.getNorthEast();
+          const southWest = bounds.getSouthWest();
+
+          const locationRangeDTO = {
+            northEastLat: northEast.lat(),
+            northEastLng: northEast.lng(),
+            southWestLat: southWest.lat(),
+            southWestLng: southWest.lng(),
+          };
+
+          fetchMarkers(locationRangeDTO);
+        }
+      }
+    },
+    [fetchMarkers]
+  );
+
+  useEffect(() => {
+    if (map) {
+      const boundsChangedListener = map.addListener('bounds_changed', () =>
+        handleBoundsChanged(map)
+      );
+
+      return () => {
+        window.google.maps.event.removeListener(boundsChangedListener);
+      };
+    }
+  }, [map, handleBoundsChanged]);
 
   const handleSearch = (searchQuery, mapInstance) => {
     if (searchQuery) {
@@ -169,8 +267,8 @@ const MapHome = () => {
         map.setZoom(13);
 
         const marker = new window.google.maps.Marker({
-          position: currentPosition,
           map,
+          position: currentPosition,
           title: '내 위치',
         });
         setMarkers((prevMarkers) => [...prevMarkers, marker]);
