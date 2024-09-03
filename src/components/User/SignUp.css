@@ -131,29 +131,29 @@
 /* Continue Button */
 .SignUp-continue-btn {
   width: 100%; /* 버튼이 화면 너비에 맞게 확장되도록 설정 */
-  padding: 12px 0px;
+  padding: 10px 0px;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 12px;
+  font-size: 10px;
   font-weight: bold;
   cursor: pointer;
   margin-bottom: 1rem;
   background-color: #007bff;
   color: white;
   text-align: center;
-  margin-top: 100px; /* 상단 여백 추가 */
-  box-shadow: 0px 4px 12px rgba(13, 42, 240, 0.4);
+  margin-top: 70px; /* 상단 여백 추가 */
+  box-shadow: 3px 4px 12px rgba(0, 0, 0, 0.817);
 }
 
 .SignUp-continue-btn.enabled {
   background-color: #0d2af0; /* 강조된 상태 */
   color: #ffc700; /* 텍스트 색상 */
-  box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.03);
+  box-shadow: 0px 3px 15px rgba(1, 36, 209, 0.575);
 }
 
 .SignUp-continue-btn.disabled {
   background-color: #d4d4d4; /* 비활성화 상태 */
-  box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.03);
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.03);
 }
 
 /* BackIcon과 BackIconRight의 크기 조절 */
