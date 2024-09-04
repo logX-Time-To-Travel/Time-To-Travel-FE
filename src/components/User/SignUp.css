@@ -403,6 +403,8 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  width: 100px; /* 원하는 고정 너비로 설정 */
+  height: 38px;
 }
 
 .nickname-check-button:hover {

@@ -492,7 +492,7 @@ const SignUp = ({ onSignUp }) => {
                     className="nickname-check-button"
                     onClick={() => checkUsernameDuplicate(nickname)}
                   >
-                    닉네임 확인
+                    중복 확인
                   </button>
                 </div>
                 {nicknameError && (
