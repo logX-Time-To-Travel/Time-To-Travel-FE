@@ -159,15 +159,16 @@ const MapHome = () => {
             icon: yellowMarker,
           });
 
-          marker.addListener('click', () => {
+          marker.addListener('click', async () => {
             // 모든 마커를 노란색으로 초기화
+
             newMarkers.forEach((m) => m.setIcon(yellowMarker));
 
             // 현재 클릭된 마커 처리
             if (selectedMarker !== marker) {
               marker.setIcon(pinkMarker);
               setSelectedMarker(marker);
-              setSelectedLocation(location);
+              await setSelectedLocation(location);
 
               // 포스트 리스트 컨테이너 표시
               const postListContainer = document.querySelector(
