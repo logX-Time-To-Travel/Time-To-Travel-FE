@@ -5,6 +5,8 @@ import BackIcon from '../../assets/Icon_ Back 1.png';
 import BackIconRight from '../../assets/Icon_ Back reverse.png';
 import AgreeIcon from '../../assets/agree.png';
 import AgreeIconActive from '../../assets/Icon_ Accept 2.png';
+import eye from '../../assets/eye.png'; // 눈 아이콘 (비밀번호 표시)
+import eyestick from '../../assets/eyestick.png'; // 눈 가림 아이콘 (비밀번호 숨기기)
 import { AuthContext } from './AuthContext';
 import axios from 'axios';
 
@@ -531,9 +533,11 @@ const SignUp = ({ onSignUp }) => {
                   className="SignUp-eye-btn"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  <i
-                    className={showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'}
-                  ></i>
+                  <img
+                    src={showPassword ? eyestick : eye}
+                    alt="toggle visibility"
+                    className="eye-icon"
+                  />
                 </button>
                 {passwordError && (
                   <p className="SignUp-error-message">{passwordError}</p>
@@ -558,11 +562,12 @@ const SignUp = ({ onSignUp }) => {
                   className="SignUp-eye-btn"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
-                  <i
-                    className={
-                      showConfirmPassword ? 'fas fa-eye-slash' : 'fas fa-eye'
-                    }
-                  ></i>
+                  {/* 이미지가 showConfirmPassword 상태에 따라 변경됨 */}
+                  <img
+                    src={showConfirmPassword ? eyestick : eye}
+                    alt="toggle visibility"
+                    style={{ width: '24px', height: '24px' }} // 이미지 크기 조정
+                  />
                 </button>
                 {confirmPasswordError && (
                   <p className="SignUp-error-message">{confirmPasswordError}</p>

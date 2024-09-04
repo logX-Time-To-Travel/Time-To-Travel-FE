@@ -336,25 +336,24 @@
   border-radius: 4px;
 }
 
-/* 비밀번호 필드의 아이콘 버튼 */
+/* 기존 .SignUp-eye-btn에서 크기 관련 부분 삭제 */
 .SignUp-eye-btn {
-  font-family: var(--Noto-Sans-KR), var(--Outfit);
   position: absolute;
-  right: 10px; /* 오른쪽에 고정된 위치 */
-  top: 50%; /* 상단에서 50% */
+  right: 10px;
+  top: 50%;
+  transform: translateY(10%);
   cursor: pointer;
   background: none;
   border: none;
   padding: 0;
   margin: 0;
-  font-size: 1rem; /* 아이콘 크기 조정 */
-  color: #686868; /* 아이콘 색상 */
-  z-index: 2; /* 아이콘이 다른 요소들 위에 오도록 */
-  width: 24px; /* 버튼 크기 고정 */
-  height: 24px; /* 버튼 크기 고정 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  z-index: 2;
+}
+
+/* 이미지 아이콘 크기 조정 */
+.eye-icon {
+  width: 24px; /* 원하는 너비로 조정 */
+  height: 24px; /* 원하는 높이로 조정 */
 }
 
 /* 입력 필드의 오른쪽 패딩을 넓게 설정해 아이콘이 들어갈 공간 확보 */
