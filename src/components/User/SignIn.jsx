@@ -55,11 +55,16 @@ const SignIn = () => {
       }
     }
   };
+  // 뒤로가기 버튼 클릭 시 초기화 페이지로 이동하는 함수
+  const handleBack = () => {
+    navigate('/initialization'); // 초기화 페이지로 이동
+  };
 
   return (
     <div className="SignIn-container">
       <div className="SignIn-header">
-        <div className="SignIn-back-button">
+        <div className="SignIn-back-button" onClick={handleBack}>
+          {/* 뒤로가기 버튼 클릭 시 handleBack 호출 */}
           <img src={BackIcon} alt="뒤로가기" />
         </div>
         <div className="SignIn-title-bar"></div>
