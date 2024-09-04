@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import X from '../../assets/X.png';
 import PostList from '../../pages/PostList';
 import './MapHome.css';
 
@@ -17,23 +18,23 @@ const MapHome = () => {
 
   const myStyles = [
     {
-      featureType: 'poi', // Point of Interest
-      elementType: 'labels', // Hide labels (text) for POIs
+      featureType: 'poi',
+      elementType: 'labels',
       stylers: [{ visibility: 'off' }],
     },
     {
-      featureType: 'poi.business', // Hide business points of interest
-      elementType: 'all', // Apply to all elements
+      featureType: 'poi.business',
+      elementType: 'all',
       stylers: [{ visibility: 'off' }],
     },
     {
-      featureType: 'poi.park', // Hide park POIs
-      elementType: 'all', // Apply to all elements
+      featureType: 'poi.park',
+      elementType: 'all',
       stylers: [{ visibility: 'off' }],
     },
     {
-      featureType: 'transit', // Hide transit stations (bus, rail, etc.)
-      elementType: 'labels.icon', // Hide transit icons
+      featureType: 'transit',
+      elementType: 'labels.icon',
       stylers: [{ visibility: 'off' }],
     },
   ];
@@ -101,7 +102,6 @@ const MapHome = () => {
             handleSearch(query, mapInstance);
           }
 
-          // 초기 마커 로드
           handleBoundsChanged(mapInstance);
         });
       },
@@ -127,7 +127,6 @@ const MapHome = () => {
             handleSearch(query, mapInstance);
           }
 
-          // 초기 마커 로드
           handleBoundsChanged(mapInstance);
         });
       }
@@ -143,12 +142,8 @@ const MapHome = () => {
         );
         const locations = response.data;
 
-        console.log('Received locations:', locations);
-
-        // 기존 마커 제거
         markers.forEach((marker) => marker.setMap(null));
 
-        // 새로운 마커 생성 및 지도에 추가
         const newMarkers = locations.map((location) => {
           const marker = new window.google.maps.Marker({
             position: {
@@ -161,6 +156,16 @@ const MapHome = () => {
 
           marker.addListener('click', () => {
             setSelectedLocation(location);
+
+            // 애니메이션을 조금 늦춰 적용
+            setTimeout(() => {
+              const postListContainer = document.querySelector(
+                '.home-post-list-container'
+              );
+              if (postListContainer) {
+                postListContainer.classList.add('show');
+              }
+            }, 10); // 10ms 지연
           });
 
           return marker;
@@ -279,7 +284,17 @@ const MapHome = () => {
   };
 
   const handleClosePosts = () => {
-    setSelectedLocation(null);
+    const postListContainer = document.querySelector(
+      '.home-post-list-container'
+    );
+    if (postListContainer) {
+      postListContainer.classList.remove('show');
+    }
+
+    // 애니메이션이 끝난 뒤 selectedLocation을 null로 설정
+    setTimeout(() => {
+      setSelectedLocation(null);
+    }, 300); // CSS transition 시간이 0.3초이므로 같은 시간 설정
   };
 
   return (
@@ -333,8 +348,17 @@ const MapHome = () => {
       {selectedLocation && (
         <div className="home-post-list-container">
           <div className="home-post-list-header">
-            <h3>{selectedLocation.name}</h3>
-            <button onClick={handleClosePosts}>X</button>
+            <div className="home-post-list-header-head">
+              {selectedLocation.name}
+            </div>
+            <img
+              src={X}
+              className="home-post-list-header-image"
+              onClick={handleClosePosts}
+            />
+          </div>
+          <div className="home-post-list-header-text">
+            총 {selectedLocation.posts.length}개의 게시글을 찾았습니다.
           </div>
           <PostList
             posts={selectedLocation.posts}
