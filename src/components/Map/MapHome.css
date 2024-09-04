@@ -49,17 +49,22 @@
   position: relative;
 }
 
-.map-controls button.current-location::before {
+/* .map-controls button.current-location::before {
   content: '';
   display: block;
-  width: 16px;
-  height: 20px;
-  background-color: blue;
-  clip-path: polygon(50% 0, 100% 35%, 100% 100%, 0 100%, 0 35%);
+
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+} */
+
+.locationImage {
+  width: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 3px;
 }
 
 .marker-info {
@@ -168,9 +173,7 @@
   z-index: 1000;
   max-height: 70%;
   overflow-y: auto;
-  transition:
-    transform 0.3s ease-in-out,
-    opacity 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
   transform: translateY(100%); /* 기본값으로 아래에 숨김 */
   opacity: 0; /* 투명도 0으로 설정하여 숨김 */
 }

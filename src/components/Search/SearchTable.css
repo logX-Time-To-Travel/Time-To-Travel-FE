@@ -105,6 +105,27 @@
   background: none;
 }
 
+.Search-reco {
+  position: absolute;
+  top: 50px; /* 검색창의 높이만큼 떨어지게 조정 (50px + padding) */
+  left: 0; /* 왼쪽 정렬 */
+  right: 0; /* 오른쪽 정렬 추가 */
+  background-color: white;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.Search-reco li {
+  padding: 10px; /* 각 항목의 여백 */
+  cursor: pointer; /* 포인터 커서 */
+  transition: background-color 0.3s; /* 배경 색상 변화 애니메이션 */
+}
+
+.Search-reco li:hover {
+  background-color: #f0f0f0; /* 마우스 오버 시 배경색 변화 */
+}
+
 @media (max-width: 550px) {
   .searchMap-input {
     font-size: 13px;
