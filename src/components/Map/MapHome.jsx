@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import X from '../../assets/X.png';
+import yellowMarker from '../../assets/pin.png';
+import pinkMarker from '../../assets/pin2.png';
 import PostList from '../../pages/PostList';
 import './MapHome.css';
 
@@ -13,6 +15,7 @@ const MapHome = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 1024);
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [selectedMarker, setSelectedMarker] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -142,6 +145,7 @@ const MapHome = () => {
         );
         const locations = response.data;
 
+        // 기존 마커들을 지도에서 제거
         markers.forEach((marker) => marker.setMap(null));
 
         const newMarkers = locations.map((location) => {
@@ -152,20 +156,38 @@ const MapHome = () => {
             },
             map: map,
             title: location.name || '마커 위치',
+            icon: yellowMarker,
           });
 
           marker.addListener('click', () => {
-            setSelectedLocation(location);
+            // 모든 마커를 노란색으로 초기화
+            newMarkers.forEach((m) => m.setIcon(yellowMarker));
 
-            // 애니메이션을 조금 늦춰 적용
-            setTimeout(() => {
+            // 현재 클릭된 마커 처리
+            if (selectedMarker !== marker) {
+              marker.setIcon(pinkMarker);
+              setSelectedMarker(marker);
+              setSelectedLocation(location);
+
+              // 포스트 리스트 컨테이너 표시
               const postListContainer = document.querySelector(
                 '.home-post-list-container'
               );
               if (postListContainer) {
                 postListContainer.classList.add('show');
               }
-            }, 10); // 10ms 지연
+            } else {
+              setSelectedMarker(null);
+              setSelectedLocation(null);
+
+              // 포스트 리스트 컨테이너 숨기기
+              const postListContainer = document.querySelector(
+                '.home-post-list-container'
+              );
+              if (postListContainer) {
+                postListContainer.classList.remove('show');
+              }
+            }
           });
 
           return marker;
@@ -176,7 +198,7 @@ const MapHome = () => {
         console.error('Error fetching markers:', error);
       }
     },
-    [map, markers]
+    [map, markers, selectedMarker]
   );
 
   const handleBoundsChanged = useCallback(
@@ -270,6 +292,7 @@ const MapHome = () => {
           map,
           position: currentPosition,
           title: '내 위치',
+          icon: yellowMarker,
         });
         setMarkers((prevMarkers) => [...prevMarkers, marker]);
       },
@@ -291,10 +314,14 @@ const MapHome = () => {
       postListContainer.classList.remove('show');
     }
 
-    // 애니메이션이 끝난 뒤 selectedLocation을 null로 설정
+    if (selectedMarker) {
+      selectedMarker.setIcon(yellowMarker);
+    }
+
     setTimeout(() => {
       setSelectedLocation(null);
-    }, 300); // CSS transition 시간이 0.3초이므로 같은 시간 설정
+      setSelectedMarker(null);
+    }, 300);
   };
 
   return (
