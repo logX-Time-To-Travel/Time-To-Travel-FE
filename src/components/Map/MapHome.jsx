@@ -1,6 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import X from '../../assets/X.png';
+import yellowMarker from '../../assets/pin.png';
+import pinkMarker from '../../assets/pin2.png';
 import PostList from '../../pages/PostList';
 import './MapHome.css';
 
@@ -12,28 +15,29 @@ const MapHome = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 1024);
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [selectedMarker, setSelectedMarker] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
 
   const myStyles = [
     {
-      featureType: 'poi', // Point of Interest
-      elementType: 'labels', // Hide labels (text) for POIs
+      featureType: 'poi',
+      elementType: 'labels',
       stylers: [{ visibility: 'off' }],
     },
     {
-      featureType: 'poi.business', // Hide business points of interest
-      elementType: 'all', // Apply to all elements
+      featureType: 'poi.business',
+      elementType: 'all',
       stylers: [{ visibility: 'off' }],
     },
     {
-      featureType: 'poi.park', // Hide park POIs
-      elementType: 'all', // Apply to all elements
+      featureType: 'poi.park',
+      elementType: 'all',
       stylers: [{ visibility: 'off' }],
     },
     {
-      featureType: 'transit', // Hide transit stations (bus, rail, etc.)
-      elementType: 'labels.icon', // Hide transit icons
+      featureType: 'transit',
+      elementType: 'labels.icon',
       stylers: [{ visibility: 'off' }],
     },
   ];
@@ -101,7 +105,6 @@ const MapHome = () => {
             handleSearch(query, mapInstance);
           }
 
-          // 초기 마커 로드
           handleBoundsChanged(mapInstance);
         });
       },
@@ -127,7 +130,6 @@ const MapHome = () => {
             handleSearch(query, mapInstance);
           }
 
-          // 초기 마커 로드
           handleBoundsChanged(mapInstance);
         });
       }
@@ -143,12 +145,9 @@ const MapHome = () => {
         );
         const locations = response.data;
 
-        console.log('Received locations:', locations);
-
-        // 기존 마커 제거
+        // 기존 마커들을 지도에서 제거
         markers.forEach((marker) => marker.setMap(null));
 
-        // 새로운 마커 생성 및 지도에 추가
         const newMarkers = locations.map((location) => {
           const marker = new window.google.maps.Marker({
             position: {
@@ -157,10 +156,39 @@ const MapHome = () => {
             },
             map: map,
             title: location.name || '마커 위치',
+            icon: yellowMarker,
           });
 
-          marker.addListener('click', () => {
-            setSelectedLocation(location);
+          marker.addListener('click', async () => {
+            // 모든 마커를 노란색으로 초기화
+
+            newMarkers.forEach((m) => m.setIcon(yellowMarker));
+
+            // 현재 클릭된 마커 처리
+            if (selectedMarker !== marker) {
+              marker.setIcon(pinkMarker);
+              setSelectedMarker(marker);
+              await setSelectedLocation(location);
+
+              // 포스트 리스트 컨테이너 표시
+              const postListContainer = document.querySelector(
+                '.home-post-list-container'
+              );
+              if (postListContainer) {
+                postListContainer.classList.add('show');
+              }
+            } else {
+              setSelectedMarker(null);
+              setSelectedLocation(null);
+
+              // 포스트 리스트 컨테이너 숨기기
+              const postListContainer = document.querySelector(
+                '.home-post-list-container'
+              );
+              if (postListContainer) {
+                postListContainer.classList.remove('show');
+              }
+            }
           });
 
           return marker;
@@ -171,7 +199,7 @@ const MapHome = () => {
         console.error('Error fetching markers:', error);
       }
     },
-    [map, markers]
+    [map, markers, selectedMarker]
   );
 
   const handleBoundsChanged = useCallback(
@@ -265,6 +293,7 @@ const MapHome = () => {
           map,
           position: currentPosition,
           title: '내 위치',
+          icon: yellowMarker,
         });
         setMarkers((prevMarkers) => [...prevMarkers, marker]);
       },
@@ -279,7 +308,21 @@ const MapHome = () => {
   };
 
   const handleClosePosts = () => {
-    setSelectedLocation(null);
+    const postListContainer = document.querySelector(
+      '.home-post-list-container'
+    );
+    if (postListContainer) {
+      postListContainer.classList.remove('show');
+    }
+
+    if (selectedMarker) {
+      selectedMarker.setIcon(yellowMarker);
+    }
+
+    setTimeout(() => {
+      setSelectedLocation(null);
+      setSelectedMarker(null);
+    }, 300);
   };
 
   return (
@@ -333,8 +376,17 @@ const MapHome = () => {
       {selectedLocation && (
         <div className="home-post-list-container">
           <div className="home-post-list-header">
-            <h3>{selectedLocation.name}</h3>
-            <button onClick={handleClosePosts}>X</button>
+            <div className="home-post-list-header-head">
+              {selectedLocation.name}
+            </div>
+            <img
+              src={X}
+              className="home-post-list-header-image"
+              onClick={handleClosePosts}
+            />
+          </div>
+          <div className="home-post-list-header-text">
+            총 {selectedLocation.posts.length}개의 게시글을 찾았습니다.
           </div>
           <PostList
             posts={selectedLocation.posts}

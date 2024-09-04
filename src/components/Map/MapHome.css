@@ -1,4 +1,5 @@
 .map-container {
+  font-family: var(--Noto-Sans-KR);
   width: 100%;
   height: 100vh;
   position: relative;
@@ -159,14 +160,24 @@
   bottom: 0;
   left: 0;
   right: 0;
+  padding: 20px;
   background-color: white;
   box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.2);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   z-index: 1000;
-  max-height: 50%;
+  max-height: 70%;
   overflow-y: auto;
-  transition: transform 0.3s ease-in-out;
+  transition:
+    transform 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
+  transform: translateY(100%); /* 기본값으로 아래에 숨김 */
+  opacity: 0; /* 투명도 0으로 설정하여 숨김 */
+}
+
+.home-post-list-container.show {
+  transform: translateY(0); /* 목록이 올라옴 */
+  opacity: 1; /* 목록이 보임 */
 }
 
 .home-post-list-header {
@@ -174,14 +185,24 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  border-bottom: 1px solid #e1e1e1;
 }
 
-.home-post-list-header h3 {
+.home-post-list-header-head {
+  margin: 0;
+  font-weight: 600;
+  font-size: 25px;
+}
+
+.home-post-list-header-image {
+  width: 30px;
   margin: 0;
   font-size: 16px;
 }
-
+.home-post-list-header-text {
+  padding: 10px;
+  font-weight: 500;
+  font-size: 13px;
+}
 .home-post-list-header button {
   background: none;
   border: none;
