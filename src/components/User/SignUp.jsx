@@ -7,6 +7,7 @@ import AgreeIcon from '../../assets/agree.png';
 import AgreeIconActive from '../../assets/Icon_ Accept 2.png';
 import eye from '../../assets/eye.png'; // 눈 아이콘 (비밀번호 표시)
 import eyestick from '../../assets/eyestick.png'; // 눈 가림 아이콘 (비밀번호 숨기기)
+import camera from '../../assets/camera.png'; // 카메라 이미지 임포트
 import { AuthContext } from './AuthContext';
 import axios from 'axios';
 
@@ -464,7 +465,12 @@ const SignUp = ({ onSignUp }) => {
                     ''
                   )}
                   <div className="SignUp-profile-pic-overlay">
-                    <i className="fas fa-camera"></i> {/* 카메라 아이콘 추가 */}
+                    {/* 카메라 아이콘으로 이미지 대체 */}
+                    <img
+                      src={camera}
+                      alt="Camera Icon"
+                      className="camera-icon"
+                    />
                   </div>
                   <input type="file" onChange={handleProfilePicChange} />
                 </label>

@@ -272,8 +272,19 @@
   z-index: 1; /* 기본 이미지의 z-index를 설정하여 가장 위에 렌더링되도록 설정 */
 }
 
+.SignUp-profile-pic-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.SignUp-profile-pic-overlay img {
+  width: 42px !important; /* 카메라 아이콘의 너비를 10px로 설정 */
+  height: 31px !important; /* 카메라 아이콘의 높이를 10px로 설정 */
+}
+
 .SignUp-profile-pic {
-  font-family: var(--Noto-Sans-KR), var(--Outfit);
+  position: relative;
   width: 120px;
   height: 120px;
   background-color: #f0f0f0;
@@ -282,36 +293,19 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  position: relative; /* overlay를 위치시키기 위해 relative 설정 */
-}
-
-.SignUp-profile-pic-overlay {
-  font-family: var(--Noto-Sans-KR), var(--Outfit);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* 정중앙에 위치시키기 위한 설정 */
-  color: #ffffff; /* 표식의 색상 */
-  font-size: 24px; /* 아이콘 또는 텍스트 크기 */
-  pointer-events: none; /* overlay가 클릭 이벤트를 방해하지 않도록 설정 */
-}
-
-.SignUp-profile-pic-overlay i {
-  font-family: var(--Noto-Sans-KR), var(--Outfit);
-  color: #ffffff; /* 아이콘의 색상 */
-  font-size: 24px; /* 아이콘의 크기 */
-  z-index: 1; /* 아이콘의 z-index를 낮게 설정하여 이미지 아래에 위치하게 설정 */
+  overflow: hidden; /* 이미지가 영역을 벗어나지 않도록 설정 */
 }
 
 .SignUp-profile-pic img {
-  width: 100%; /* 이미지가 컨테이너에 맞게 조정되도록 설정 */
-  height: 100%;
-  border-radius: 50%; /* 둥근 모양 유지 */
-  z-index: 2; /* 이미지를 아이콘보다 위로 렌더링되도록 설정 */
+  object-fit: cover; /* 이미지를 동그란 컨테이너 안에 맞춤 */
+  width: 100%; /* 컨테이너 너비에 맞게 조정 */
+  height: 100%; /* 컨테이너 높이에 맞게 조정 */
+  z-index: 2; /* 이미지가 카메라 아이콘보다 위에 오도록 설정 */
 }
 
-.SignUp-profile-pic input {
-  display: none;
+/* 파일 입력창 숨기기 */
+.SignUp-profile-pic input[type='file'] {
+  display: none; /* 파일 선택창 숨김 */
 }
 
 .SignUp-form-group {
