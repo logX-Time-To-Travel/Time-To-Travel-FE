@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'; // useNavigate(페이지 이동)
 import PropTypes from 'prop-types'; // PropTypes (타입 검사) 사용
 import axios from 'axios'; // axios (HTTP 요청 라이브러리) 사용
 import BackIcon from '../../assets/Icon_ Back 1.png';
+import eye from '../../assets/eye.png'; // 눈 아이콘 (비밀번호 표시)
+import eyestick from '../../assets/eyestick.png'; // 눈 가림 아이콘 (비밀번호 숨기기)
 
 import './SignIn.css'; // SignIn.css 와 연결
 
@@ -53,11 +55,16 @@ const SignIn = () => {
       }
     }
   };
+  // 뒤로가기 버튼 클릭 시 초기화 페이지로 이동하는 함수
+  const handleBack = () => {
+    navigate('/initialization'); // 초기화 페이지로 이동
+  };
 
   return (
     <div className="SignIn-container">
       <div className="SignIn-header">
-        <div className="SignIn-back-button">
+        <div className="SignIn-back-button" onClick={handleBack}>
+          {/* 뒤로가기 버튼 클릭 시 handleBack 호출 */}
           <img src={BackIcon} alt="뒤로가기" />
         </div>
         <div className="SignIn-title-bar"></div>
@@ -94,7 +101,12 @@ const SignIn = () => {
             className="SignUp-eye-btn"
             onClick={() => setShowPassword(!showPassword)}
           >
-            <i className={showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'}></i>
+            {/* 이미지 교체 */}
+            <img
+              src={showPassword ? eyestick : eye}
+              alt="toggle visibility"
+              className="eye-icon"
+            />
           </button>
           {passwordError && (
             <div className="SignIn-error-message">{passwordError}</div>

@@ -26,7 +26,7 @@
 
 /* 로그인 텍스트 스타일 */
 .SignIn-title {
-  font-family: 'Outfit', sans-serif; /* 폰트 설정 */
+  font-family: var(--Noto-Sans-KR), var(--Outfit); /* 폰트 설정 */
   font-weight: 700; /* 글자 굵기 설정 */
   font-size: 28px; /* 글자 크기 설정 */
   line-height: 35px; /* 줄 간격 설정 */
@@ -41,7 +41,7 @@
 .SignIn-back-button > img {
   width: 16px;
   height: 16px;
-} 
+}
 
 /* 로그인 위에 위치한 노란색 줄 스타일 */
 .SignIn-title-bar {
@@ -65,7 +65,7 @@
 
 /* 입력 필드 레이블 스타일 (이메일, 비밀번호 텍스트) */
 .SignIn-label {
-  font-family: 'Noto Sans KR', sans-serif; /* 폰트 설정 */
+  font-family: var(--Noto-Sans-KR), var(--Outfit); /* 폰트 설정 */
   font-weight: bold; /* 글자 굵기 설정 */
   font-size: 14px; /* 글자 크기 */
   color: #000000; /* 글자 색상 검정 */
@@ -76,18 +76,20 @@
 /* 이메일 및 비밀번호 입력 필드 스타일 */
 .SignIn-input-email,
 .SignIn-input-password {
+  font-family: var(--Noto-Sans-KR), var(--Outfit); /* 폰트 설정 */
   width: 100%; /* 전체 너비 설정 */
   height: 40px; /* 입력 필드 높이 */
   padding: 0 12px; /* 내부 여백 설정 */
   border: 1px solid #d5d5d5; /* 테두리 색상 및 두께 설정 */
   border-radius: 12px; /* 모서리를 둥글게 */
-  font-family: 'Outfit', sans-serif; /* 폰트 설정 */
   font-size: 14px; /* 글자 크기 */
   color: #484848; /* 글자 색상 */
   box-sizing: border-box; /* 패딩을 포함한 너비 계산 */
 }
+
 /* 이메일 오류 메시지 스타일 */
 .SignIn-email-error-message {
+  font-family: var(--Noto-Sans-KR), var(--Outfit); /* 폰트 설정 */
   color: #ee2448; /* 글자 색상을 빨간색으로 설정 */
   font-weight: 800; /* 글자 굵기 설정 */
   font-size: 14px; /* 글자 크기 설정 */
@@ -102,6 +104,7 @@
 /* 오류가 있을 때 이메일 및 비밀번호 입력 필드 스타일 */
 .SignIn-input-email.SignIn-input-error,
 .SignIn-input-password.SignIn-input-error {
+  font-family: var(--Noto-Sans-KR), var(--Outfit); /* 폰트 설정 */
   border-color: #ee2448; /* 테두리 색상을 빨간색으로 변경 */
   background: #ee2448; /* 배경색을 빨간색으로 변경 */
   color: #ffffff; /* 글자 색상을 흰색으로 변경 */
@@ -111,6 +114,7 @@
 
 /* 오류 메시지 스타일 */
 .SignIn-error-message {
+  font-family: var(--Noto-Sans-KR), var(--Outfit); /* 폰트 설정 */
   color: #ee2448; /* 글자 색상을 빨간색으로 설정 */
   font-weight: 800; /* 글자 굵기 설정 */
   font-size: 14px; /* 글자 크기 설정 */
@@ -124,10 +128,10 @@
 
 /* 비밀번호 보기/숨기기 버튼 스타일 */
 .SignUp-eye-btn {
+  font-family: var(--Noto-Sans-KR), var(--Outfit); /* 폰트 설정 */
   position: absolute;
   right: 10px; /* 오른쪽에 고정된 위치 */
   top: 50%; /* 상단에서 50% */
-
   cursor: pointer;
   background: none;
   border: none;
@@ -145,13 +149,13 @@
 
 /* 로그인 버튼 스타일 */
 .SignIn-button {
+  font-family: var(--Noto-Sans-KR), var(--Outfit); /* 폰트 설정 */
   width: calc(100% - 68px); /* 전체 너비에서 좌우 여백을 제외한 너비 설정 */
   height: 44px; /* 버튼 높이 */
   margin-left: 34px; /* 왼쪽 여백 설정 */
   background-color: #ffc700; /* 배경색 노란색 */
   border-radius: 12px; /* 모서리를 둥글게 */
   color: #0d2af0; /* 글자 색상 파란색 */
-  font-family: 'Outfit', sans-serif; /* 폰트 설정 */
   font-weight: 700; /* 글자 굵기 설정 */
   font-size: 14px; /* 글자 크기 설정 */
   cursor: pointer; /* 커서 모양을 클릭 가능하도록 변경 */
@@ -163,13 +167,13 @@
 
 /* 회원가입 버튼 스타일 */
 .SignUp-button {
+  font-family: var(--Noto-Sans-KR), var(--Outfit); /* 폰트 설정 */
   width: calc(100% - 68px); /* 전체 너비에서 좌우 여백을 제외한 너비 설정 */
   height: 44px; /* 버튼 높이 */
   margin-left: 34px; /* 왼쪽 여백 설정 */
   border-radius: 12px; /* 모서리를 둥글게 */
   background-color: transparent; /* 배경색 없음 */
   color: #f1a717; /* 글자 색상 주황색 */
-  font-family: 'Outfit', sans-serif; /* 폰트 설정 */
   font-weight: 700; /* 글자 굵기 설정 */
   font-size: 14px; /* 글자 크기 설정 */
   text-align: center; /* 텍스트 중앙 정렬 */

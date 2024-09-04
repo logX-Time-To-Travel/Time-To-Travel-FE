@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import './Initialization.css';
 
 import navigateIcon from '../../assets/Initialization_navigate.png';
-import homeIcon from '../../assets/Initialization_home.png';
-import messageIcon from '../../assets/Initialization_message.png';
-import messageheartIcon from '../../assets/Initialization_messageheart.png';
+import homeIcon from '../../assets/Initialization_home1.png';
+import messageIcon from '../../assets/Initialization_message1.png';
+import messageheartIcon from '../../assets/Initialization_messageheart1.png';
 
 function Initialization() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -133,29 +133,14 @@ function Initialization() {
           className="Initialization-page Initialization-page-4"
           onClick={handlePageClick}
         >
-          <div className="Initialization-icons-container">
-            {/* messageheartIcon 이미지를 두 개의 아이콘 위치에 적용 */}
-            <div
-              className="Initialization-icon"
-              style={{
-                backgroundImage: `url(${messageheartIcon})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                width: '54px',
-                height: '52px',
-              }}
-            ></div>
-            <div
-              className="Initialization-icon"
-              style={{
-                backgroundImage: `url(${messageheartIcon})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                width: '54px',
-                height: '52px',
-              }}
-            ></div>
-          </div>
+          <div
+            className="Initialization-icons-container"
+            style={{
+              backgroundImage: `url(${messageheartIcon})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          ></div>
           <div className="Initialization-text">
             여행지 후기를 작성하여{'\n'}
             많은 여행자들과{'\n'}
