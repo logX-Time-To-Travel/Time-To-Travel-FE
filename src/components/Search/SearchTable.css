@@ -13,13 +13,19 @@
   height: 50px;
 }
 
-.back-button {
+.search-back-button {
   margin-right: 10px;
   margin-top: 5px;
   background: none;
   border: none;
-
   cursor: pointer;
+}
+
+.search-back-image {
+  display: flex;
+  align-items: center;
+  width: 20px; /* 뒤로가기 버튼 이미지 크기 조정 */
+  height: 20px;
 }
 
 .searchMap-input {
@@ -65,7 +71,6 @@
 .history-container li {
   display: flex;
   align-items: center;
-
   border-bottom: 1px solid #e1e1e1;
   color: black; /* 글자색을 검정색으로 설정 */
   transition: background-color 0.3s; /* 부드러운 배경색 전환 효과 */
@@ -76,12 +81,10 @@
   background-color: #f0f0f0; /* 호버 시 배경색 변경 */
 }
 
-.marker-icon {
-  width: 10px; /* 마커 아이콘 크기 조정 */
-  height: 10px;
+.search-marker-image {
+  width: 20px; /* 마커 이미지의 너비 조절 */
+  height: 20px; /* 마커 이미지의 높이 조절 */
   margin-right: 8px; /* 아이콘과 글자 사이의 간격 */
-  background-color: black; /* 마커 아이콘 색상 */
-  border-radius: 50%; /* 둥근 모양으로 만들기 */
 }
 
 .Sdelete-button {
@@ -94,7 +97,8 @@
   justify-content: center;
   margin-left: auto;
   margin-right: 10px;
-  width: 10px;
+  width: 20px; /* 버튼의 너비를 조절 */
+  height: 20px; /* 버튼의 높이를 조절 */
 }
 
 .Sdelete-button:active {

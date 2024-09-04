@@ -1,8 +1,63 @@
 [
   {
-    "northEastLat": 41.0,
-    "northEastLng": -73.5,
-    "southWestLat": 40.0,
-    "southWestLng": -74.5
+    "name": "Central Park",
+    "latitude": 37.5508,
+    "longitude": 127.0869,
+    "posts": [
+      {
+        "id": 1,
+        "title": "A Beautiful Day in Central Park",
+        "likeCount": 20,
+        "viewCount": 150,
+        "thumbnail": "https://example.com/thumbnail1.jpg",
+        "createdAt": "2024-07-01T10:00:00Z"
+      },
+      {
+        "id": 2,
+        "title": "Autumn Leaves in Central Park",
+        "likeCount": 35,
+        "viewCount": 200,
+        "thumbnail": "https://example.com/thumbnail2.jpg",
+        "createdAt": "2024-08-15T12:30:00Z"
+      }
+    ]
+  },
+  {
+    "name": "Times Square",
+    "latitude": 37.5552,
+    "longitude": 126.9723,
+    "posts": [
+      {
+        "id": 3,
+        "title": "New Year’s Eve at Times Square",
+        "likeCount": 50,
+        "viewCount": 500,
+        "thumbnail": "https://example.com/thumbnail3.jpg",
+        "createdAt": "2024-12-31T23:59:00Z"
+      }
+    ]
+  },
+  {
+    "name": "Golden Gate Bridge",
+    "latitude": 37.5446,
+    "longitude": 127.0703,
+    "posts": [
+      {
+        "id": 4,
+        "title": "Sunset at the Golden Gate Bridge",
+        "likeCount": 70,
+        "viewCount": 300,
+        "thumbnail": "https://example.com/thumbnail4.jpg",
+        "createdAt": "2024-05-20T18:00:00Z"
+      },
+      {
+        "id": 5,
+        "title": "Morning Walk Across the Golden Gate",
+        "likeCount": 25,
+        "viewCount": 120,
+        "thumbnail": "https://example.com/thumbnail5.jpg",
+        "createdAt": "2024-06-10T08:00:00Z"
+      }
+    ]
   }
 ]

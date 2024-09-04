@@ -4,12 +4,13 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { LoadScript } from '@react-google-maps/api';
 import { useState } from 'react';
 import Home from './pages/Home';
+import Showblogs from './pages/Showblogs';
 import Blog from './pages/Blog';
 import SearchPage from './pages/SearchPage';
 import AddPost from './pages/AddPost';
 import SignUp from './components/User/SignUp';
 import SignIn from './components/User/SignIn';
-import MapHome from './components/Map/MapHome';
+
 import Terms from './components/User/Terms';
 import Tinymce from './plugins/Tinymce';
 import Mypage from './pages/Mypage';
@@ -45,6 +46,7 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/signin" element={<SignIn />} />
               <Route path="/home" element={<Home />} />
+              <Route path="/showblogs" element={<Showblogs />} />
               <Route path="/blog" element={<Blog posts={posts} />} />
               <Route path="/editor" element={<Tinymce addPost={addPost} />} />
               <Route path="/addpost" element={<AddPost />} />

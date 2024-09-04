@@ -7,7 +7,6 @@
 /* 전체 레이아웃 및 배경 */
 .SignUp-container {
   min-height: 100vh; /* 최소 높이를 화면 높이로 설정 */
-  margin: auto;
   padding: 2rem;
   background: #fafafa;
   position: relative;
@@ -22,8 +21,8 @@
   font-size: 28px;
   line-height: 35px;
   color: #000000;
-  margin-left: 34px;
-  margin-top: 137px;
+  margin-left: 12px;
+  margin-top: 80px;
 }
 
 .SignUp-description {
@@ -32,8 +31,9 @@
   font-size: 14px;
   line-height: 18px;
   color: #484848;
-  margin-left: 34px;
-  margin-top: 20px;
+  margin-left: 12px;
+  margin-top: 30px;
+  margin-bottom: 0px;
 }
 
 /* 약관 동의 섹션 */
@@ -44,33 +44,24 @@
   gap: 5px;
   position: relative; /* absolute -> relative로 변경 */
   width: 100%; /* 너비를 100%로 설정하여 화면에 맞추기 */
-  margin-top: 20px; /* 상단 여백 설정 */
+  margin-top: 10px; /* 상단 여백 설정 */
 }
 
 /* 필수 약관 전체 동의 */
 .SignUp-agreement {
   font-family: var(--Noto-Sans-KR), var(--Outfit);
   width: 100%; /* 너비를 100%로 설정하여 반응형으로 변경 */
-  height: auto;
+  height: 40px;
   background: #ffffff;
-  color: #000000a2;
-  font-weight: bold;
   box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.03);
   border-radius: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 15px;
-  margin-bottom: 10px;
+  padding: 0 20px;
+  margin-top: 25px;
+  margin-bottom: 15px;
   cursor: pointer;
-}
-
-/* 디폴트 */
-.SignUp-agreement.text {
-  font-family: var(--Noto-Sans-KR), var(--Outfit);
-  font-size: 14px;
-  line-height: 18px;
-  background-color: transparent;
 }
 
 .SignUp-agreement .icon {
@@ -87,9 +78,10 @@
 /* 활성화 */
 .SignUp-agreement.active.icon {
   background-color: transparent; /* 배경색을 투명하게 설정 */
+}
+.SignUp-agreement.active {
+  background: #ffffff;
   color: #0d2af0;
-  width: 10px;
-  height: 10px;
   box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.03);
 }
 
@@ -97,7 +89,17 @@
 .SignUp-agreement.active.text {
   font-family: var(--Noto-Sans-KR), var(--Outfit);
   font-size: 15px;
+}
+
+.SignUp-agreement.text {
+  font-family: var(--Noto-Sans-KR), var(--Outfit);
+  font-weight: 700 !important;
+  font-size: 12px;
   line-height: 18px;
+  background-color: transparent;
+}
+
+.SignUp-agreement.active .text {
   color: #0d2af0;
 }
 
@@ -113,7 +115,7 @@
   background: none;
   box-shadow: none; /* 그림자 제거 */
   padding: 0 10px; /* 좌우 패딩 줄이기 */
-  margin-bottom: 8px; /* 아래 간격 줄이기 */
+  margin-bottom: 5px; /* 아래 간격 줄이기 */
   cursor: pointer;
 }
 
@@ -127,8 +129,6 @@
 .SignUp-term-item.active .icon {
   font-family: var(--Noto-Sans-KR), var(--Outfit);
   color: #0d2af0;
-  width: 12px;
-  height: 12px;
 }
 
 .SignUp-term-item .text {
@@ -174,31 +174,92 @@
 .SignUp-continue-btn {
   font-family: var(--Noto-Sans-KR), var(--Outfit);
   width: 100%; /* 버튼이 화면 너비에 맞게 확장되도록 설정 */
-  padding: 1rem;
+  padding: 15px 0px; /* 위아래 패딩을 1.5배로 증가 */
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 12px;
+  font-size: 14px;
   font-weight: bold;
   cursor: pointer;
   margin-bottom: 1rem;
   background-color: #007bff;
   color: white;
   text-align: center;
-  margin-top: 20px; /* 상단 여백 추가 */
-  box-shadow: 0px 4px 12px rgba(13, 42, 240, 0.4);
+  margin-top: 40px; /* 상단 여백 추가 */
+  box-shadow: 3px 4px 12px rgba(0, 0, 0, 0.817);
+  height: 50px; /* 기존 높이 대비 1.5배 증가 */
 }
 
 .SignUp-continue-btn.enabled {
   font-family: var(--Noto-Sans-KR), var(--Outfit);
   background-color: #0d2af0; /* 강조된 상태 */
   color: #ffc700; /* 텍스트 색상 */
-  box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.03);
+  box-shadow: 0px 3px 15px rgba(1, 36, 209, 0.575);
 }
 
 .SignUp-continue-btn.disabled {
   font-family: var(--Noto-Sans-KR), var(--Outfit);
   background-color: #d4d4d4; /* 비활성화 상태 */
-  box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.03);
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.03);
+}
+
+/* SignUp 폼 내의 Back 버튼 텍스트 (Footer) */
+.SignUp-footer-back-btn {
+  font-family: 'Outfit', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  letter-spacing: -0.03em;
+  color: #979797;
+  background: none; /* 배경 제거 */
+  border: none; /* 경계 제거 */
+  cursor: pointer;
+  width: 100%; /* 버튼이 화면 너비에 맞게 확장되도록 설정 */
+}
+
+/* BackIcon과 BackIconRight의 크기 조절 */
+.SignUp-back-btn img {
+  width: 20px; /* 적당한 크기로 변경 */
+  height: 20px; /* 적당한 크기로 변경 */
+}
+
+.SignUp-term-item .icon img {
+  width: 15px; /* 적당한 크기로 변경 */
+  height: 15px; /* 적당한 크기로 변경 */
+  display: flex;
+  margin-left: 15px;
+}
+
+/*체크 아이콘*/
+/* 기본 */
+.SignUp-term-item .Small-Agree {
+  display: flex;
+  justify-content: left;
+  width: 24px;
+  height: 24px;
+  margin-right: 15px;
+  margin-left: 0px;
+}
+
+.SignUp-term-item.active .Small-Agree {
+  display: flex;
+  justify-content: flex-start;
+  width: 19px;
+  height: 19px;
+  margin-right: 15px;
+  margin-left: 2px;
+}
+
+.SignUp-agreement.Big-Agree {
+  width: 35px;
+  height: 35px;
+}
+
+.SignUp-agreement.active .Big-Agree {
+  width: 32px;
+  height: 32px;
+  margin-right: 3px;
 }
 
 /* 기타 스타일 */
