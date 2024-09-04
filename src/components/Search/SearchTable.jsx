@@ -46,7 +46,7 @@ const SearchTable = () => {
           if (Array.isArray(response.data)) {
             setSearchHistory(
               response.data.map((item) => ({
-                id: item.id, // id 추가
+                id: item.searchHistoryId, // id 추가
                 query: item.query,
               }))
             );
