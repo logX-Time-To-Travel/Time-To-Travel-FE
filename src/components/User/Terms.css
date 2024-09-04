@@ -1,41 +1,101 @@
-/* Terms.css */
+/* 부모 컨테이너에 position: relative; 설정 */
 .Terms-container {
-  max-width: 800px;
-  margin: auto;
-  padding: 2rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
+  position: relative;
+  max-width: 100%; /* 최대 너비를 100%로 설정 */
+  margin: 0 auto;
+  background: #fafafa;
+  padding: 20px; /* 적절한 패딩 추가 */
+  box-sizing: border-box; /* 패딩이 크기에 포함되도록 설정 */
+  min-height: 100vh; /* 최소 높이를 100vh로 설정하여 화면 전체를 채움 */
 }
 
-.Terms-container h3 {
-  font-size: 3rem;
+/* Back Button (뒤로가기 버튼을 제일 상단에 배치) */
+.Terms-back-btn {
+  position: absolute;
+  top: 20px; /* 조금 아래로 배치 */
+  left: 20px;
+  cursor: pointer;
+}
+
+.Terms-back-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+/* Title (이용약관) */
+.Terms-title {
+  display: flex;
+  flex-direction: column; /* 세로 방향으로 정렬 */
+  align-items: flex-start; /* 왼쪽 정렬 */
+  margin-top: 100px; /* Back Button 아래에 충분한 여백 추가 */
+  margin-bottom: 20px; /* 아래쪽에 충분한 여백 추가 */
+}
+
+/* [] 모양 (구분선) */
+.Terms-square {
+  width: 16px;
+  height: 6px;
+  background: #000000;
+  border-radius: 5px;
+  margin-left: 5px; /* 미세하게 오른쪽으로 이동 */
+  margin-bottom: 15px; /* '이용약관'과의 간격 조정 */
+}
+
+/* 이용약관 텍스트 */
+.Terms-title-text {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 35px;
+  letter-spacing: -0.03em;
+  color: #000000;
+}
+
+/* 최종 수정일 */
+.Terms-last-modified {
+  margin-top: 30px; /* '이용약관' 제목 아래 충분한 여백 추가 */
+  font-size: 14px;
+  color: #484848;
+}
+
+/* 구분선 */
+.Terms-divider {
+  width: 100%;
+  border-top: 1px solid #ededed;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* 약관 내용 (본문) */
+.Terms-content {
+  font-family: 'Outfit', sans-serif;
+  line-height: 1.5;
+  color: #000000;
+  margin-top: 20px; /* 위쪽에 여백 추가 */
+}
+
+/* 장 제목 스타일 (예: 제 1 장 총칙) */
+.Terms-content h4 {
+  margin-top: 30px; /* 위쪽에 추가 여백 */
+  font-size: 20px;
   font-weight: bold;
+  color: #000;
+  line-height: 1.5;
 }
 
-.Terms-container .Terms-last-modified {
-  font-size: 1rem;
-  color: #777;
-  margin-bottom: 1rem;
-}
-
-.Terms-container hr {
-  border: none;
-  border-top: 1px solid #eee;
-  margin: 1rem 0;
-}
-
-.Terms-container h4,
-.Terms-container h5 {
-  font-size: 1.5rem;
+/* 조 제목 스타일 (예: 제 1 조 (목적)) */
+.Terms-content h5 {
+  margin-top: 20px; /* 위쪽에 추가 여백 */
+  font-size: 18px;
   font-weight: bold;
-  margin-top: 1rem;
-}
-
-.Terms-container p {
-  font-size: 1rem;
   color: #333;
   line-height: 1.5;
-  margin: 0.5rem 0;
+}
+
+/* 각 조항 본문 스타일 */
+.Terms-content p {
+  margin-top: 10px; /* 본문과 제목 사이에 적당한 여백 */
+  font-size: 14px;
+  color: #000;
+  line-height: 1.5;
 }

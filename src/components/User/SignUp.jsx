@@ -289,9 +289,7 @@ const SignUp = ({ onSignUp }) => {
             className={`SignUp-agreement ${allRequiredTerms ? 'active' : ''}`}
             onClick={handleAllRequiredTerms}
           >
-            <span className="text">
-              <strong></strong>필수 약관 전체 동의하기
-            </span>
+            <span className="text">필수 약관 전체 동의하기</span>
             <img
               className="Big-Agree"
               src={`${allRequiredTerms ? AgreeIconActive : AgreeIcon}`}
