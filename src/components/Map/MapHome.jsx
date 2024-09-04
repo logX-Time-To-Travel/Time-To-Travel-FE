@@ -5,6 +5,7 @@ import X from '../../assets/X.png';
 import yellowMarker from '../../assets/pin.png';
 import pinkMarker from '../../assets/pin2.png';
 import PostList from '../../pages/PostList';
+import locationImage from '../../assets/Initialization_navigate.png';
 import './MapHome.css';
 
 const MapHome = () => {
@@ -367,10 +368,13 @@ const MapHome = () => {
             </button>
           </div>
         )}
-        <button
-          className="current-location"
-          onClick={handleCurrentLocation}
-        ></button>
+        <button className="current-location" onClick={handleCurrentLocation}>
+          <img
+            src={locationImage}
+            alt="내 위치"
+            className="locationImage"
+          ></img>
+        </button>
       </div>
 
       {selectedLocation && (
