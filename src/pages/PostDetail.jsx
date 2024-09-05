@@ -119,7 +119,7 @@ const PostDetail = () => {
   };
 
   const handleEditClick = () => {
-    // 수정 작업
+    navigate(`/edit/${id}`);
   };
 
   const handleDeleteClick = () => {

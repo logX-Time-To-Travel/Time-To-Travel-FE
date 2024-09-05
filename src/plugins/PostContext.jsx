@@ -18,6 +18,17 @@ export const PostProvider = ({ children }) => {
     }
   };
 
+  const updatePost = async (id, updatedPost) => {
+    try {
+      await axios.put(`http://localhost:8080/posts/${id}`, updatedPost, {
+        withCredentials: true,
+      });
+    } catch (error) {
+      console.error('Failed to update post: ', error);
+      throw error;
+    }
+  };
+
   const fetchPostsByUser = async (username) => {
     try {
       const response = await axios.get(
@@ -115,6 +126,7 @@ export const PostProvider = ({ children }) => {
         posts,
         setPosts,
         addPost,
+        updatePost,
         uploadImage,
         fetchPostsByUser,
         deletePostsInContext,
