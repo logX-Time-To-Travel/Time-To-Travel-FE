@@ -50,6 +50,22 @@
   font-size: 16px;
   line-height: 1.6;
   margin-bottom: 130px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.post-detail-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px auto;
+}
+
+.post-detail-content * {
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .post-detail-footer {

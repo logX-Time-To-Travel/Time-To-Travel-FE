@@ -145,7 +145,11 @@ const Comment = () => {
           className="comment-backward"
           onClick={() => navigate(`/post/${id}`)}
         >
-          <img src={BackIcon} alt="뒤로가기" />
+          <img
+            src={BackIcon}
+            alt="뒤로가기"
+            className="comment-backward-image"
+          />
         </div>
         <div className="comment-title">댓글 {comments.length}개</div>
       </div>
@@ -159,7 +163,7 @@ const Comment = () => {
           return (
             <div key={comment.id} className="comment-element">
               <img
-                src={comment.profileImageUrl}
+                src={`http://localhost:8080${comment.profileImageUrl}`}
                 alt="프로필 이미지"
                 className="comment-avatar"
               />

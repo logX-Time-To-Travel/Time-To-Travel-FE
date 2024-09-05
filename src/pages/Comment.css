@@ -18,7 +18,14 @@
 }
 
 .comment-backward {
+  width: 20px;
+  height: 20px;
   cursor: pointer;
+}
+
+.comment-backward-image {
+  width: 20px;
+  height: 20px;
 }
 
 .comment-title {

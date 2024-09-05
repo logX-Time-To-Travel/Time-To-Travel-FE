@@ -47,6 +47,7 @@ const PostDetail = () => {
     const postResponse = await axios.get(`http://localhost:8080/posts/${id}`, {
       withCredentials: true,
     });
+    console.log(postResponse.data);
     setMember(userResponse.data);
     setPost(postResponse.data);
     setIsLiked(postResponse.data.liked);
@@ -119,7 +120,7 @@ const PostDetail = () => {
   };
 
   const handleEditClick = () => {
-    // 수정 작업
+    navigate(`/edit/${id}`);
   };
 
   const handleDeleteClick = () => {

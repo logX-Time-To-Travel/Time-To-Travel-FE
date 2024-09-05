@@ -17,8 +17,16 @@ const EditUser = () => {
   const [newUsername, setNewUsername] = useState(username);
   const [newIntroduction, setNewIntroduction] = useState(introduction);
   const [newProfileImageUrl, setNewProfileImageUrl] = useState(profileImageUrl);
+  const [isUsernameChecked, setIsUsernameChecked] = useState(false);
+  const [usernameCheckMessage, setUsernameCheckMessage] = useState('');
+  const [isUsernameDirty, setIsUsernameDirty] = useState(false);
 
   const handleSave = async () => {
+    if (!isUsernameChecked || (isUsernameDirty && !isUsernameChecked)) {
+      alert('닉네임 중복 확인이 필요합니다.');
+      return;
+    }
+
     const updatedUserData = {
       username: newUsername,
       profileImageUrl: newProfileImageUrl,
@@ -74,12 +82,40 @@ const EditUser = () => {
     }
   };
 
+  const handleCheckUsername = async () => {
+    try {
+      await axios.post('http://localhost:8080/member/check-username', {
+        username: newUsername,
+      });
+      setIsUsernameChecked(true);
+      setUsernameCheckMessage('사용가능한 닉네임입니다.');
+    } catch (error) {
+      console.error('닉네임 중복 확인 중 오류 발생:', error);
+      setIsUsernameChecked(false);
+      setUsernameCheckMessage('이미 해당 닉네임이 사용중입니다.');
+    }
+  };
+
+  const handleUsernameChange = (e) => {
+    setNewUsername(e.target.value);
+    setIsUsernameDirty(true);
+    setIsUsernameChecked(false);
+    setUsernameCheckMessage('');
+  };
+
   useEffect(() => {
-    const profileImageElement = document.querySelector('.profile-image');
+    const profileImageElement = document.querySelector(
+      '.edituser-profile-image'
+    );
     if (profileImageElement) {
       profileImageElement.src = `http://localhost:8080${newProfileImageUrl}`;
     }
   }, [newProfileImageUrl]);
+
+  const showSaveButton =
+    !isUsernameDirty ||
+    (isUsernameDirty && isUsernameChecked) ||
+    newUsername == username;
 
   return (
     <div className="edituser-container">
@@ -87,9 +123,11 @@ const EditUser = () => {
         <div className="edituser-backward" onClick={() => navigate(-1)}>
           <img src={BackIcon} alt="뒤로가기" />
         </div>
-        <div className="edituser-save" onClick={handleSave}>
-          변경 사항 저장
-        </div>
+        {showSaveButton && (
+          <div className="edituser-save" onClick={handleSave}>
+            변경 사항 저장
+          </div>
+        )}
       </div>
       <div className="edituser-body">
         <div className="edituser-profile">
@@ -112,12 +150,25 @@ const EditUser = () => {
         </div>
         <div className="edituser-username-container">
           <div className="edituser-title">닉네임</div>
-          <input
-            type="text"
-            value={newUsername}
-            onChange={(e) => setNewUsername(e.target.value)}
-            className="edituser-content"
-          />
+          <div className="edituser-username-input-wrapper">
+            <input
+              type="text"
+              value={newUsername}
+              onChange={handleUsernameChange}
+              className="edituser-content edituser-username-input"
+            />
+            <button
+              className="edituser-check-button"
+              onClick={handleCheckUsername}
+            >
+              중복 확인
+            </button>
+          </div>
+          {usernameCheckMessage && (
+            <div className="edituser-username-check-message">
+              {usernameCheckMessage}
+            </div>
+          )}
         </div>
         <div className="edituser-username-container">
           <div className="edituser-title">자기소개</div>

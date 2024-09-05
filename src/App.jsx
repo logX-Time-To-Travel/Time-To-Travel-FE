@@ -21,11 +21,11 @@ import Interest from './pages/Interest';
 import InterestLike from './components/Interest/InterestLike';
 import InterestScrap from './components/Interest/InterestScrap';
 import Initialization from './components/User/Initialization';
+import EditPost from './pages/EditPost';
 
 const libraries = ['places'];
 
 function App() {
-  const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
 
   const addPost = (newPost) => {
@@ -49,6 +49,7 @@ function App() {
               <Route path="/editor" element={<Tinymce addPost={addPost} />} />
               <Route path="/addpost" element={<AddPost />} />
               <Route path="/post/:id" element={<PostDetail />} />
+              <Route path="/edit/:id" element={<EditPost />} />
               <Route path="/comment/:id" element={<Comment />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/mypage" element={<Mypage />} />

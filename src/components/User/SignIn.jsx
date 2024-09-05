@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'; // useNavigate(페이지 이동)
 import PropTypes from 'prop-types'; // PropTypes (타입 검사) 사용
 import axios from 'axios'; // axios (HTTP 요청 라이브러리) 사용
 import BackIcon from '../../assets/Icon_ Back 1.png';
-import eye from '../../assets/eye.png'; // 눈 아이콘 (비밀번호 표시)
-import eyestick from '../../assets/eyestick.png'; // 눈 가림 아이콘 (비밀번호 숨기기)
+import eye from '../../assets/eyeopen.png'; // 눈 아이콘 (비밀번호 표시)
+import eyestick from '../../assets/eyeclosed.png'; // 눈 가림 아이콘 (비밀번호 숨기기)
 
 import './SignIn.css'; // SignIn.css 와 연결
 
