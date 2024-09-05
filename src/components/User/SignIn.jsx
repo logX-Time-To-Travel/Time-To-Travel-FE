@@ -94,14 +94,13 @@ const SignIn = () => {
             }`}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            style={{ paddingRight: '40px' }} // 오른쪽에 버튼 공간 확보
+            style={{ paddingRight: '40px' }}
           />
           <button
             type="button"
             className="SignUp-eye-btn"
             onClick={() => setShowPassword(!showPassword)}
           >
-            {/* 이미지 교체 */}
             <img
               src={showPassword ? eyestick : eye}
               alt="toggle visibility"
@@ -117,7 +116,10 @@ const SignIn = () => {
         </button>
       </form>
 
-      <button onClick={() => navigate('/signup')} className="SignUp-button">
+      <button
+        onClick={() => navigate('/initialization')}
+        className="SignUp-button"
+      >
         계정 만들기
       </button>
     </div>
