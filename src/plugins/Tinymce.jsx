@@ -69,10 +69,11 @@ export default function Tinymce({ initialPost }) {
 
       if (initialPost) {
         await updatePost(initialPost.id, postData);
+        navigate(`/post/${initialPost.id}`);
       } else {
         await addPost(postData);
+        navigate('/blog');
       }
-      navigate('/blog');
     } catch (error) {
       console.error('Error saving post:', error);
       alert('포스트를 저장하는데 문제가 발생했습니다.');
