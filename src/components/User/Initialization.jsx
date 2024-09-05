@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Initialization.css';
 
@@ -9,10 +9,29 @@ import messageheartIcon from '../../assets/Initialization_messageheart1.png';
 
 function Initialization() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (isTransitioning) {
+      const timer = setTimeout(() => {
+        setIsTransitioning(false);
+      }, 200); // 애니메이션 지속 시간과 일치
+      return () => clearTimeout(timer);
+    }
+  }, [isTransitioning]);
+
   const handlePageClick = () => {
-    setCurrentPage((prevPage) => (prevPage === 4 ? 2 : prevPage + 1));
+    setIsTransitioning(true);
+    setTimeout(() => {
+      if (currentPage === 1) {
+        setCurrentPage(2);
+      } else if (currentPage === 4) {
+        setCurrentPage(2);
+      } else {
+        setCurrentPage((prevPage) => prevPage + 1);
+      }
+    }, 250); // 애니메이션의 절반 시간 후 페이지 변경
   };
 
   const renderPage = () => {
@@ -42,7 +61,12 @@ function Initialization() {
     const { img, text, title, version, button } = pages[currentPage - 1];
 
     return (
-      <div className={'Initialization-page'} onClick={handlePageClick}>
+      <div
+        className={`Initialization-page ${
+          isTransitioning ? 'transitioning' : ''
+        }`}
+        onClick={handlePageClick}
+      >
         <div
           className={`Initialization-icon-container page-${currentPage}`}
           style={{
