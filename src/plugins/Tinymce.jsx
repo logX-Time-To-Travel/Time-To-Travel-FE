@@ -181,6 +181,11 @@ export default function Tinymce({ initialPost }) {
             toolbar:
               'undo redo | image | formatselect | bold italic underline forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | more',
             toolbar_mode: 'sliding',
+            image_dimensions: false, // 이미지 크기 조정 옵션 비활성화
+            image_class_list: [
+              { title: 'Responsive', value: 'img-responsive' },
+            ],
+            image_default_size: '100%', // 기본 이미지 크기를 100%로 설정
             images_upload_handler: (blobInfo) => {
               return new Promise((resolve, reject) => {
                 const file = blobInfo.blob();
@@ -195,8 +200,9 @@ export default function Tinymce({ initialPost }) {
               });
             },
             content_style: `
-              body { font-family: Arial, sans-serif; font-size: 14px; }
-            `,
+      body { font-family: Arial, sans-serif; font-size: 14px; }
+      img.img-responsive { max-width: 100%; height: auto; }
+    `,
             setup: (editor) => {
               editor.on('focus', () => {
                 editor.getContainer().style.outline = '2px solid #ffab00';
