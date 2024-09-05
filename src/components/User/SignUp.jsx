@@ -5,8 +5,8 @@ import BackIcon from '../../assets/Icon_ Back 1.png';
 import BackIconRight from '../../assets/Icon_ Back reverse.png';
 import AgreeIcon from '../../assets/agree.png';
 import AgreeIconActive from '../../assets/Icon_ Accept 2.png';
-import eye from '../../assets/eye.png'; // 눈 아이콘 (비밀번호 표시)
-import eyestick from '../../assets/eyestick.png'; // 눈 가림 아이콘 (비밀번호 숨기기)
+import eye from '../../assets/eyeopen.png'; // 눈 아이콘 (비밀번호 표시)
+import eyestick from '../../assets/eyeclosed.png'; // 눈 가림 아이콘 (비밀번호 숨기기)
 import camera from '../../assets/camera.png'; // 카메라 이미지 임포트
 import { AuthContext } from './AuthContext';
 import axios from 'axios';
