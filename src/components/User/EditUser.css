@@ -70,6 +70,29 @@
   color: #e8ac37;
 }
 
+.edituser-username-input-wrapper {
+  display: flex;
+  gap: 5px;
+}
+
+.edituser-check-button {
+  padding: 3px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100px; /* 원하는 고정 너비로 설정 */
+  height: 38px;
+}
+
+.edituser-username-check-message {
+  padding: 3px;
+  font-size: 13px;
+  font-weight: 400;
+  color: #e6aa32;
+}
+
 /* 닉네임 및 자기소개 타이틀 스타일 */
 .edituser-title {
   margin-bottom: 15px;
