@@ -12,15 +12,7 @@ function Initialization() {
   const navigate = useNavigate();
 
   const handlePageClick = () => {
-    if (currentPage === 1) {
-      setCurrentPage(2);
-    } else if (currentPage === 2) {
-      setCurrentPage(3);
-    } else if (currentPage === 3) {
-      setCurrentPage(4);
-    } else if (currentPage === 4) {
-      setCurrentPage(2); // 마지막 페이지에서 다시 2페이지로 이동
-    }
+    setCurrentPage((prevPage) => (prevPage === 4 ? 2 : prevPage + 1));
   };
 
   const renderPage = () => {
