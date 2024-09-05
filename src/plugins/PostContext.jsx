@@ -81,9 +81,8 @@ export const PostProvider = ({ children }) => {
         return;
       }
 
-      let response;
       if (validPostIds.length === 1) {
-        response = await axios.delete(
+        await axios.delete(
           `http://localhost:8080/posts/${validPostIds[0]}`, // 단일 삭제 엔드포인트
           {
             withCredentials: true,
@@ -100,7 +99,7 @@ export const PostProvider = ({ children }) => {
           return;
         }
 
-        response = await axios({
+        await axios({
           method: 'delete',
           url: `http://localhost:8080/posts/delete`, // 다중 삭제 엔드포인트
           data: { postId: existingPostIds }, // JSON 형식으로 postId 전달

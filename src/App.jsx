@@ -26,7 +26,6 @@ import EditPost from './pages/EditPost';
 const libraries = ['places'];
 
 function App() {
-  const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
 
   const addPost = (newPost) => {

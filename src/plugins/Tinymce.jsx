@@ -192,6 +192,7 @@ export default function Tinymce({ initialPost }) {
                 handleImageUpload(file)
                   .then((imageUrl) => {
                     resolve(`http://localhost:8080${imageUrl}`);
+                    setImages(imageUrl);
                   })
                   .catch((error) => {
                     console.error('Image upload failed:', error);
