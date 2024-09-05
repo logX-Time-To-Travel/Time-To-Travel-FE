@@ -1,4 +1,4 @@
-import { useState } from 'react'; // useState 추가
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Initialization.css';
 
@@ -9,164 +9,99 @@ import messageheartIcon from '../../assets/Initialization_messageheart1.png';
 
 function Initialization() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const navigate = useNavigate();
 
-  const handlePageClick = () => {
-    if (currentPage === 1) {
-      setCurrentPage(2);
-    } else if (currentPage === 2) {
-      setCurrentPage(3);
-    } else if (currentPage === 3) {
-      setCurrentPage(4);
-    } else if (currentPage === 4) {
-      setCurrentPage(2); // 마지막 페이지에서 다시 2페이지로 이동
+  useEffect(() => {
+    if (isTransitioning) {
+      const timer = setTimeout(() => {
+        setIsTransitioning(false);
+      }, 200); // 애니메이션 지속 시간과 일치
+      return () => clearTimeout(timer);
     }
+  }, [isTransitioning]);
+
+  const handlePageClick = () => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      if (currentPage === 1) {
+        setCurrentPage(2);
+      } else if (currentPage === 4) {
+        setCurrentPage(2);
+      } else {
+        setCurrentPage((prevPage) => prevPage + 1);
+      }
+    }, 250); // 애니메이션의 절반 시간 후 페이지 변경
   };
 
   const renderPage = () => {
-    if (currentPage === 1) {
-      return (
-        <div
-          className="Initialization-page Initialization-page-1"
-          onClick={handlePageClick}
-        >
-          {/* 외곽 다각형을 이미지로 대체 */}
-          <div
-            className="Initialization-polygon-outer"
-            style={{
-              backgroundImage: `url(${navigateIcon}`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          >
-            <div className="Initialization-polygon-inner"></div>
-          </div>
-          <div className="Initialization-title">Time To Travel</div>
-          <div className="Initialization-version">버전: v1.1.23</div>
-        </div>
-      );
-    } else if (currentPage === 2) {
-      return (
-        <div
-          className="Initialization-page Initialization-page-2"
-          onClick={handlePageClick}
-        >
-          <div
-            className="Initialization-house-container"
-            style={{
-              backgroundImage: `url(${homeIcon})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          ></div>
-          <div className="Initialization-text">
-            모르고 지나쳤던{'\n'}
-            주변의 여행 정보를{'\n'}
-            알아보세요.
-          </div>
+    const pages = [
+      {
+        img: navigateIcon,
+        title: 'Time To Travel',
+        version: '버전: v1.1.23',
+      },
+      {
+        img: homeIcon,
+        text: '모르고 지나쳤던\n주변의 여행 정보를\n알아보세요.',
+        button: '계정 만들고 시작하기',
+      },
+      {
+        img: messageIcon,
+        text: '다른 사람들의 후기로\n본인에게 잘 맞는\n여행지를 탐색하세요.',
+        button: '계정 만들고 시작하기',
+      },
+      {
+        img: messageheartIcon,
+        text: '여행지 후기를 작성하여\n많은 여행자들과\n공유하세요.',
+        button: '계정 만들고 시작하기',
+      },
+    ];
 
-          <button
-            className="Initialization-sign-up-button"
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate('/signup');
-            }}
-          >
-            계정 만들고 시작하기
-          </button>
-          <div
-            className="Initialization-sign-in"
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate('/signin');
-            }}
-          >
-            이미 계정이 있습니다. 로그인
-          </div>
-        </div>
-      );
-    } else if (currentPage === 3) {
-      return (
+    const { img, text, title, version, button } = pages[currentPage - 1];
+
+    return (
+      <div
+        className={`Initialization-page ${
+          isTransitioning ? 'transitioning' : ''
+        }`}
+        onClick={handlePageClick}
+      >
         <div
-          className="Initialization-page Initialization-page-3"
-          onClick={handlePageClick}
-        >
-          {/* 기존 피드백 버튼 대신 이미지 사용 */}
-          <div
-            className="Initialization-message-icon"
-            style={{
-              backgroundImage: `url(${messageIcon})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              width: '109px',
-              height: '108px',
-            }}
-          ></div>
-          <div className="Initialization-text">
-            다른 사람들의 후기로{'\n'}
-            본인에게 잘 맞는{'\n'}
-            여행지를 탐색하세요.
-          </div>
-          <button
-            className="Initialization-sign-up-button"
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate('/signup');
-            }}
-          >
-            계정 만들고 시작하기
-          </button>
-          <div
-            className="Initialization-sign-in"
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate('/signin');
-            }}
-          >
-            이미 계정이 있습니다. 로그인
-          </div>
-        </div>
-      );
-    } else if (currentPage === 4) {
-      return (
-        <div
-          className="Initialization-page Initialization-page-4"
-          onClick={handlePageClick}
-        >
-          <div
-            className="Initialization-icons-container"
-            style={{
-              backgroundImage: `url(${messageheartIcon})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          ></div>
-          <div className="Initialization-text">
-            여행지 후기를 작성하여{'\n'}
-            많은 여행자들과{'\n'}
-            공유하세요.
-          </div>
-          <button
-            className="Initialization-sign-up-button"
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate('/signup');
-            }}
-          >
-            계정 만들고 시작하기
-          </button>
-          <div
-            className="Initialization-sign-in"
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate('/signin');
-            }}
-          >
-            이미 계정이 있습니다. 로그인
-          </div>
-        </div>
-      );
-    }
+          className={`Initialization-icon-container page-${currentPage}`}
+          style={{
+            backgroundImage: `url(${img})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        ></div>
+        {title && <div className="Initialization-title">{title}</div>}
+        {text && <div className="Initialization-text">{text}</div>}
+        {version && <div className="Initialization-version">{version}</div>}
+        {button && (
+          <>
+            <button
+              className="Initialization-sign-up-button"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate('/signup');
+              }}
+            >
+              {button}
+            </button>
+            <div
+              className="Initialization-sign-in"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate('/signin');
+              }}
+            >
+              이미 계정이 있습니다. 로그인
+            </div>
+          </>
+        )}
+      </div>
+    );
   };
 
   return <div className="Initialization-container">{renderPage()}</div>;

@@ -46,7 +46,7 @@ const SearchTable = () => {
           if (Array.isArray(response.data)) {
             setSearchHistory(
               response.data.map((item) => ({
-                id: item.id, // id 추가
+                id: item.searchHistoryId, // id 추가
                 query: item.query,
               }))
             );
@@ -106,16 +106,18 @@ const SearchTable = () => {
     }
   };
 
-  const handleHistoryClick = async (item) => {
-    setSearchTerm(item);
-    const localMapUrl = `${LOCAL_GOOGLE_MAP_URL}?query=${item}`;
-    window.location.href = localMapUrl;
-
+  const handleHistoryClick = async (item, id) => {
     // 검색 기록에 추가
     const updatedHistory = [item, ...searchHistory.filter((i) => i !== item)];
     setSearchHistory(updatedHistory);
 
-    // 검색어 저장 API 호출
+    // 클릭한 기록 삭제
+    axios.delete(`${API_URL}/${username}/${id}`);
+
+    // 검색기록 설정 후 이동
+    setSearchTerm(item);
+    navigate(`/home?query=${encodeURIComponent(item)}`);
+
     try {
       await axios.post(`${API_URL}/${username}`, { keyword: item });
     } catch (error) {
@@ -167,7 +169,10 @@ const SearchTable = () => {
         <ul>
           {Array.isArray(searchHistory) && searchHistory.length > 0 ? (
             searchHistory.map((item) => (
-              <li key={item.id} onClick={() => handleHistoryClick(item.query)}>
+              <li
+                key={item.id}
+                onClick={() => handleHistoryClick(item.query, item.id)}
+              >
                 <img
                   src={markerImage}
                   alt="검색기록"

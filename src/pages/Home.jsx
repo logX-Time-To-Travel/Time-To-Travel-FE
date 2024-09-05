@@ -16,7 +16,7 @@ const Home = () => {
         });
       } catch (e) {
         alert('먼저 로그인을 진행해주세요!');
-        // navigate('/signin');
+        navigate('/signin');
       }
     };
 
