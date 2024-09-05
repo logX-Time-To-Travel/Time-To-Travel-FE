@@ -7,30 +7,45 @@ import marker from '.././assets/Icon_Map1.png';
 import PostContext from './PostContext';
 import { useNavigate } from 'react-router-dom';
 import imageCompression from 'browser-image-compression';
+import axios from 'axios';
 
-export default function Tinymce() {
-  const { addPost, uploadImage } = useContext(PostContext);
+export default function Tinymce({ initialPost }) {
+  const { addPost, updatePost, uploadImage } = useContext(PostContext);
   const editorRef = useRef(null);
   const [title, setTitle] = useState('');
   const [locations, setLocations] = useState([]);
-  const [images, setImages] = useState([]); // 이미지 배열 추가
-  const [thumbnail, setThumbnail] = useState(''); // 썸네일 상태 추가
+  const [images, setImages] = useState([]);
+  const [thumbnail, setThumbnail] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [memberId, setMemberId] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchMemberSession = async () => {
-      const data = await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve({ memberId: 1 });
-        }, 1000);
-      });
-      setMemberId(data.memberId);
-    };
+    fetchMemberId();
 
-    fetchMemberSession().catch(console.error);
-  }, []);
+    if (initialPost) {
+      setTitle(initialPost.title);
+      setLocations(initialPost.locations || []);
+      setThumbnail(initialPost.thumbnail);
+      if (editorRef.current) {
+        editorRef.current.setContent(initialPost.content);
+      }
+    }
+  }, [initialPost]);
+
+  const fetchMemberId = async () => {
+    try {
+      const userResponse = await axios.get(
+        'http://localhost:8080/member/session',
+        {
+          withCredentials: true,
+        }
+      );
+      setMemberId(userResponse.data.memberId);
+    } catch (error) {
+      console.error('Error fetching member id:', error);
+    }
+  };
 
   const handleSave = async () => {
     if (locations.length === 0) {
@@ -44,15 +59,19 @@ export default function Tinymce() {
         (location) => location.latitude && location.longitude && location.name
       );
 
-      const newPost = {
+      const postData = {
         title,
         content,
         locations: validLocations,
         memberId,
-        thumbnail: thumbnail || images[0] || '/images/no_image.png', // 첫 번째 이미지가 썸네일로 설정되도록
+        thumbnail: thumbnail || images[0] || '/images/no_image.png',
       };
 
-      await addPost(newPost);
+      if (initialPost) {
+        await updatePost(initialPost.id, postData);
+      } else {
+        await addPost(postData);
+      }
       navigate('/blog');
     } catch (error) {
       console.error('Error saving post:', error);
@@ -71,20 +90,17 @@ export default function Tinymce() {
 
   const handleImageUpload = async (file) => {
     try {
-      // 이미지 압축 설정
       const options = {
-        maxSizeMB: 0.5, // 500KB로 압축
-        maxWidthOrHeight: 1024, // 최대 너비 또는 높이 1024px
+        maxSizeMB: 0.5,
+        maxWidthOrHeight: 1024,
         useWebWorker: true,
       };
 
-      // 이미지 압축 수행
       const compressedFile = await imageCompression(file, options);
       const imageUrl = await uploadImage(compressedFile);
 
-      // 첫 번째 이미지일 때만 썸네일로 설정
       if (!thumbnail) {
-        setThumbnail(imageUrl); // 썸네일 설정
+        setThumbnail(imageUrl);
       }
 
       return imageUrl;
@@ -132,7 +148,13 @@ export default function Tinymce() {
 
         <Editor
           apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
-          onInit={(evt, editor) => (editorRef.current = editor)}
+          onInit={(evt, editor) => {
+            editorRef.current = editor;
+            if (initialPost) {
+              editor.setContent(initialPost.content);
+            }
+          }}
+          initialValue={initialPost ? initialPost.content : ''}
           init={{
             height: 400,
             menubar: false,
@@ -158,11 +180,9 @@ export default function Tinymce() {
             toolbar:
               'undo redo | image | formatselect | bold italic underline forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | more',
             toolbar_mode: 'sliding',
-
             images_upload_handler: (blobInfo) => {
               return new Promise((resolve, reject) => {
                 const file = blobInfo.blob();
-
                 handleImageUpload(file)
                   .then((imageUrl) => {
                     resolve(`http://localhost:8080${imageUrl}`);
@@ -173,7 +193,6 @@ export default function Tinymce() {
                   });
               });
             },
-
             content_style: `
               body { font-family: Arial, sans-serif; font-size: 14px; }
             `,
@@ -189,7 +208,7 @@ export default function Tinymce() {
         />
 
         <button className="submit-button" onClick={handleSave}>
-          게시물 저장
+          {initialPost ? '게시물 수정' : '게시물 저장'}
         </button>
       </div>
 
