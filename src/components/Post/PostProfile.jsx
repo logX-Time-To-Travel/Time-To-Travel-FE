@@ -10,7 +10,7 @@ const PostProfile = ({
     <div className="post-profile-container">
       <div className="post-profile-user">
         <img
-          src={profileImageUrl}
+          src={`http://localhost:8080${profileImageUrl}`}
           alt="Profile"
           className="post-profile-image"
         />
