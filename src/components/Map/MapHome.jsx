@@ -244,13 +244,7 @@ const MapHome = () => {
         if (status === 'OK') {
           const { location } = results[0].geometry;
           mapInstance.setCenter(location);
-          mapInstance.setZoom(13);
-
-          const infowindow = new window.google.maps.InfoWindow({
-            content: results[0].formatted_address,
-            position: location,
-          });
-          infowindow.open(mapInstance);
+          mapInstance.setZoom(15);
         } else {
           console.error('검색 실패', status);
         }
@@ -288,15 +282,7 @@ const MapHome = () => {
         const { latitude, longitude } = position.coords;
         const currentPosition = { lat: latitude, lng: longitude };
         map.setCenter(currentPosition);
-        map.setZoom(13);
-
-        const marker = new window.google.maps.Marker({
-          map,
-          position: currentPosition,
-          title: '내 위치',
-          icon: yellowMarker,
-        });
-        setMarkers((prevMarkers) => [...prevMarkers, marker]);
+        map.setZoom(15);
       },
       (error) => {
         console.error('Error getting current position:', error);
@@ -392,12 +378,14 @@ const MapHome = () => {
           <div className="home-post-list-header-text">
             총 {selectedLocation.posts.length}개의 게시글을 찾았습니다.
           </div>
-          <PostList
-            posts={selectedLocation.posts}
-            isSelectMode={false}
-            selectedPosts={[]}
-            onPostSelect={() => {}}
-          />
+          <div className="home-post-list-scrollable">
+            <PostList
+              posts={selectedLocation.posts}
+              isSelectMode={false}
+              selectedPosts={[]}
+              onPostSelect={() => {}}
+            />
+          </div>
         </div>
       )}
     </div>
