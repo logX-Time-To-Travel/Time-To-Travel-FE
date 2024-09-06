@@ -1,6 +1,6 @@
 import './Post.css';
 import useTimeAgo from '../utils/getTimeAgo';
-import viewIcon from '.././assets/Icon_ View 1.png';
+import viewIcon from '.././assets/eyeopen.png';
 import heartIcon from '.././assets/heart-after.png';
 import checkIcon from '.././assets/Icon_ Accept 2.png';
 import { useNavigate } from 'react-router-dom';
