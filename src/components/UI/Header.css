@@ -1,74 +1,75 @@
 /* 기본 스타일 */
 .Header {
-    display: flex;
-    position: relative;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 30px 5px;
-    font-size: 20px;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 30px 5px;
+  font-size: 20px;
+  font-family: var(--Noto-Sans-KR);
 }
 
 .homebutton_section,
 .rightbutton_section {
-    flex-basis: 25%; /* 좌우 섹션의 너비를 25%로 균일하게 설정 */
+  flex-basis: 25%; /* 좌우 섹션의 너비를 25%로 균일하게 설정 */
 }
 
 .title {
-    flex-basis: 50%; /* 타이틀 영역이 중간에 위치하도록 */
-    text-align: center;
-    font-size: 25px;
-    font-weight: bold;
+  flex-basis: 50%; /* 타이틀 영역이 중간에 위치하도록 */
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
 }
 
 .homebutton_section > button {
-    border-width: 0;
-    font-weight: bold;
-    color: #FAA500;
-    cursor: pointer;
-    font-size: 15px;
-    background-color: white;
+  border-width: 0;
+  font-weight: bold;
+  color: #faa500;
+  cursor: pointer;
+  font-size: 15px;
+  background-color: white;
 }
 
 .home-icon {
-    width: 24px;  /* 또는 원하는 크기로 설정 */
-    height: 24px;
-    display: inline-block;
-    vertical-align: middle;
+  width: 24px; /* 또는 원하는 크기로 설정 */
+  height: 24px;
+  display: inline-block;
+  vertical-align: middle;
 }
 
-.rightbutton_section  {
-    display: flex;
-    justify-content: flex-end;
+.rightbutton_section {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .rightbutton_section button {
-    color: blue;
-    font-size: 10px;
-    font-weight: bold;
-    background-color: transparent;
-    border: none;
+  color: blue;
+  font-size: 10px;
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
 }
 
 /* 화면 크기가 768px 이하일 때 적용되는 스타일 */
 @media (max-width: 768px) {
-    .title {
-        font-size: 15px;
-    }
+  .title {
+    font-size: 15px;
+  }
 
-    .homebutton_section {
-        font-size: 25px;
-    }
+  .homebutton_section {
+    font-size: 25px;
+  }
 }
 
 /* 화면 크기가 480px 이하일 때 적용되는 스타일 */
 @media (max-width: 480px) {
-    .title {
-        font-size: 15px;
-    }
+  .title {
+    font-size: 15px;
+  }
 
-    .homebutton_section,
-    .rightbutton_section {
-        font-size: 15px;
-    }
+  .homebutton_section,
+  .rightbutton_section {
+    font-size: 15px;
+  }
 }
