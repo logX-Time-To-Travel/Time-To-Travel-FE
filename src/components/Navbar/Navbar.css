@@ -8,6 +8,7 @@
   background-color: #fff;
   padding: 10px 0;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  font-family: var(--Noto-Sans-KR);
 }
 
 .nav-item {
@@ -33,11 +34,11 @@
 }
 
 .nav-item.map i::before {
-  content: "\f276"; /* 지도 아이콘 */
+  content: '\f276'; /* 지도 아이콘 */
 }
 
 .nav-item.write i::before {
-  content: "\f067"; /* 글쓰기 버튼 아이콘 */
+  content: '\f067'; /* 글쓰기 버튼 아이콘 */
   border-radius: 5px;
   padding: 2px 5px;
   background-color: #000000;
@@ -45,11 +46,11 @@
 }
 
 .nav-item.profile i::before {
-  content: "\f007"; /* 사람 아이콘 */
+  content: '\f007'; /* 사람 아이콘 */
 }
 
 .nav-item.favorite i::before {
-  content: "\f005"; /* 별 아이콘 */
+  content: '\f005'; /* 별 아이콘 */
 }
 
 .navbar {

@@ -1,15 +1,14 @@
 /* 상위 컨테이너가 전체 화면을 채우도록 설정 */
 .add-post-page {
-    display: flex;
-    flex-direction: column;
-    height: 100vh; /* 전체 화면 높이 */
-  }
-  
-  /* 에디터 래퍼가 네비게이션 바 위에 위치하며 스크롤 가능 */
-  .editor-wrapper {
-    flex: 1; /* 남은 공간을 모두 차지 */
-    overflow-y: auto; /* 세로 스크롤 가능 */
-    padding-bottom: 100px; /* 네비게이션 바의 높이만큼 패딩 추가 */
-  }
-  
- 
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* 전체 화면 높이 */
+  font-family: var(--Noto-Sans-KR);
+}
+
+/* 에디터 래퍼가 네비게이션 바 위에 위치하며 스크롤 가능 */
+.editor-wrapper {
+  flex: 1; /* 남은 공간을 모두 차지 */
+  overflow-y: auto; /* 세로 스크롤 가능 */
+  padding-bottom: 100px; /* 네비게이션 바의 높이만큼 패딩 추가 */
+}
