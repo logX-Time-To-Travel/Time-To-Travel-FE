@@ -22,11 +22,6 @@ const EditUser = () => {
   const [isUsernameDirty, setIsUsernameDirty] = useState(false);
 
   const handleSave = async () => {
-    if (!isUsernameChecked || (isUsernameDirty && !isUsernameChecked)) {
-      alert('닉네임 중복 확인이 필요합니다.');
-      return;
-    }
-
     const updatedUserData = {
       username: newUsername,
       profileImageUrl: newProfileImageUrl,
