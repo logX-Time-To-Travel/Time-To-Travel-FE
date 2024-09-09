@@ -1,67 +1,66 @@
-import { useState, useContext, useEffect } from 'react'; // useState (상태 관리) 사용
-import { useNavigate } from 'react-router-dom'; // useNavigate (페이지 이동) 사용
-import PropTypes from 'prop-types'; // PropTypes (타입 검사) 사용
+import { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import BackIcon from '../../assets/Icon_ Back 1.png';
 import BackIconRight from '../../assets/Icon_ Back reverse.png';
 import AgreeIcon from '../../assets/agree.png';
 import AgreeIconActive from '../../assets/Icon_ Accept 2.png';
-import eye from '../../assets/eyeopen.png'; // 눈 아이콘 (비밀번호 표시)
-import eyestick from '../../assets/eyeclosed.png'; // 눈 가림 아이콘 (비밀번호 숨기기)
-import camera from '../../assets/camera.png'; // 카메라 이미지 임포트
+import eye from '../../assets/eyeopen.png';
+import eyestick from '../../assets/eyeclosed.png';
+import camera from '../../assets/camera.png';
 import { AuthContext } from './AuthContext';
 import axios from 'axios';
 
-import './SignUp.css'; // SignUp.css 와 연결.
+import './SignUp.css';
 
-// 이메일 유효성 검사
 const validateEmail = (email) => {
-  const re = /\S+@\S+\.\S+/; // 정규 표현식
-  return re.test(email); // 유효성 검사
+  const re = /\S+@\S+\.\S+/;
+  return re.test(email);
 };
 
-// 회원가입 컴포넌트
-const SignUp = ({ onSignUp }) => {
-  const navigate = useNavigate(); // 페이지 이동 훅
-  const [email, setEmail] = useState(''); // 이메일 상태
-  const [password, setPassword] = useState(''); // 비밀번호 상태
-  const [confirmPassword, setConfirmPassword] = useState(''); // 비밀번호 확인 상태
-  const [nickname, setNickname] = useState(''); // 닉네임 상태
-  const [profilePic, setProfilePic] = useState(null); // 프로필 사진 상태
+const SignUp = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [profilePic, setProfilePic] = useState(null);
+  const [profileImageUrl, setProfileImageUrl] = useState('');
 
-  const [emailError, setEmailError] = useState(''); // 이메일 오류 메시지 상태
-  const [passwordError, setPasswordError] = useState(''); // 비밀번호 오류 메시지 상태
-  const [confirmPasswordError, setConfirmPasswordError] = useState(''); // 비밀번호 확인 오류 메시지 상태
-  const [nicknameError, setNicknameError] = useState(''); // 닉네임 오류 메시지 상태
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [nicknameError, setNicknameError] = useState('');
   const [nicknameAvailableMessage, setNicknameAvailableMessage] = useState('');
-  const [isNicknameChecked, setIsNicknameChecked] = useState(false); // 닉네임 중복 체크 상태
+  const [isNicknameChecked, setIsNicknameChecked] = useState(false);
 
-  const [showPassword, setShowPassword] = useState(false); // 비밀번호 표시 상태
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // 비밀번호 확인 표시 상태
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const [allRequiredTerms, setAllRequiredTerms] = useState(false); // 모든 필수 약관 동의 상태
-  const [terms1, setTerms1] = useState(false); // 이용약관 동의 상태
-  const [terms2, setTerms2] = useState(false); // 개인정보 처리방침 동의 상태
-  const [terms3, setTerms3] = useState(false); // 윤리 지침 동의 상태
+  const [allRequiredTerms, setAllRequiredTerms] = useState(false);
+  const [terms1, setTerms1] = useState(false);
+  const [terms2, setTerms2] = useState(false);
+  const [terms3, setTerms3] = useState(false);
 
-  const [allOptionalTerms, setAllOptionalTerms] = useState(false); // 모든 선택 약관 동의 상태
-  const [terms4, setTerms4] = useState(false); // 마케팅 정보 동의 상태
-  const [terms5, setTerms5] = useState(false); // 버그 전송 동의 상태
+  const [allOptionalTerms, setAllOptionalTerms] = useState(false);
+  const [terms4, setTerms4] = useState(false);
+  const [terms5, setTerms5] = useState(false);
 
-  const [step, setStep] = useState(1); // 현재 단계 상태
-  const [isSignUpComplete, setIsSignUpComplete] = useState(false); //회원가입 상태
-  const { setMemberId, setUsername } = useContext(AuthContext); // useContext 사용
+  const [step, setStep] = useState(1);
+  const [isSignUpComplete, setIsSignUpComplete] = useState(false);
+  const { setMemberId, setUsername } = useContext(AuthContext);
 
   useEffect(() => {
-    // 기본 프로필 사진을 로드하여 설정
     const fetchDefaultProfilePic = async () => {
       try {
         const response = await axios.get(
           'http://localhost:8080/images/default.png',
           {
-            responseType: 'blob', // 이미지 데이터를 가져오기 위해 blob 타입으로 지정
+            responseType: 'blob',
           }
         );
-        setProfilePic(URL.createObjectURL(response.data)); // 상태에 기본 프로필 사진 설정
+        setProfilePic(URL.createObjectURL(response.data));
+        setProfileImageUrl('/images/default.png');
       } catch (error) {
         console.error('Error loading default profile picture:', error);
       }
@@ -70,32 +69,50 @@ const SignUp = ({ onSignUp }) => {
     fetchDefaultProfilePic();
   }, []);
 
-  // 프로필 사진 변경 핸들러
-  const handleProfilePicChange = (e) => {
-    const file = e.target.files[0]; //파일 미리보기 설정
+  const handleProfilePicChange = async (e) => {
+    const file = e.target.files[0];
     if (file) {
-      setProfilePic(URL.createObjectURL(file));
-    } else {
-      setProfilePic(null); // 이미지가 없을 때 상태를 null로 설정
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        const response = await axios.post(
+          'http://localhost:8080/image/upload',
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        );
+
+        if (response.data.imageURL) {
+          setProfilePic(URL.createObjectURL(file));
+          setProfileImageUrl(response.data.imageURL);
+          console.log('프로필 이미지가 성공적으로 업로드되었습니다.');
+        } else {
+          console.error('이미지 업로드 실패:', response.data.error);
+        }
+      } catch (error) {
+        console.error('프로필 이미지 업로드 중 오류가 발생했습니다:', error);
+      }
     }
   };
 
-  // 닉네임 입력값 변경 시 nicknameError 초기화 함수
   const handleNicknameChange = (e) => {
     setNickname(e.target.value);
     setNicknameError('');
+    setIsNicknameChecked(false);
   };
 
-  //hancleBack 함수
   const handleBack = () => {
     if (step > 1) {
-      setStep(step - 1); // 이전 단계로 이동
+      setStep(step - 1);
     } else {
-      navigate(-1); // 이전 페이지로 이동
+      navigate(-1);
     }
   };
 
-  // 닉네임 중복 체크 함수
   const checkUsernameDuplicate = async (username) => {
     try {
       await axios.post(
@@ -110,86 +127,63 @@ const SignUp = ({ onSignUp }) => {
 
       setNicknameError('');
       setNicknameAvailableMessage('이 닉네임을 사용할 수 있습니다.');
-      setIsNicknameChecked(true); // 중복 체크 성공 시 true로 설정
+      setIsNicknameChecked(true);
     } catch (error) {
-      setNicknameError('이미 사용 중인 닉네임입니다.'); // 오류 발생 시 메시지 설정
-      setNicknameAvailableMessage(''); // 닉네임 사용 가능 메시지 초기화
-      setIsNicknameChecked(false); // 중복 체크 실패 시 false로 설정
+      setNicknameError('이미 사용 중인 닉네임입니다.');
+      setNicknameAvailableMessage('');
+      setIsNicknameChecked(false);
     }
   };
 
-  // 폼 제출 핸들러
   const handleSubmit = async (e) => {
-    e.preventDefault(); // 폼 제출 시 새로고침 방지
+    e.preventDefault();
 
     if (!isNicknameChecked) {
       alert('닉네임 중복 체크를 완료해 주세요.');
-      return; // 닉네임 중복 체크가 완료되지 않았으면 폼 제출을 중단
+      return;
     }
 
-    let valid = true; // 유효성 검사 플래그
+    let valid = true;
 
     if (!validateEmail(email)) {
-      setEmailError('유효한 이메일 주소를 입력하세요.'); // 이메일 오류 메시지
+      setEmailError('유효한 이메일 주소를 입력하세요.');
       valid = false;
     } else {
       setEmailError('');
     }
 
     if (password.length < 8 || !/[!@#$%^&*]/.test(password)) {
-      setPasswordError('8자 이상, 특수문자 포함'); // 비밀번호 오류 메시지
+      setPasswordError('8자 이상, 특수문자 포함');
       valid = false;
     } else {
       setPasswordError('');
     }
 
     if (password !== confirmPassword) {
-      setConfirmPasswordError('비밀번호와 일치하지 않습니다.'); // 비밀번호 확인 오류 메시지
+      setConfirmPasswordError('비밀번호와 일치하지 않습니다.');
       valid = false;
     } else {
       setConfirmPasswordError('');
     }
 
     if (nickname.length === 0) {
-      setNicknameError('닉네임을 입력하세요.'); // 닉네임 오류 메시지
+      setNicknameError('닉네임을 입력하세요.');
       valid = false;
     } else {
       setNicknameError('');
     }
 
     if (!allRequiredTerms) {
-      alert('약관동의를 하셔야 가입됩니다.'); // 약관 동의 경고
+      alert('약관동의를 하셔야 가입됩니다.');
       valid = false;
     }
 
     if (valid) {
-      let uploadedImageUrl = 'images/default.jpg';
-
-      if (profilePic) {
-        const formData = new FormData();
-        formData.append('file', profilePic);
-
-        try {
-          const uploadResponse = await axios.post(
-            'http://localhost:8080/image/upload',
-            formData,
-            {
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-            }
-          );
-          uploadedImageUrl = uploadResponse.data.imageURL;
-        } catch (error) {
-          console.error('Error uploading profile picture:', error);
-        }
-      }
-
       const newUser = {
         username: nickname,
         email,
         password,
-        profileImageUrl: uploadedImageUrl, // 파일 업로드로 처리.
+        profileImageUrl,
       };
 
       try {
@@ -204,18 +198,15 @@ const SignUp = ({ onSignUp }) => {
         );
 
         if (response.status === 200) {
-          // Context API에 memberId와 username 저장
           setMemberId(response.data.memberId);
           setUsername(response.data.username);
 
-          onSignUp(response.data);
-          //alert("회원가입이 완료되었습니다."); //이 부분 제거
-          setIsSignUpComplete(true); // 회원가입이 완료되면 완료 상태를 true로 설정
+          setIsSignUpComplete(true);
         }
       } catch (error) {
         console.error('Error during signup:', error);
         if (error.response && error.response.status === 400) {
-          alert(error.response.data); // 서버에서 보낸 오류 메시지 표시
+          alert(error.response.data);
         } else {
           alert('회원가입 요청 중 오류가 발생했습니다.');
         }
@@ -597,10 +588,6 @@ const SignUp = ({ onSignUp }) => {
         ))}
     </div>
   );
-};
-
-SignUp.propTypes = {
-  onSignUp: PropTypes.func.isRequired, // onSignUp prop 타입 검사
 };
 
 export default SignUp;
