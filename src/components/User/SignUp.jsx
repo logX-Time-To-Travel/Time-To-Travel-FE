@@ -60,7 +60,7 @@ const SignUp = () => {
           }
         );
         setProfilePic(URL.createObjectURL(response.data));
-        setProfileImageUrl('images/default.png');
+        setProfileImageUrl('/images/default.png');
       } catch (error) {
         console.error('Error loading default profile picture:', error);
       }
